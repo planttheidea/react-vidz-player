@@ -1,0 +1,13 @@
+.idea/
+DEV_ONLY/
+node_modules/
+src/
+test/
+dist/
+.babelrc
+.eslintrc
+.gitignore
+.npmignore
+webpack.config.js
+webpack.config.minified.js
+webpack.config.dev.js
