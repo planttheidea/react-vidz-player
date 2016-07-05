@@ -6,16 +6,28 @@ import React, {
   Component,
   PropTypes
 } from 'react';
-import pure from 'recompose/pure';
+import {
+  findDOMNode
+} from 'react-dom';
+import {
+  pure
+} from 'recompose';
 import shallowEqual from 'recompose/shallowEqual';
 import vidz from 'vidz';
+
+// components
+import Button from './components/Button';
+import Display from './components/Display';
+import InformationBar from './components/InformationBar';
+import Track from './components/Track';
+import TrackButton from './components/TrackButton';
+import VolumeContainer from './components/VolumeContainer';
 
 import {
   getControlsContainerStyle,
   getControlStyle,
   getFullscreenProperties,
   getPercentPlayed,
-  getTimeFormatFromCurrentTime,
   getTransformProperty,
   getVolumeChangeStyle,
   getVolumeIcon
@@ -49,7 +61,6 @@ const transformProperty = getTransformProperty();
 @pure
 class VidzPlayer extends Component {
   static propTypes = {
-    autoHideControls: PropTypes.bool,
     autoplay: PropTypes.bool,
     controlsBackgroundColor: PropTypes.string,
     controlsFontColor: PropTypes.string,
@@ -80,18 +91,19 @@ class VidzPlayer extends Component {
     onWaiting: PropTypes.func,
     playOnClick: PropTypes.bool,
     preload: PropTypes.string,
+    preventAutoHideControls: PropTypes.bool,
     theme: PropTypes.oneOf(THEMES),
     webm: PropTypes.string,
     width: PropTypes.number
   };
 
   static defaultProps = {
-    autoHideControls: true,
     autoplay: false,
-    controls: true,
+    controls: false,
     loop: false,
     muted: false,
     playOnClick: false,
+    preventAutoHideControls: false,
     theme: THEMES[0]
   };
 
@@ -141,8 +153,18 @@ class VidzPlayer extends Component {
     window.removeEventListener('resize', this.debounceSetPlayerDimensionsOnResize);
   }
 
+  duration = null;
+  durationTrack = null;
+  durationTrackButton = null;
   vidzInstance = null;
+  volume = null;
+  volumeTrack = null;
+  volumeTrackButton = null;
 
+  /**
+   * if in fullscreen mode, resize the player because it isn't handled by the
+   * element resize
+   */
   debounceSetPlayerDimensionsOnResize = debounce(() => {
     const {
       isFullscreen
@@ -153,12 +175,27 @@ class VidzPlayer extends Component {
     }
   }, 50);
 
+  /**
+   * resize the Vidz instance dimensions
+   */
   debounceSetPlayerDimensions = debounce(() => {
     const dimensions = this.getHeightAndWidth();
 
     this.vidzInstance.setPlayerDimensions(dimensions);
   }, 50);
 
+  /**
+   * get the intended height and width
+   * 
+   * the width is either the explicit width passed as a prop, the width of the 
+   * parent container, or if in fullscreen mode the width of the window
+   * 
+   * the height is either the explicit height passed as a prop or the aspect
+   * ratio of the video based on its metadata (with a generic default until
+   * metadata has loaded)
+   * 
+   * @return {{height: number, width: number}}
+   */
   getHeightAndWidth = () => {
     const {
       height: heightFromProps,
@@ -204,14 +241,22 @@ class VidzPlayer extends Component {
     };
   };
 
+  /**
+   * set the currentTime of the video based on the location clicked
+   * 
+   * @param {Event} e
+   */
   onClickDurationTrack = (e) => {
-    const left = this.refs.duration.getBoundingClientRect().left;
+    const left = this.duration.getBoundingClientRect().left;
     const offset = e.pageX - left;
-    const percentage = offset / this.refs.duration.clientWidth;
+    const percentage = offset / this.duration.clientWidth;
 
     this.setDurationTrackButtonPosition(percentage, true);
   };
 
+  /**
+   * increase the playback rate in increments in PLAYBACK_SPEEDS
+   */
   onClickFastForward = () => {
     const {
       isPlaying,
@@ -229,6 +274,9 @@ class VidzPlayer extends Component {
     }
   };
 
+  /**
+   * toggle between play and pause
+   */
   onClickPlayPauseButton = () => {
     const {
       isPlaying
@@ -249,6 +297,9 @@ class VidzPlayer extends Component {
     }
   };
 
+  /**
+   * toggle between fullscreen mode and standard mode
+   */
   onClickToggleFullscreen = () => {
     const {
       isFullscreen
@@ -261,7 +312,10 @@ class VidzPlayer extends Component {
     }
   };
 
-  onClickVolumeChange = () => {
+  /**
+   * toggle between muted and unmuted
+   */
+  onClickToggleVolumeMuted = () => {
     const {
       isMuted
     } = this.state;
@@ -280,21 +334,32 @@ class VidzPlayer extends Component {
       this.vidzInstance.mute();
     }
   };
-  
+
+  /**
+   * set the volume based on the location clicked
+   *
+   * @param {Event} e
+   */
   onClickVolumeTrack = (e) => {
-    const top = this.refs.volume.getBoundingClientRect().top;
+    const top = this.volume.getBoundingClientRect().top;
     const offset = e.pageY - top;
-    const percentage = offset / this.refs.volume.clientHeight;
+    const percentage = offset / this.volume.clientHeight;
 
     this.setVolumeTrackButtonPosition(percentage, true);
   };
 
+  /**
+   * based on where the button was dragged, calculate the percentage
+   * of the total video length and jump to that time location
+   *
+   * @param {Event} e
+   */
   onDragDurationTrackButton = (e) => {
-    const left = this.refs.duration.getBoundingClientRect().left;
+    const left = this.duration.getBoundingClientRect().left;
 
     let offset = e.pageX - left;
 
-    let percentage = offset / this.refs.duration.clientWidth;
+    let percentage = offset / this.duration.clientWidth;
 
     if (percentage > 1) {
       percentage = 1;
@@ -305,12 +370,18 @@ class VidzPlayer extends Component {
     this.setDurationTrackButtonPosition(percentage, true);
   };
 
+  /**
+   * based on where the button was dragged, calculate the percentage
+   * of the total volume length and apply that volume
+   *
+   * @param {Event} e
+   */
   onDragVolumeTrackButton = (e) => {
-    const top = this.refs.volumeTrack.getBoundingClientRect().top;
+    const top = this.volumeTrack.getBoundingClientRect().top;
 
     let offset = e.pageY - top;
 
-    let percentage = offset / this.refs.volumeTrack.clientHeight;
+    let percentage = offset / this.volumeTrack.clientHeight;
 
     if (percentage > 1) {
       percentage = 1;
@@ -321,6 +392,11 @@ class VidzPlayer extends Component {
     this.setVolumeTrackButtonPosition(percentage, true);
   };
 
+  /**
+   * when finished dragging the button, remove the listeners
+   *
+   * @param {Event} e
+   */
   onDragEndDurationTrackButton = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -333,6 +409,12 @@ class VidzPlayer extends Component {
     window.removeEventListener('mousemove', this.onDragDurationTrackButton);
   };
 
+  /**
+   * when finished dragging the button, remove the listeners and if there
+   * are functions in the queue to fire, fire them
+   *
+   * @param {Event} e
+   */
   onDragEndVolumeTrackButton = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -357,6 +439,12 @@ class VidzPlayer extends Component {
     window.removeEventListener('mousemove', this.onDragVolumeTrackButton);
   };
 
+  /**
+   * when you start dragging, add listeners to update the currentTime
+   * onDrag
+   *
+   * @param {Event} e
+   */
   onDragStartDurationTrackButton = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -369,6 +457,12 @@ class VidzPlayer extends Component {
     window.addEventListener('mousemove', this.onDragDurationTrackButton);
   };
 
+  /**
+   * when you start dragging, add listeners to update the volume
+   * onDrag
+   *
+   * @param {Event} e
+   */
   onDragStartVolumeTrackButton = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -381,6 +475,9 @@ class VidzPlayer extends Component {
     window.addEventListener('mousemove', this.onDragVolumeTrackButton);
   };
 
+  /**
+   * when the fullscreen state changes, reset the dimensions of the video
+   */
   onFullscreenChange = () => {
     this.setState({
       isFullscreen: document[fullscreen]
@@ -391,6 +488,13 @@ class VidzPlayer extends Component {
     this.vidzInstance.setPlayerDimensions(dimensions);
   };
 
+  /**
+   * when metadata has loaded, update the percentLoaded and the
+   * time displayed, and fire the function passed by props if exists
+   *
+   * @param {Event} e
+   * @param {Vidz} instance
+   */
   onLoadedMetadata = (e, instance) => {
     const {
       onLoadedMetadata
@@ -406,6 +510,9 @@ class VidzPlayer extends Component {
     }
   };
 
+  /**
+   * show the volume bar on mouseenter
+   */
   onMouseEnterVolumeChange = () => {
     const {
       queuedOnVolumeSet
@@ -420,19 +527,10 @@ class VidzPlayer extends Component {
     this.setVolumeChangeState(true);
   };
 
-  onMouseLeaveContainer = () => {
-    const {
-      autoHideControls
-    } = this.props;
-    const {
-      isPlaying
-    } = this.state;
-
-    if (autoHideControls && isPlaying) {
-      this.setTimeoutToHideControls();
-    }
-  };
-
+  /**
+   * hide the volume bar on mouseleave unless a drag is in effect,
+   * else queue up the closure of it
+   */
   onMouseLeaveVolumeChange = () => {
     const {
       isDraggingVolumeTrackButton
@@ -451,12 +549,21 @@ class VidzPlayer extends Component {
     }
   };
 
+  /**
+   * set the active state of the volume bar
+   * 
+   * @param {boolean} isActive
+   */
   setVolumeChangeState = (isActive = false) => {
     this.setState({
       isVolumeChangeActive: isActive
     });
   };
 
+  /**
+   * when mouse movement occurs over the container, clear
+   * the timeout of hiding the controls and set a new one
+   */
   onMouseMoveContainer = () => {
     const {
       autoHideTimeout,
@@ -477,6 +584,13 @@ class VidzPlayer extends Component {
     }
   };
 
+  /**
+   * on pause set the controls to be visible and the isPlaying state,
+   * plus the function passed by props if it exists
+   * 
+   * @param {Event} e
+   * @param {instance} instance
+   */
   onPause = (e, instance) => {
     const {
       onPause
@@ -499,9 +613,15 @@ class VidzPlayer extends Component {
     this.setPercentLoaded(instance.percentLoaded);
   };
 
+  /**
+   * on play set the hde controls timeout and the isPlaying state,
+   * plus the function passed by props if it exists
+   *
+   * @param {Event} e
+   * @param {instance} instance
+   */
   onPlay = (e, instance) => {
     const {
-      autoHideControls,
       onPlay
     } = this.props;
     const {
@@ -518,11 +638,18 @@ class VidzPlayer extends Component {
 
     this.setPercentLoaded(instance.percentLoaded);
 
-    if (autoHideControls && controlsVisible) {
+    if (controlsVisible) {
       this.setTimeoutToHideControls();
     }
   };
 
+  /**
+   * on time update set the currentTime and percent loaded,
+   * plus the function passed by props if it exists
+   *
+   * @param {Event} e
+   * @param {instance} instance
+   */
   onTimeUpdate = (e, instance) => {
     const {
       onTimeUpdate
@@ -539,12 +666,19 @@ class VidzPlayer extends Component {
     }
   };
 
+  /**
+   * on volume change set the volume in state,
+   * plus the function passed by props if it exists
+   *
+   * @param {Event} e
+   * @param {instance} instance
+   */
   onVolumeChange = (e, instance) => {
     const {
       onVolumeChange
     } = this.props;
 
-    const volume = this.vidzInstance.getVolume();
+    const volume = this.vidzInstance.volume;
 
     this.setState({
       volume
@@ -555,15 +689,22 @@ class VidzPlayer extends Component {
     }
   };
 
+  /**
+   * update the position of the durationTrackButton,
+   * and the currentTime if setTime is true
+   * 
+   * @param {number} percentage
+   * @param {boolean} setTime=false
+   */
   setDurationTrackButtonPosition = (percentage, setTime = false) => {
     const marginLeft = Math.round(percentage * 12);
-    const percentInPixels = Math.round(percentage * this.refs.duration.clientWidth);
+    const percentInPixels = Math.round(percentage * this.duration.clientWidth);
     const left = percentInPixels - marginLeft;
 
     if (transformProperty) {
-      this.refs.durationTrackButton.style.transform = `translate3d(${left}px, 0, 0)`;
+      this.durationTrackButton.style.transform = `translate3d(${left}px, 0, 0)`;
     } else {
-      this.refs.durationTrackButton.style.left = `${left}px`;
+      this.durationTrackButton.style.left = `${left}px`;
     }
 
     if (setTime) {
@@ -571,20 +712,41 @@ class VidzPlayer extends Component {
     }
   };
 
+  /**
+   * update the width of the duration track with the new percent loaded
+   * 
+   * @param {number} percentLoaded
+   */
   setPercentLoaded = (percentLoaded) => {
-    this.refs.durationTrack.style.width = `${percentLoaded}%`;
+    this.durationTrack.style.width = `${percentLoaded}%`;
   };
 
+  /**
+   * set the position of the duration track button based on the percent played
+   * 
+   * @param {number} currentTime
+   * @param {number} duration
+   */
   setPercentPlayed = (currentTime, duration) => {
     const percentPlayed = getPercentPlayed(currentTime, duration);
 
     this.setDurationTrackButtonPosition(percentPlayed / 100);
   };
 
+  /**
+   * set the currentTime on the Vidz instance based on the percentage of the duration
+   */
   setTime = debounce((percentage) => {
     this.vidzInstance.setCurrentTime(percentage * this.vidzInstance.duration);
   }, 50);
 
+  /**
+   * set the currentTime and duration in state so they can be reflected
+   * in the visual display
+   * 
+   * @param {number} currentTime
+   * @param {number} duration
+   */
   setTimeRepresentation = ({currentTime, duration}) => {
     if (!isUndefined(currentTime)) {
       this.setState({
@@ -599,18 +761,30 @@ class VidzPlayer extends Component {
     }
   };
 
+  /**
+   * set the timeout to hide the controls from inactivity
+   */
   setTimeoutToHideControls = () => {
-    const autoHideTimeout = setTimeout(() => {
-      this.setState({
-        controlsVisible: false
-      });
-    }, 2500);
+    const {
+      preventAutoHideControls
+    } = this.props;
 
-    this.setState({
-      autoHideTimeout
-    });
+    if (!preventAutoHideControls) {
+      const autoHideTimeout = setTimeout(() => {
+        this.setState({
+          controlsVisible: false
+        });
+      }, 3000);
+
+      this.setState({
+        autoHideTimeout
+      });
+    }
   };
 
+  /**
+   * create a new Vidz instance and save it to the class' instance
+   */
   setVidzInstance = () => {
     if (this.refs.container.parentNode.clientWidth === 0) {
       this.debounceSetPlayerDimensions();
@@ -657,17 +831,27 @@ class VidzPlayer extends Component {
     });
   };
 
+  /**
+   * update the volume of the Vidz instance based on the percentage passed
+   */
   setVolume = debounce((percentage) => {
     this.vidzInstance.setVolume(percentage);
   }, 50);
 
+  /**
+   * update the position of the volume track button based on the percentage passed,
+   * and set the volume if setVolume is true
+   * 
+   * @param {number} percentage
+   * @param {boolean} setVolume=false
+   */
   setVolumeTrackButtonPosition = (percentage, setVolume = false) => {
-    const top = Math.round(percentage * this.refs.volumeTrack.clientHeight);
+    const top = Math.round(percentage * this.volumeTrack.clientHeight);
 
     if (transformProperty) {
-      this.refs.volumeTrackButton.style.transform = `translate3d(0, ${top}px, 0)`;
+      this.volumeTrackButton.style.transform = `translate3d(0, ${top}px, 0)`;
     } else {
-      this.refs.volumeTrackButton.style.top = `${top}px`;
+      this.volumeTrackButton.style.top = `${top}px`;
     }
 
     if (setVolume) {
@@ -695,7 +879,7 @@ class VidzPlayer extends Component {
       playbackRateIndex
     } = this.state;
 
-    const volume = this.vidzInstance ? this.vidzInstance.getVolume() : 1;
+    const volume = this.vidzInstance ? this.vidzInstance.volume : 1;
     const volumeIcon = getVolumeIcon(volume, isMuted);
 
     let styles;
@@ -725,7 +909,6 @@ class VidzPlayer extends Component {
 
     return (
       <div
-        onMouseLeave={this.onMouseLeaveContainer}
         onMouseMove={this.onMouseMoveContainer}
         ref="container"
         style={styles.container}
@@ -735,97 +918,100 @@ class VidzPlayer extends Component {
           ref="playerContainer"
         />
 
-        <div
-          ref="controlsContainer"
-          style={controlsStyle}
-        >
-          <div
+        <div style={controlsStyle}>
+          <Display
             onClick={this.onClickDurationTrack}
-            ref="duration"
+            ref={(component) => {
+              this.duration = findDOMNode(component);
+            }}
             style={styles.durationSlider}
           >
-            <div
-              ref="durationTrack"
+            <Track
+              ref={(component) => {
+                this.durationTrack = findDOMNode(component);
+              }}
               style={durationTrackStyle}
             />
 
-            <span
+            <TrackButton
+              label="Seek to a different time in the video"
               onMouseDown={this.onDragStartDurationTrackButton}
-              ref="durationTrackButton"
+              ref={(component) => {
+                this.durationTrackButton = findDOMNode(component);
+              }}
               style={durationTrackButtonStyle}
             />
-          </div>
+          </Display>
           
           <div style={styles.actionsContainer}>
-            <div
+            <Button
               onClick={this.onClickPlayPauseButton}
-              ref="playPauseButton"
-              role="button"
+              icon={`${ICON_PREFIX}${isPlaying ? 'pause' : 'play'}`}
+              label="Toggle playing the video"
               style={playPauseButtonStyle}
-            >
-              <i className={`${ICON_PREFIX}${isPlaying ? 'pause' : 'play'}`}/>
-            </div>
-            
-            <div
-              style={informationContainerStyle}
-            >
-              {getTimeFormatFromCurrentTime(currentTime)} / {getTimeFormatFromCurrentTime(duration)}
-            </div>
+            />
 
-            <div
+            <InformationBar
+              currentTime={currentTime}
+              duration={duration}
+              style={informationContainerStyle}
+            />
+
+            <Button
+              icon={`${ICON_PREFIX}forward`}
               onClick={this.onClickFastForward}
-              ref="fastForward"
-              role="button"
+              label="Increase the playback speed"
               style={fastForwardButtonStyle}
             >
-              <i className={`${ICON_PREFIX}forward`}/>
-
               <span style={styles.speedIdentifier}>
                 {PLAYBACK_SPEEDS[playbackRateIndex]}x
               </span>
-            </div>
-  
-            <div
-              className="__vidz_volume_change__"
+            </Button>
+
+            <VolumeContainer
               onMouseEnter={this.onMouseEnterVolumeChange}
               onMouseLeave={this.onMouseLeaveVolumeChange}
-              role="button"
               style={styles.volumnChangeContainer}
             >
-              <div
-                onClick={this.onClickVolumeChange}
+              <Button
+                icon={volumeIcon}
+                onClick={this.onClickToggleVolumeMuted}
+                label="Toggle the video being muted"
                 style={volumeButtonStyle}
-              >
-                <i className={volumeIcon}/>
-              </div>
-              
-              <div
+              />
+
+              <Display
                 onClick={this.onClickVolumeTrack}
-                ref="volume"
+                ref={(component) => {
+                  this.volume = findDOMNode(component);
+                }}
                 style={volumeChangeStyle}
               >
-                <div
-                  ref="volumeTrack"
+                <Track
+                  ref={(component) => {
+                    this.volumeTrack = findDOMNode(component);
+                  }}
                   style={volumeChangeTrackStyle}
                 />
 
-                <span
+                <TrackButton
+                  label="Change the volume"
                   onMouseDown={this.onDragStartVolumeTrackButton}
-                  ref="volumeTrackButton"
+                  ref={(component) => {
+                    this.volumeTrackButton = findDOMNode(component);
+                  }}
                   style={volumeTrackButtonStyle}
                 />
-              </div>
-            </div>
-  
+              </Display>
+            </VolumeContainer>
+
             {canUseFullscreen && (
-              <div
+              <Button
+                icon={`${ICON_PREFIX}${isFullscreen ? 'shrink' : 'enlarge'}`}
+                label="Toggle fullscreen mode"
                 onClick={this.onClickToggleFullscreen}
-                ref="fullscreen"
-                role="button"
                 style={fullscreenButtonStyle}
-              >
-                <i className={`${ICON_PREFIX}${isFullscreen ? 'shrink' : 'enlarge'}`}/>
-              </div>
+              />
             )}
           </div>
         </div>

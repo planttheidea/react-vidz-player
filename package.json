@@ -8,7 +8,7 @@
     "lodash": "^4.13.1",
     "react": ">=15.0.0",
     "recompose": "^0.20.2",
-    "vidz": "^1.2.3"
+    "vidz": "^1.2.4"
   },
   "description": "React-based player for vidz",
   "devDependencies": {
@@ -24,10 +24,12 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
+    "copy-dir": "^0.3.0",
     "css-loader": "^0.23.1",
     "eslint": "^3.0.0",
     "eslint-friendly-formatter": "^2.0.5",
     "eslint-loader": "^1.4.0",
+    "eslint-plugin-react": "^5.2.2",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
     "in-publish": "^2.0.0",
@@ -55,7 +57,15 @@
     "url": "git+https://github.com/planttheidea/react-vidz-player.git"
   },
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --progress --config=webpack.config.dev.js"
+    "build": "NODE_ENV=development webpack --progress --profile",
+    "build-minified": "NODE_ENV=production webpack --progress --profile --config=webpack.config.minified.js",
+    "compile-for-publish": "npm run lint && npm run transpile && npm run dist && npm run copy-fonts",
+    "copy-fonts": "node ./copy-fonts.js",
+    "dev": "NODE_ENV=development webpack-dev-server --progress --config=webpack.config.dev.js",
+    "dist": "npm run build && npm run build-minified",
+    "lint": "NODE_ENV=test eslint src",
+    "prepublish": "in-publish && npm run compile-for-publish || in-install",
+    "transpile": "./node_modules/babel-cli/bin/babel.js -d lib/ src/"
   },
   "version": "1.0.0"
 }

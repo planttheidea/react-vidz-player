@@ -1,6 +1,13 @@
 const TEST_DIV = document.createElement('div');
 const VOLUME_ICON_PREFIX = '__vidz_player__volume-';
 
+/**
+ * get the style for the controls container based on isControlsVisible
+ *
+ * @param {object} defaultControlsStyle
+ * @param {boolean} isControlsVisible
+ * @return {object}
+ */
 const getControlsContainerStyle = (defaultControlsStyle, isControlsVisible) => {
   if (isControlsVisible) {
     return defaultControlsStyle;
@@ -13,6 +20,14 @@ const getControlsContainerStyle = (defaultControlsStyle, isControlsVisible) => {
   };
 };
 
+/**
+ * get the style for the control based on backgroundColor and fontColor
+ *
+ * @param {object} defaultStyle
+ * @param {string} backgroundColor
+ * @param {string} fontColor
+ * @return {object}
+ */
 const getControlStyle = (defaultStyle, backgroundColor, fontColor) => {
   if (!backgroundColor && !fontColor) {
     return defaultStyle;
@@ -34,6 +49,11 @@ const getControlStyle = (defaultStyle, backgroundColor, fontColor) => {
   };
 };
 
+/**
+ * get the vendor-prefixed properties associated with fullscreen activities
+ *
+ * @return {object}
+ */
 const getFullscreenProperties = () => {
   if ('requestFullscreen' in TEST_DIV) {
     const fullscreen = 'webkitIsFullscreen' in TEST_DIV ? 'webkitIsFullScreen' : 'fullscreen';
@@ -76,10 +96,25 @@ const getFullscreenProperties = () => {
   };
 };
 
+/**
+ * get the percentage played rounded to two decimal places
+ *
+ * @param {number} currentTime
+ * @param {number} duration
+ * @return {number}
+ */
 const getPercentPlayed = (currentTime, duration) => {
   return Math.round((currentTime / duration) * 10000) / 100;
 };
 
+/**
+ * based on the currentTime, show the string format as either
+ * HH:MM:SS or MM:SS, based on showHours
+ *
+ * @param {number} currentTime
+ * @param {boolean} showHours=false
+ * @return {string}
+ */
 const getTimeFormatFromCurrentTime = (currentTime, showHours = false) => {
   const integerValue = parseInt(currentTime, 10);
   const hours = Math.floor(integerValue / 3600);
@@ -96,6 +131,11 @@ const getTimeFormatFromCurrentTime = (currentTime, showHours = false) => {
   return `${minutesDisplay}:${secondsDisplay}`;
 };
 
+/**
+ * get the vendor-prefixed CSS transform property
+ *
+ * @return {string}
+ */
 const getTransformProperty = () => {
   if ('transform' in TEST_DIV.style) {
     return 'transform';
@@ -120,6 +160,16 @@ const getTransformProperty = () => {
   return 'transform';
 };
 
+/**
+ * get the volume change style based on isVolumeChangeActive, the backgroundColor, and the fontColor
+ *
+ * @param {object} defaultVolumeChange
+ * @param {object} volumeChangeActive
+ * @param {boolean} isVolumeChangeActive
+ * @param {string} backgroundColor
+ * @param {string} fontColor
+ * @return {object}
+ */
 const getVolumeChangeStyle = (defaultVolumeChange, volumeChangeActive, isVolumeChangeActive, backgroundColor, fontColor) => {
   if (!isVolumeChangeActive) {
     return defaultVolumeChange;
@@ -149,6 +199,13 @@ const getVolumeChangeStyle = (defaultVolumeChange, volumeChangeActive, isVolumeC
   };
 };
 
+/**
+ * get the volume icon based on the volume and isMuted
+ *
+ * @param {number} volume
+ * @param {boolean} isMuted
+ * @return {string}
+ */
 const getVolumeIcon = (volume, isMuted) => {
   switch (true) {
     case isMuted:

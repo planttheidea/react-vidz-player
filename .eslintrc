@@ -32,6 +32,9 @@
     "ecmaVersion": 6,
     "sourceType": "module"
   },
+  "plugins": [
+    "react"
+  ],
   "rules":{
     "arrow-parens": 2,
     "arrow-spacing": [2, {
@@ -110,6 +113,8 @@
       "requireReturnDescription": false
     }],
     "valid-typeof": 2,
-    "yield-star-spacing": [2, "after"]
+    "yield-star-spacing": [2, "after"],
+
+    "react/jsx-uses-vars": 2
   }
 }
