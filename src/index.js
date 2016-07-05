@@ -23,6 +23,11 @@ import Track from './components/Track';
 import TrackButton from './components/TrackButton';
 import VolumeContainer from './components/VolumeContainer';
 
+// icons
+import {
+  availableIcons
+} from './icons';
+
 import {
   getControlsContainerStyle,
   getControlStyle,
@@ -45,8 +50,6 @@ const THEMES = [
 ];
 
 const PLAYBACK_SPEEDS = [1, 2, 4, 8, 16];
-
-const ICON_PREFIX = '__vidz_player__';
 
 const {
   exitFullscreen,
@@ -946,7 +949,7 @@ class VidzPlayer extends Component {
           <div style={styles.actionsContainer}>
             <Button
               onClick={this.onClickPlayPauseButton}
-              icon={`${ICON_PREFIX}${isPlaying ? 'pause' : 'play'}`}
+              icon={isPlaying ? availableIcons.PAUSE : availableIcons.PLAY}
               label="Toggle playing the video"
               style={playPauseButtonStyle}
             />
@@ -958,7 +961,7 @@ class VidzPlayer extends Component {
             />
 
             <Button
-              icon={`${ICON_PREFIX}forward`}
+              icon={availableIcons.FAST_FORWARD}
               onClick={this.onClickFastForward}
               label="Increase the playback speed"
               style={fastForwardButtonStyle}
@@ -1007,7 +1010,7 @@ class VidzPlayer extends Component {
 
             {canUseFullscreen && (
               <Button
-                icon={`${ICON_PREFIX}${isFullscreen ? 'shrink' : 'enlarge'}`}
+                icon={isFullscreen ? availableIcons.SHRINK : availableIcons.EXPAND}
                 label="Toggle fullscreen mode"
                 onClick={this.onClickToggleFullscreen}
                 style={fullscreenButtonStyle}

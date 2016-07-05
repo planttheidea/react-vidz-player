@@ -11,39 +11,6 @@ module.exports = Object.assign({}, defaultConfig, {
 
   devtool: undefined,
 
-  module: Object.assign({}, defaultConfig.module, {
-    loaders: [
-      {
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
-        loader: 'babel',
-        test: /\.js$/
-      }, {
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
-        test: /\.css$/,
-        loader: 'style!css'
-      }, {
-        test: /\.woff(\?.*)?$/,
-        loader: "url?limit=10000&mimetype=application/font-woff"
-      }, {
-        test: /\.woff2(\?.*)?$/,
-        loader: "url?limit=10000&mimetype=application/font-woff"
-      }, {
-        test: /\.ttf(\?.*)?$/,
-        loader: "url?limit=10000&mimetype=application/octet-stream"
-      }, {
-        test: /\.eot(\?.*)?$/,
-        loader: "file"
-      }, {
-        test: /\.svg(\?.*)?$/,
-        loader: "url?limit=10000&mimetype=image/svg+xml"
-      }
-    ]
-  }),
-
   output: Object.assign({}, defaultConfig.output, {
     filename: 'react-vidz-player.min.js'
   }),

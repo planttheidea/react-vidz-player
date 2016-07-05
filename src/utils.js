@@ -1,5 +1,9 @@
+// icons
+import {
+  availableIcons
+} from './icons';
+
 const TEST_DIV = document.createElement('div');
-const VOLUME_ICON_PREFIX = '__vidz_player__volume-';
 
 /**
  * get the style for the controls container based on isControlsVisible
@@ -209,19 +213,16 @@ const getVolumeChangeStyle = (defaultVolumeChange, volumeChangeActive, isVolumeC
 const getVolumeIcon = (volume, isMuted) => {
   switch (true) {
     case isMuted:
-      return `${VOLUME_ICON_PREFIX}mute2`;
+      return availableIcons.VOLUME_MUTE;
 
     case volume >= 0.67:
-      return `${VOLUME_ICON_PREFIX}high`;
+      return availableIcons.VOLUME_HIGH;
 
     case volume >= 0.33:
-      return `${VOLUME_ICON_PREFIX}medium`;
-
-    case volume > 0:
-      return `${VOLUME_ICON_PREFIX}low`;
+      return availableIcons.VOLUME_MEDIUM;
 
     default:
-      return `${VOLUME_ICON_PREFIX}mute`;
+      return availableIcons.VOLUME_LOW;
   }
 };
 
