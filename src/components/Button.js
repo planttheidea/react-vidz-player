@@ -6,7 +6,18 @@ import {
   pure
 } from 'recompose';
 
+// icons
+import {
+  icons
+} from '../icons';
+
+const ICON_STYLE = {
+  fontSize: 20
+};
+
 const Button = pure(({children, icon, label, onClick, style = {}}) => {
+  const Icon = icons[icon];
+  
   return (
     <div
       aria-label={label}
@@ -14,7 +25,7 @@ const Button = pure(({children, icon, label, onClick, style = {}}) => {
       role="button"
       style={style}
     >
-      <i className={icon}/>
+      <Icon style={ICON_STYLE}/>
 
       {children}
     </div>

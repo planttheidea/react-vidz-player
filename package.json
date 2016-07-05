@@ -7,6 +7,7 @@
     "element-resize-event": "^2.0.5",
     "lodash": "^4.13.1",
     "react": ">=15.0.0",
+    "react-icons": "^2.1.0",
     "recompose": "^0.20.2",
     "vidz": "^1.2.4"
   },
@@ -24,21 +25,16 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
-    "copy-dir": "^0.3.0",
-    "css-loader": "^0.23.1",
     "eslint": "^3.0.0",
     "eslint-friendly-formatter": "^2.0.5",
     "eslint-loader": "^1.4.0",
     "eslint-plugin-react": "^5.2.2",
-    "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
     "in-publish": "^2.0.0",
     "jquery": "^3.0.0",
     "jsdom": "^9.4.0",
     "react-dom": ">=15.0.0",
     "sinon": "^1.17.4",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
@@ -59,13 +55,12 @@
   "scripts": {
     "build": "NODE_ENV=development webpack --progress --profile",
     "build-minified": "NODE_ENV=production webpack --progress --profile --config=webpack.config.minified.js",
-    "compile-for-publish": "npm run lint && npm run transpile && npm run dist && npm run copy-fonts",
-    "copy-fonts": "node ./copy-fonts.js",
+    "compile-for-publish": "npm run lint && npm run transpile && npm run dist",
     "dev": "NODE_ENV=development webpack-dev-server --progress --config=webpack.config.dev.js",
     "dist": "npm run build && npm run build-minified",
     "lint": "NODE_ENV=test eslint src",
     "prepublish": "in-publish && npm run compile-for-publish || in-install",
     "transpile": "./node_modules/babel-cli/bin/babel.js -d lib/ src/"
   },
-  "version": "1.0.1"
+  "version": "1.1.0"
 }

@@ -3,8 +3,6 @@ import {
   render
 } from 'react-dom';
 
-import '../src/fonts.css';
-
 import VidzPlayer from '../src';
 
 const STYLES = {
@@ -17,7 +15,9 @@ const MP4 = 'https://d2v9y0dukr6mq2.cloudfront.net/video/preview/slow-motion-fla
 const App = () => {
   return (
     <div style={STYLES}>
-      <VidzPlayer mp4={MP4}/>
+      <VidzPlayer
+        mp4={MP4}
+      />
     </div>
   )
 };
