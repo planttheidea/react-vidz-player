@@ -3,25 +3,21 @@ import {
   render
 } from 'react-dom';
 
-import '../src/styles.css';
+import '../src/fonts.css';
 
 import VidzPlayer from '../src';
 
-const styles = {
+const STYLES = {
   boxSizing: 'border-box',
   padding: 5,
   maxWidth: 800
 };
+const MP4 = 'https://d2v9y0dukr6mq2.cloudfront.net/video/preview/slow-motion-flames-from-bottom-of-screen_byiidqveh__PM.mp4';
 
 const App = () => {
   return (
-    <div style={styles}>
-      <VidzPlayer
-        loop
-        mp4="https://d2v9y0dukr6mq2.cloudfront.net/video/preview/slow-motion-flames-from-bottom-of-screen_byiidqveh__PM.mp4"
-        muted
-        playOnClick
-      />
+    <div style={STYLES}>
+      <VidzPlayer mp4={MP4}/>
     </div>
   )
 };
