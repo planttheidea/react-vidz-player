@@ -68,7 +68,9 @@ Props specific to `VidzPlayer`:
     * Choice of themes to apply rather than setting custom colors for background, font, and track
     * "light" is a simple reversal of colors of "dark"
 
-#### Additional information
+#### Things to note
+
+For the styling to be complete, you need to bring in the fonts and `fonts.css` file provided with the package, as they provide the icons used on each of the buttons. If you are using something like webpack or browserify this should be easy, simply `import 'react-vidz-player/fonts.css';` and everything else should fall into place. If you are using something else as your build setup, the files are available in the package in the `lib` folder, so you can copy them to your server and distribute them as you like.
 
 `vidz` allows for a custom `height` / `width` parameter, and you can use those as well, however `VidzPlayer` tries to simplify the process for you by auto-determining the `width` based on whatever container it is applied in. It then also calculates the appropriate `height` based on the aspect ratio of the video applied to that calculated `width`, so that the video retains its original aspect ratio at any `width`. If `width` and / or `height` are provided as props they will be respected, but it likely will not be necessary unless you specifically want the video to be a different size than it's container.
 
