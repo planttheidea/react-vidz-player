@@ -4,96 +4,44 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  cache: true,
+  devtool: '#source-map',
 
-  debug: true,
+  entry: [path.resolve(__dirname, 'src', 'index.js')],
 
-  devtool: '#eval-cheap-module-source-map',
+  externals: ['prop-types', 'react', 'react-dom', 'recompose', 'vidz'],
 
-  entry: [
-    path.resolve(__dirname, 'src', 'index.js')
-  ],
-
-  eslint: {
-    configFile: '.eslintrc',
-    emitError: true,
-    failOnError: true,
-    failOnWarning: true,
-    formatter: require('eslint-friendly-formatter')
-  },
-
-  externals: {
-    'react': {
-      amd: 'react',
-      commonjs: 'react',
-      commonjs2: 'react',
-      root: 'React'
-    },
-    'react-dom': {
-      amd: 'react-dom',
-      commonjs: 'react-dom',
-      commonjs2: 'react-dom',
-      root: 'ReactDOM'
-    },
-    'recompose': {
-      amd: 'recompose',
-      commonjs: 'recompose',
-      commonjs2: 'recompose',
-      root: 'Recompose'
-    },
-    'vidz': {
-      amd: 'vidz',
-      commonjs: 'vidz',
-      commonjs2: 'vidz',
-      root: 'vidz'
-    }
-  },
+  mode: 'development',
 
   module: {
-    preLoaders: [
+    rules: [
       {
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
+        enforce: 'pre',
+        include: [path.resolve(__dirname, 'src')],
         loader: 'eslint-loader',
-        test: /\.js$/
-      }
-    ],
-
-    loaders: [
+        options: {
+          configFile: '.eslintrc',
+          emitError: true,
+          failOnError: true,
+          failOnWarning: true,
+          formatter: require('eslint-friendly-formatter'),
+        },
+        test: /\.js$/,
+      },
       {
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
-        loader: 'babel',
-        test: /\.js$/
-      }
-    ]
+        include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'DEV_ONLY')],
+        loader: 'babel-loader',
+        test: /\.js$/,
+      },
+    ],
   },
 
   output: {
     filename: 'react-vidz-player.js',
     library: 'ReactVidzPlayer',
+    libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist'),
-    umdNamedDefine: true
+    umdNamedDefine: true,
   },
 
-  plugins: [
-    new webpack.EnvironmentPlugin([
-      'NODE_ENV'
-    ])
-  ],
-
-  resolve: {
-    extensions: [
-      '',
-      '.js'
-    ],
-
-    fallback: [
-      path.join(__dirname, 'src')
-    ],
-
-    root: __dirname
-  }
+  plugins: [new webpack.EnvironmentPlugin(['NODE_ENV'])],
 };

@@ -1,19 +1,12 @@
 // external dependencies
-import React, {
-  PropTypes
-} from 'react';
-import {
-  pure
-} from 'recompose';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {pure} from 'recompose';
 
-const Track = pure(({style = {}}) => {
-  return (
-    <div style={style}/>
-  );
-});
+const Track = pure(({style = {}}) => <div style={style} />);
 
 Track.propTypes = {
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 export default Track;

@@ -1,25 +1,21 @@
 // external dependencies
-import React, {
-  PropTypes
-} from 'react';
-import {
-  pure
-} from 'recompose';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {pure} from 'recompose';
 
-const TrackButton = pure(({label, onMouseDown, style = {}}) => {
-  return (
-    <span
-      aria-label={label}
-      onMouseDown={onMouseDown}
-      role="button"
-      style={style}
-    />
-  );
-});
+const TrackButton = pure(({label, onMouseDown, style = {}}) => (
+  // eslint workaround
+  <span
+    aria-label={label}
+    onMouseDown={onMouseDown}
+    role="button"
+    style={style}
+  />
+));
 
 TrackButton.propTypes = {
   onMouseDown: PropTypes.func,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 export default TrackButton;

@@ -18,7 +18,7 @@ const AVAILABLE_ICONS = {
   VOLUME_HIGH: 'VOLUME_HIGH',
   VOLUME_LOW: 'VOLUME_LOW',
   VOLUME_MEDIUM: 'VOLUME_MEDIUM',
-  VOLUME_MUTE: 'VOLUME_MUTE'
+  VOLUME_MUTE: 'VOLUME_MUTE',
 };
 
 const ICON_MAP = {
@@ -30,7 +30,7 @@ const ICON_MAP = {
   VOLUME_HIGH: IoVolumeHigh,
   VOLUME_LOW: IoVolumeLow,
   VOLUME_MEDIUM: IoVolumeMedium,
-  VOLUME_MUTE: IoVolumeMute
+  VOLUME_MUTE: IoVolumeMute,
 };
 
 export {AVAILABLE_ICONS as availableIcons};
@@ -38,5 +38,5 @@ export {ICON_MAP as icons};
 
 export default {
   availableIcons: AVAILABLE_ICONS,
-  icons: ICON_MAP
+  icons: ICON_MAP,
 };
