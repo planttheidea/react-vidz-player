@@ -64,5 +64,5 @@
     "prepublish": "if in-publish; then npm run compile-for-publish; fi",
     "transpile": "./node_modules/babel-cli/bin/babel.js -d lib/ src/"
   },
-  "version": "1.1.0"
+  "version": "1.1.1"
 }
