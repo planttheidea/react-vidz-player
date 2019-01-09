@@ -1,23 +1,18 @@
 // external dependencies
-import React, {
-  PropTypes
-} from 'react';
-import {
-  pure
-} from 'recompose';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {pure} from 'recompose';
 
 // icons
-import {
-  icons
-} from '../icons';
+import {icons} from '../icons';
 
 const ICON_STYLE = {
-  fontSize: 20
+  fontSize: 20,
 };
 
 const Button = pure(({children, icon, label, onClick, style = {}}) => {
   const Icon = icons[icon];
-  
+
   return (
     <div
       aria-label={label}
@@ -25,18 +20,18 @@ const Button = pure(({children, icon, label, onClick, style = {}}) => {
       role="button"
       style={style}
     >
-      <Icon style={ICON_STYLE}/>
+      <Icon style={ICON_STYLE} />
 
       {children}
     </div>
-  ); 
+  );
 });
 
 Button.propTypes = {
   children: PropTypes.node,
   icon: PropTypes.string,
   onClick: PropTypes.func,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 export default Button;

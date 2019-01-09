@@ -10,7 +10,7 @@ const ALL_STYLES = {
     alignItems: 'stretch',
     display: 'flex',
     flexDirection: 'row',
-    flexWrap: 'nowrap'
+    flexWrap: 'nowrap',
   },
   button: {
     alignItems: 'center',
@@ -21,15 +21,15 @@ const ALL_STYLES = {
     flexGrow: 0,
     flexShrink: 0,
     flexWrap: 'nowrap',
-    fontSize: 16
+    fontSize: 16,
   },
   container: {
-    position: 'relative'
+    position: 'relative',
   },
   control: {
     height: 40,
     lineHeight: '40px',
-    padding: '0 10px'
+    padding: '0 10px',
   },
   controlsContainer: {
     bottom: 0,
@@ -38,55 +38,55 @@ const ALL_STYLES = {
     position: 'absolute',
     right: 0,
     transition: 'opacity 150ms ease-in-out, visibility 150ms ease-in-out',
-    visibility: 'visible'
+    visibility: 'visible',
   },
   durationSlider: {
     cursor: 'pointer',
-    position: 'relative'
+    position: 'relative',
   },
   durationTrack: {
     height: 2,
     marginTop: -1,
     position: 'relative',
     top: '50%',
-    width: 0
+    width: 0,
   },
   fullscreenButton: {
     flexBasis: 'auto',
     flexGrow: 0,
-    flexShrink: 0
+    flexShrink: 0,
   },
   informationContainer: {
-    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-    fontSize: 12,
     flexBasis: 0,
     flexGrow: 1,
     flexShrink: 0,
-    minWidth: 1
+    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    fontSize: 12,
+    minWidth: 1,
   },
   playPauseButton: {
     flexBasis: 'auto',
     flexGrow: 0,
-    flexShrink: 0
+    flexShrink: 0,
   },
   speedIdentifier: {
     fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-    fontSize: 11
+    fontSize: 11,
   },
   trackButton: {
     borderRadius: '50%',
     display: 'block',
     height: TRACK_BUTTON_SIZE,
     position: 'absolute',
-    width: TRACK_BUTTON_SIZE
+    width: TRACK_BUTTON_SIZE,
   },
   video: {
-    objectFit: 'fill'
+    objectFit: 'fill',
   },
   volumeButton: {
     boxSizing: 'border-box',
     textAlign: 'center',
-    width: 40
+    width: 40,
   },
   volumeChange: {
     backgroundColor: 'inherit',
@@ -99,24 +99,24 @@ const ALL_STYLES = {
     left: 0,
     padding: '10px 0',
     position: 'absolute',
-    width: '100%'
+    width: '100%',
   },
   volumeChangeActive: {
-    display: 'block'
-  },
-  volumnChangeContainer: {
-    backgroundColor: 'inherit',
-    color: 'inherit',
-    position: 'relative',
-    zIndex: 1000
+    display: 'block',
   },
   volumeChangeTrack: {
     height: '100%',
     left: '50%',
     marginLeft: -1,
     position: 'relative',
-    width: 2
-  }
+    width: 2,
+  },
+  volumnChangeContainer: {
+    backgroundColor: 'inherit',
+    color: 'inherit',
+    position: 'relative',
+    zIndex: 1000,
+  },
 };
 
 let darkStyles = {
@@ -124,30 +124,30 @@ let darkStyles = {
   control: {
     ...ALL_STYLES.control,
     backgroundColor: DARK_COLOR_BACKGROUND,
-    color: LIGHT_COLOR
+    color: LIGHT_COLOR,
   },
   durationSlider: {
-    ...ALL_STYLES.durationSlider
+    ...ALL_STYLES.durationSlider,
   },
   durationTrack: {
     ...ALL_STYLES.durationTrack,
-    backgroundColor: LIGHT_COLOR
+    backgroundColor: LIGHT_COLOR,
   },
   durationTrackButton: {
     ...ALL_STYLES.trackButton,
     backgroundColor: LIGHT_COLOR,
     boxShadow: `${BOX_SHADOW_SIZE} ${DARK_COLOR}`,
     left: 0,
-    marginTop: -1 * ((TRACK_BUTTON_SIZE / 2) + 1),
-    top: '50%'
+    marginTop: -1 * (TRACK_BUTTON_SIZE / 2 + 1),
+    top: '50%',
   },
   volumeChange: {
     ...ALL_STYLES.volumeChange,
-    backgroundColor: DARK_COLOR_BACKGROUND
+    backgroundColor: DARK_COLOR_BACKGROUND,
   },
   volumeChangeTrack: {
     ...ALL_STYLES.volumeChangeTrack,
-    backgroundColor: LIGHT_COLOR
+    backgroundColor: LIGHT_COLOR,
   },
   volumeTrackButton: {
     ...ALL_STYLES.trackButton,
@@ -155,8 +155,8 @@ let darkStyles = {
     boxShadow: `${BOX_SHADOW_SIZE} ${DARK_COLOR}`,
     left: '50%',
     marginLeft: -1 * (TRACK_BUTTON_SIZE / 2),
-    top: 6
-  }
+    top: 6,
+  },
 };
 
 darkStyles = {
@@ -164,27 +164,27 @@ darkStyles = {
   fastForwardButton: {
     ...ALL_STYLES.button,
     ...darkStyles.control,
-    ...ALL_STYLES.fastForwardButton
+    ...ALL_STYLES.fastForwardButton,
   },
   fullscreenButton: {
     ...ALL_STYLES.button,
     ...darkStyles.control,
-    ...ALL_STYLES.fullscreenButton
+    ...ALL_STYLES.fullscreenButton,
   },
   informationContainer: {
     ...ALL_STYLES.informationContainer,
-    ...darkStyles.control
+    ...darkStyles.control,
   },
   playPauseButton: {
     ...ALL_STYLES.button,
     ...darkStyles.control,
-    ...ALL_STYLES.playPauseButton
+    ...ALL_STYLES.playPauseButton,
   },
   volumeButton: {
     ...ALL_STYLES.button,
     ...darkStyles.control,
-    ...ALL_STYLES.volumeButton
-  }
+    ...ALL_STYLES.volumeButton,
+  },
 };
 
 let lightStyles = {
@@ -192,39 +192,39 @@ let lightStyles = {
   control: {
     ...ALL_STYLES.control,
     backgroundColor: LIGHT_COLOR_BACKGROUND,
-    color: DARK_COLOR
+    color: DARK_COLOR,
   },
   durationSlider: {
-    ...ALL_STYLES.durationSlider
+    ...ALL_STYLES.durationSlider,
   },
   durationTrack: {
     ...ALL_STYLES.durationTrack,
-    backgroundColor: DARK_COLOR
+    backgroundColor: DARK_COLOR,
   },
   durationTrackButton: {
     ...ALL_STYLES.trackButton,
     backgroundColor: DARK_COLOR,
     boxShadow: `${BOX_SHADOW_SIZE} ${LIGHT_COLOR}`,
     left: 0,
-    marginTop: -1 * ((TRACK_BUTTON_SIZE / 2) + 1),
-    top: '50%'
+    marginTop: -1 * (TRACK_BUTTON_SIZE / 2 + 1),
+    top: '50%',
   },
   volumeChange: {
     ...ALL_STYLES.volumeChange,
-    backgroundColor: LIGHT_COLOR_BACKGROUND
+    backgroundColor: LIGHT_COLOR_BACKGROUND,
   },
   volumeChangeTrack: {
     ...ALL_STYLES.volumeChangeTrack,
-    backgroundColor: DARK_COLOR
+    backgroundColor: DARK_COLOR,
   },
   volumeTrackButton: {
     ...ALL_STYLES.trackButton,
     backgroundColor: LIGHT_COLOR,
     boxShadow: `${BOX_SHADOW_SIZE} ${DARK_COLOR}`,
     left: '50%',
-    marginLeft: -1 * ((TRACK_BUTTON_SIZE / 2) + 1),
-    top: 0
-  }
+    marginLeft: -1 * (TRACK_BUTTON_SIZE / 2 + 1),
+    top: 0,
+  },
 };
 
 lightStyles = {
@@ -232,35 +232,35 @@ lightStyles = {
   fastForwardButton: {
     ...ALL_STYLES.button,
     ...lightStyles.control,
-    ...ALL_STYLES.fastForwardButton
+    ...ALL_STYLES.fastForwardButton,
   },
   fullscreenButton: {
     ...ALL_STYLES.button,
     ...lightStyles.control,
-    ...ALL_STYLES.fullscreenButton
+    ...ALL_STYLES.fullscreenButton,
   },
   informationContainer: {
     ...ALL_STYLES.informationContainer,
-    ...lightStyles.control
+    ...lightStyles.control,
   },
   playPauseButton: {
     ...ALL_STYLES.button,
     ...lightStyles.control,
-    ...ALL_STYLES.playPauseButton
+    ...ALL_STYLES.playPauseButton,
   },
   volumeButton: {
     ...ALL_STYLES.button,
     ...lightStyles.control,
-    ...ALL_STYLES.volumeButton
-  }
+    ...ALL_STYLES.volumeButton,
+  },
 };
 
 export {ALL_STYLES as allStyles};
-export {darkStyles as darkStyles};
+export {darkStyles};
 export {lightStyles};
 
 export default {
   allStyles: ALL_STYLES,
-  darkStyles: darkStyles,
-  lightStyles: lightStyles
+  darkStyles,
+  lightStyles,
 };

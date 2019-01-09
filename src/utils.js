@@ -1,7 +1,5 @@
 // icons
-import {
-  availableIcons
-} from './icons';
+import {availableIcons} from './icons';
 
 const TEST_DIV = document.createElement('div');
 
@@ -20,7 +18,7 @@ const getControlsContainerStyle = (defaultControlsStyle, isControlsVisible) => {
   return {
     ...defaultControlsStyle,
     opacity: 0,
-    visibility: 'hidden'
+    visibility: 'hidden',
   };
 };
 
@@ -49,7 +47,7 @@ const getControlStyle = (defaultStyle, backgroundColor, fontColor) => {
 
   return {
     ...defaultStyle,
-    ...mergedStyle
+    ...mergedStyle,
   };
 };
 
@@ -65,9 +63,9 @@ const getFullscreenProperties = () => {
     return {
       exitFullscreen: 'exitFullscreen',
       fullscreen,
-      fullscreenchange: 'fullscreenchange',
       fullscreenEnabled: 'fullscreenEnabled',
-      requestFullscreen: 'requestFullscreen'
+      fullscreenchange: 'fullscreenchange',
+      requestFullscreen: 'requestFullscreen',
     };
   }
 
@@ -75,9 +73,9 @@ const getFullscreenProperties = () => {
     return {
       exitFullscreen: 'webkitExitFullscreen',
       fullscreen: 'webkitIsFullScreen',
-      fullscreenchange: 'webkitfullscreenchange',
       fullscreenEnabled: 'webkitFullscreenEnabled',
-      requestFullscreen: 'webkitRequestFullscreen'
+      fullscreenchange: 'webkitfullscreenchange',
+      requestFullscreen: 'webkitRequestFullscreen',
     };
   }
 
@@ -85,18 +83,18 @@ const getFullscreenProperties = () => {
     return {
       exitFullscreen: 'mozCancelFullScreen',
       fullscreen: 'mozFullScreen',
-      fullscreenchange: 'mozfullscreenchange',
       fullscreenEnabled: 'mozFullScreenEnabled',
-      requestFullscreen: 'mozRequestFullScreen'
+      fullscreenchange: 'mozfullscreenchange',
+      requestFullscreen: 'mozRequestFullScreen',
     };
   }
 
   return {
     exitFullscreen: 'exitFullscreen',
     fullscreen: 'fullscreen',
-    fullscreenchange: 'fullscreenchange',
     fullscreenEnabled: 'fullscreenEnabled',
-    requestFullscreen: 'requestFullscreen'
+    fullscreenchange: 'fullscreenchange',
+    requestFullscreen: 'requestFullscreen',
   };
 };
 
@@ -107,9 +105,7 @@ const getFullscreenProperties = () => {
  * @param {number} duration
  * @return {number}
  */
-const getPercentPlayed = (currentTime, duration) => {
-  return Math.round((currentTime / duration) * 10000) / 100;
-};
+const getPercentPlayed = (currentTime, duration) => Math.round((currentTime / duration) * 10000) / 100;
 
 /**
  * based on the currentTime, show the string format as either
@@ -122,12 +118,12 @@ const getPercentPlayed = (currentTime, duration) => {
 const getTimeFormatFromCurrentTime = (currentTime, showHours = false) => {
   const integerValue = parseInt(currentTime, 10);
   const hours = Math.floor(integerValue / 3600);
-  const minutes = Math.floor((integerValue - (hours * 3600)) / 60);
-  const seconds = integerValue - (hours * 3600) - (minutes * 60);
+  const minutes = Math.floor((integerValue - hours * 3600) / 60);
+  const seconds = integerValue - hours * 3600 - minutes * 60;
   const hoursDisplay = hours < 10 ? `0${hours}` : hours;
   const minutesDisplay = minutes < 10 ? `0${minutes}` : minutes;
   const secondsDisplay = seconds < 10 ? `0${seconds}` : seconds;
-  
+
   if (showHours) {
     return `${hoursDisplay}:${minutesDisplay}:${secondsDisplay}`;
   }
@@ -174,7 +170,13 @@ const getTransformProperty = () => {
  * @param {string} fontColor
  * @return {object}
  */
-const getVolumeChangeStyle = (defaultVolumeChange, volumeChangeActive, isVolumeChangeActive, backgroundColor, fontColor) => {
+const getVolumeChangeStyle = (
+  defaultVolumeChange,
+  volumeChangeActive,
+  isVolumeChangeActive,
+  backgroundColor,
+  fontColor
+) => {
   if (!isVolumeChangeActive) {
     return defaultVolumeChange;
   }
@@ -193,13 +195,13 @@ const getVolumeChangeStyle = (defaultVolumeChange, volumeChangeActive, isVolumeC
     return {
       ...defaultVolumeChange,
       ...volumeChangeActive,
-      ...mergedStyle
+      ...mergedStyle,
     };
   }
 
   return {
     ...defaultVolumeChange,
-    ...volumeChangeActive
+    ...volumeChangeActive,
   };
 };
 
@@ -236,11 +238,11 @@ export {getVolumeChangeStyle};
 export {getVolumeIcon};
 
 export default {
-  getControlsContainerStyle,
   getControlStyle,
+  getControlsContainerStyle,
   getFullscreenProperties,
-  getTimeFormatFromCurrentTime,
   getPercentPlayed,
+  getTimeFormatFromCurrentTime,
   getTransformProperty,
-  getVolumeIcon
+  getVolumeIcon,
 };

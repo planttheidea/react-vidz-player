@@ -1,262 +1,3501 @@
-var ReactVidzPlayer =
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("prop-types"), require("react"), require("react-dom"), require("recompose"), require("vidz"));
+	else if(typeof define === 'function' && define.amd)
+		define("ReactVidzPlayer", ["prop-types", "react", "react-dom", "recompose", "vidz"], factory);
+	else if(typeof exports === 'object')
+		exports["ReactVidzPlayer"] = factory(require("prop-types"), require("react"), require("react-dom"), require("recompose"), require("vidz"));
+	else
+		root["ReactVidzPlayer"] = factory(root["prop-types"], root["react"], root["react-dom"], root["recompose"], root["vidz"]);
+})(window, function(__WEBPACK_EXTERNAL_MODULE_prop_types__, __WEBPACK_EXTERNAL_MODULE_react__, __WEBPACK_EXTERNAL_MODULE_react_dom__, __WEBPACK_EXTERNAL_MODULE_recompose__, __WEBPACK_EXTERNAL_MODULE_vidz__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
-
+/******/ 		module.l = true;
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/******/ ({
+
+/***/ "./node_modules/element-resize-event/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/element-resize-event/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var requestFrame = (function () {
+  var window = this
+  var raf = window.requestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    function fallbackRAF(func) {
+      return window.setTimeout(func, 20)
+    }
+  return function requestFrameFunction(func) {
+    return raf(func)
+  }
+})()
+
+var cancelFrame = (function () {
+  var window = this
+  var cancel = window.cancelAnimationFrame ||
+    window.mozCancelAnimationFrame ||
+    window.webkitCancelAnimationFrame ||
+    window.clearTimeout
+  return function cancelFrameFunction(id) {
+    return cancel(id)
+  }
+})()
+
+function resizeListener(e) {
+  var win = e.target || e.srcElement
+  if (win.__resizeRAF__) {
+    cancelFrame(win.__resizeRAF__)
+  }
+  win.__resizeRAF__ = requestFrame(function () {
+    var trigger = win.__resizeTrigger__
+    trigger.__resizeListeners__.forEach(function (fn) {
+      fn.call(trigger, e)
+    })
+  })
+}
+
+var exports = function exports(element, fn) {
+  var window = this
+  var document = window.document
+  var isIE
+
+  var attachEvent = document.attachEvent
+  if (typeof navigator !== 'undefined') {
+    isIE = navigator.userAgent.match(/Trident/) ||
+      navigator.userAgent.match(/Edge/)
+  }
+
+  function objectLoad() {
+    this.contentDocument.defaultView.__resizeTrigger__ = this.__resizeElement__
+    this.contentDocument.defaultView.addEventListener('resize', resizeListener)
+  }
+
+  if (!element.__resizeListeners__) {
+    element.__resizeListeners__ = []
+    if (attachEvent) {
+      element.__resizeTrigger__ = element
+      element.attachEvent('onresize', resizeListener)
+    } else {
+      if (getComputedStyle(element).position === 'static') {
+        element.style.position = 'relative'
+      }
+      var obj = (element.__resizeTrigger__ = document.createElement('object'))
+      obj.setAttribute(
+        'style',
+        'display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1; opacity: 0;'
+      )
+      obj.setAttribute('class', 'resize-sensor')
+      obj.__resizeElement__ = element
+      obj.onload = objectLoad
+      obj.type = 'text/html'
+      if (isIE) {
+        element.appendChild(obj)
+      }
+      obj.data = 'about:blank'
+      if (!isIE) {
+        element.appendChild(obj)
+      }
+    }
+  }
+  element.__resizeListeners__.push(fn)
+}
+
+module.exports = typeof window === 'undefined' ? exports : exports.bind(window)
+
+module.exports.unbind = function (element, fn) {
+  var attachEvent = document.attachEvent
+  if (fn) {
+    element.__resizeListeners__.splice(
+      element.__resizeListeners__.indexOf(fn),
+      1
+    )
+  } else {
+    element.__resizeListeners__ = []
+  }
+  if (!element.__resizeListeners__.length) {
+    if (attachEvent) {
+      element.detachEvent('onresize', resizeListener)
+    } else {
+      element.__resizeTrigger__.contentDocument.defaultView.removeEventListener(
+        'resize',
+        resizeListener
+      )
+      delete element.__resizeTrigger__.contentDocument.defaultView.__resizeTrigger__
+      element.__resizeTrigger__ = !element.removeChild(
+        element.__resizeTrigger__
+      )
+    }
+    delete element.__resizeListeners__
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/fbjs/lib/shallowEqual.js":
+/*!***********************************************!*\
+  !*** ./node_modules/fbjs/lib/shallowEqual.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ * 
+ */
+
+/*eslint-disable no-self-compare */
+
+
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+/**
+ * inlined Object.is polyfill to avoid requiring consumers ship their own
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+ */
+function is(x, y) {
+  // SameValue algorithm
+  if (x === y) {
+    // Steps 1-5, 7-10
+    // Steps 6.b-6.e: +0 != -0
+    // Added the nonzero y check to make Flow happy, but it is redundant
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+  } else {
+    // Step 6.a: NaN == NaN
+    return x !== x && y !== y;
+  }
+}
+
+/**
+ * Performs equality by iterating through keys on an object and returning false
+ * when any key has values which are not strictly equal between the arguments.
+ * Returns true when the values of all keys are strictly equal.
+ */
+function shallowEqual(objA, objB) {
+  if (is(objA, objB)) {
+    return true;
+  }
+
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+    return false;
+  }
+
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  // Test for A's keys different from B.
+  for (var i = 0; i < keysA.length; i++) {
+    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+module.exports = shallowEqual;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Symbol.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/_Symbol.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/** Built-in value references. */
+var Symbol = root.Symbol;
+
+module.exports = Symbol;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseGetTag.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseGetTag.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
+    getRawTag = __webpack_require__(/*! ./_getRawTag */ "./node_modules/lodash/_getRawTag.js"),
+    objectToString = __webpack_require__(/*! ./_objectToString */ "./node_modules/lodash/_objectToString.js");
+
+/** `Object#toString` result references. */
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag && symToStringTag in Object(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+module.exports = baseGetTag;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_freeGlobal.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_freeGlobal.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+
+module.exports = freeGlobal;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getRawTag.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_getRawTag.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  try {
+    value[symToStringTag] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+
+  var result = nativeObjectToString.call(value);
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+  return result;
+}
+
+module.exports = getRawTag;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_objectToString.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_objectToString.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+function objectToString(value) {
+  return nativeObjectToString.call(value);
+}
+
+module.exports = objectToString;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_root.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/_root.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+module.exports = root;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/debounce.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/debounce.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    now = __webpack_require__(/*! ./now */ "./node_modules/lodash/now.js"),
+    toNumber = __webpack_require__(/*! ./toNumber */ "./node_modules/lodash/toNumber.js");
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max,
+    nativeMin = Math.min;
+
+/**
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was
+ * invoked. The debounced function comes with a `cancel` method to cancel
+ * delayed `func` invocations and a `flush` method to immediately invoke them.
+ * Provide `options` to indicate whether `func` should be invoked on the
+ * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+ * with the last arguments provided to the debounced function. Subsequent
+ * calls to the debounced function return the result of the last `func`
+ * invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the debounced function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.debounce` and `_.throttle`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to debounce.
+ * @param {number} [wait=0] The number of milliseconds to delay.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=false]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {number} [options.maxWait]
+ *  The maximum time `func` is allowed to be delayed before it's invoked.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new debounced function.
+ * @example
+ *
+ * // Avoid costly calculations while the window size is in flux.
+ * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+ *
+ * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+ * jQuery(element).on('click', _.debounce(sendMail, 300, {
+ *   'leading': true,
+ *   'trailing': false
+ * }));
+ *
+ * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+ * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+ * var source = new EventSource('/stream');
+ * jQuery(source).on('message', debounced);
+ *
+ * // Cancel the trailing debounced invocation.
+ * jQuery(window).on('popstate', debounced.cancel);
+ */
+function debounce(func, wait, options) {
+  var lastArgs,
+      lastThis,
+      maxWait,
+      result,
+      timerId,
+      lastCallTime,
+      lastInvokeTime = 0,
+      leading = false,
+      maxing = false,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  wait = toNumber(wait) || 0;
+  if (isObject(options)) {
+    leading = !!options.leading;
+    maxing = 'maxWait' in options;
+    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  function invokeFunc(time) {
+    var args = lastArgs,
+        thisArg = lastThis;
+
+    lastArgs = lastThis = undefined;
+    lastInvokeTime = time;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+
+  function leadingEdge(time) {
+    // Reset any `maxWait` timer.
+    lastInvokeTime = time;
+    // Start the timer for the trailing edge.
+    timerId = setTimeout(timerExpired, wait);
+    // Invoke the leading edge.
+    return leading ? invokeFunc(time) : result;
+  }
+
+  function remainingWait(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime,
+        timeWaiting = wait - timeSinceLastCall;
+
+    return maxing
+      ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke)
+      : timeWaiting;
+  }
+
+  function shouldInvoke(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime;
+
+    // Either this is the first call, activity has stopped and we're at the
+    // trailing edge, the system time has gone backwards and we're treating
+    // it as the trailing edge, or we've hit the `maxWait` limit.
+    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
+      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+  }
+
+  function timerExpired() {
+    var time = now();
+    if (shouldInvoke(time)) {
+      return trailingEdge(time);
+    }
+    // Restart the timer.
+    timerId = setTimeout(timerExpired, remainingWait(time));
+  }
+
+  function trailingEdge(time) {
+    timerId = undefined;
+
+    // Only invoke if we have `lastArgs` which means `func` has been
+    // debounced at least once.
+    if (trailing && lastArgs) {
+      return invokeFunc(time);
+    }
+    lastArgs = lastThis = undefined;
+    return result;
+  }
+
+  function cancel() {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+    lastInvokeTime = 0;
+    lastArgs = lastCallTime = lastThis = timerId = undefined;
+  }
+
+  function flush() {
+    return timerId === undefined ? result : trailingEdge(now());
+  }
+
+  function debounced() {
+    var time = now(),
+        isInvoking = shouldInvoke(time);
+
+    lastArgs = arguments;
+    lastThis = this;
+    lastCallTime = time;
+
+    if (isInvoking) {
+      if (timerId === undefined) {
+        return leadingEdge(lastCallTime);
+      }
+      if (maxing) {
+        // Handle invocations in a tight loop.
+        timerId = setTimeout(timerExpired, wait);
+        return invokeFunc(lastCallTime);
+      }
+    }
+    if (timerId === undefined) {
+      timerId = setTimeout(timerExpired, wait);
+    }
+    return result;
+  }
+  debounced.cancel = cancel;
+  debounced.flush = flush;
+  return debounced;
+}
+
+module.exports = debounce;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObject.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isObject.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+module.exports = isObject;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObjectLike.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/isObjectLike.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+module.exports = isObjectLike;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isSymbol.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isSymbol.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var symbolTag = '[object Symbol]';
+
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+function isSymbol(value) {
+  return typeof value == 'symbol' ||
+    (isObjectLike(value) && baseGetTag(value) == symbolTag);
+}
+
+module.exports = isSymbol;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isUndefined.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/isUndefined.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is `undefined`.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is `undefined`, else `false`.
+ * @example
+ *
+ * _.isUndefined(void 0);
+ * // => true
+ *
+ * _.isUndefined(null);
+ * // => false
+ */
+function isUndefined(value) {
+  return value === undefined;
+}
+
+module.exports = isUndefined;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/now.js":
+/*!************************************!*\
+  !*** ./node_modules/lodash/now.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/**
+ * Gets the timestamp of the number of milliseconds that have elapsed since
+ * the Unix epoch (1 January 1970 00:00:00 UTC).
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Date
+ * @returns {number} Returns the timestamp.
+ * @example
+ *
+ * _.defer(function(stamp) {
+ *   console.log(_.now() - stamp);
+ * }, _.now());
+ * // => Logs the number of milliseconds it took for the deferred invocation.
+ */
+var now = function() {
+  return root.Date.now();
+};
+
+module.exports = now;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/toNumber.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/toNumber.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
+
+/** Used as references for various `Number` constants. */
+var NAN = 0 / 0;
+
+/** Used to match leading and trailing whitespace. */
+var reTrim = /^\s+|\s+$/g;
+
+/** Used to detect bad signed hexadecimal string values. */
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+
+/** Used to detect binary string values. */
+var reIsBinary = /^0b[01]+$/i;
+
+/** Used to detect octal string values. */
+var reIsOctal = /^0o[0-7]+$/i;
+
+/** Built-in method references without a dependency on `root`. */
+var freeParseInt = parseInt;
+
+/**
+ * Converts `value` to a number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {number} Returns the number.
+ * @example
+ *
+ * _.toNumber(3.2);
+ * // => 3.2
+ *
+ * _.toNumber(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toNumber(Infinity);
+ * // => Infinity
+ *
+ * _.toNumber('3.2');
+ * // => 3.2
+ */
+function toNumber(value) {
+  if (typeof value == 'number') {
+    return value;
+  }
+  if (isSymbol(value)) {
+    return NAN;
+  }
+  if (isObject(value)) {
+    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+    value = isObject(other) ? (other + '') : other;
+  }
+  if (typeof value != 'string') {
+    return value === 0 ? value : +value;
+  }
+  value = value.replace(reTrim, '');
+  var isBinary = reIsBinary.test(value);
+  return (isBinary || reIsOctal.test(value))
+    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+    : (reIsBadHex.test(value) ? NAN : +value);
+}
+
+module.exports = toNumber;
+
+
+/***/ }),
+
+/***/ "./node_modules/react-icon-base/lib/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/react-icon-base/lib/index.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+var IconBase = function IconBase(_ref, _ref2) {
+  var children = _ref.children;
+  var color = _ref.color;
+  var size = _ref.size;
+  var style = _ref.style;
+  var width = _ref.width;
+  var height = _ref.height;
+
+  var props = _objectWithoutProperties(_ref, ['children', 'color', 'size', 'style', 'width', 'height']);
+
+  var _ref2$reactIconBase = _ref2.reactIconBase;
+  var reactIconBase = _ref2$reactIconBase === undefined ? {} : _ref2$reactIconBase;
+
+  var computedSize = size || reactIconBase.size || '1em';
+  return _react2.default.createElement('svg', _extends({
+    children: children,
+    fill: 'currentColor',
+    preserveAspectRatio: 'xMidYMid meet',
+    height: height || computedSize,
+    width: width || computedSize
+  }, reactIconBase, props, {
+    style: _extends({
+      verticalAlign: 'middle',
+      color: color || reactIconBase.color
+    }, reactIconBase.style || {}, style)
+  }));
+};
+
+IconBase.propTypes = {
+  color: _propTypes2.default.string,
+  size: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  width: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  height: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  style: _propTypes2.default.object
+};
+
+IconBase.contextTypes = {
+  reactIconBase: _propTypes2.default.shape(IconBase.propTypes)
+};
+
+exports.default = IconBase;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/react-icons/lib/io/arrow-expand.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-icons/lib/io/arrow-expand.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIconBase = __webpack_require__(/*! react-icon-base */ "./node_modules/react-icon-base/lib/index.js");
+
+var _reactIconBase2 = _interopRequireDefault(_reactIconBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var IoArrowExpand = function IoArrowExpand(props) {
+    return _react2.default.createElement(
+        _reactIconBase2.default,
+        _extends({ viewBox: '0 0 40 40' }, props),
+        _react2.default.createElement(
+            'g',
+            null,
+            _react2.default.createElement('path', { d: 'm21.4 16.4l5-5-3.9-3.9h10v10l-3.9-3.9-5 5z m0 7.2l2.2-2.2 5 5 3.9-3.9v10h-10l3.9-3.9z m-2.8 0l-5 5 3.9 3.9h-10v-10l3.9 3.9 5-5z m0-7.2l-2.2 2.2-5-5-3.9 3.9v-10h10l-3.9 3.9z' })
+        )
+    );
+};
+
+exports.default = IoArrowExpand;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/react-icons/lib/io/arrow-shrink.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-icons/lib/io/arrow-shrink.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIconBase = __webpack_require__(/*! react-icon-base */ "./node_modules/react-icon-base/lib/index.js");
+
+var _reactIconBase2 = _interopRequireDefault(_reactIconBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var IoArrowShrink = function IoArrowShrink(props) {
+    return _react2.default.createElement(
+        _reactIconBase2.default,
+        _extends({ viewBox: '0 0 40 40' }, props),
+        _react2.default.createElement(
+            'g',
+            null,
+            _react2.default.createElement('path', { d: 'm35 7.2l-6.4 6.4 3.9 3.9h-10v-10l3.9 3.9 6.4-6.4z m0 25.6l-2.2 2.2-6.4-6.4-3.9 3.9v-10h10l-3.9 3.9z m-30 0l6.4-6.4-3.9-3.9h10v10l-3.9-3.9-6.4 6.4z m0-25.6l2.2-2.2 6.4 6.4 3.9-3.9v10h-10l3.9-3.9z' })
+        )
+    );
+};
+
+exports.default = IoArrowShrink;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/react-icons/lib/io/ios-fastforward.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-icons/lib/io/ios-fastforward.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIconBase = __webpack_require__(/*! react-icon-base */ "./node_modules/react-icon-base/lib/index.js");
+
+var _reactIconBase2 = _interopRequireDefault(_reactIconBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var IoIosFastforward = function IoIosFastforward(props) {
+    return _react2.default.createElement(
+        _reactIconBase2.default,
+        _extends({ viewBox: '0 0 40 40' }, props),
+        _react2.default.createElement(
+            'g',
+            null,
+            _react2.default.createElement('path', { d: 'm17.5 10l17.5 10-17.5 10v-9.6l-17.5 9.6v-20l17.5 9.6v-9.6z' })
+        )
+    );
+};
+
+exports.default = IoIosFastforward;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/react-icons/lib/io/pause.js":
+/*!**************************************************!*\
+  !*** ./node_modules/react-icons/lib/io/pause.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIconBase = __webpack_require__(/*! react-icon-base */ "./node_modules/react-icon-base/lib/index.js");
+
+var _reactIconBase2 = _interopRequireDefault(_reactIconBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var IoPause = function IoPause(props) {
+    return _react2.default.createElement(
+        _reactIconBase2.default,
+        _extends({ viewBox: '0 0 40 40' }, props),
+        _react2.default.createElement(
+            'g',
+            null,
+            _react2.default.createElement('path', { d: 'm17.5 34.1c0 0.5-0.4 0.9-0.9 0.9h-5.7c-0.5 0-0.9-0.4-0.9-0.9v-28.2c0-0.5 0.4-0.9 0.9-0.9h5.7c0.5 0 0.9 0.4 0.9 0.9v28.2z m11.6-29.1c0.5 0 0.9 0.4 0.9 0.9v28.2c0 0.5-0.4 0.9-0.9 0.9h-5.7c-0.5 0-0.9-0.4-0.9-0.9v-28.2c0-0.5 0.4-0.9 0.9-0.9h5.7z' })
+        )
+    );
+};
+
+exports.default = IoPause;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/react-icons/lib/io/play.js":
+/*!*************************************************!*\
+  !*** ./node_modules/react-icons/lib/io/play.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIconBase = __webpack_require__(/*! react-icon-base */ "./node_modules/react-icon-base/lib/index.js");
+
+var _reactIconBase2 = _interopRequireDefault(_reactIconBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var IoPlay = function IoPlay(props) {
+    return _react2.default.createElement(
+        _reactIconBase2.default,
+        _extends({ viewBox: '0 0 40 40' }, props),
+        _react2.default.createElement(
+            'g',
+            null,
+            _react2.default.createElement('path', { d: 'm31.6 18.2c0.6 0.5 0.9 1.1 0.9 1.8s-0.3 1.3-0.9 1.8l-21.7 13c-0.3 0.1-0.5 0.2-0.8 0.2-0.9 0-1.6-0.7-1.6-1.6v-26.8c0-0.9 0.7-1.6 1.6-1.6 0.3 0 0.6 0.1 0.8 0.2z' })
+        )
+    );
+};
+
+exports.default = IoPlay;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/react-icons/lib/io/volume-high.js":
+/*!********************************************************!*\
+  !*** ./node_modules/react-icons/lib/io/volume-high.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIconBase = __webpack_require__(/*! react-icon-base */ "./node_modules/react-icon-base/lib/index.js");
+
+var _reactIconBase2 = _interopRequireDefault(_reactIconBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var IoVolumeHigh = function IoVolumeHigh(props) {
+    return _react2.default.createElement(
+        _reactIconBase2.default,
+        _extends({ viewBox: '0 0 40 40' }, props),
+        _react2.default.createElement(
+            'g',
+            null,
+            _react2.default.createElement('path', { d: 'm15.5 31.9l-7.4-6.9h-8.1v-10h8.1l7.4-6.9v23.8z m4.4-4.1l-1.5-1.2c1.3-1.9 2.1-4.1 2.1-6.6s-0.8-4.7-2.1-6.6l1.5-1.2c1.6 2.2 2.6 4.9 2.6 7.8s-1 5.6-2.6 7.8z m5.3 3.6l-1.7-1.2c2.1-2.9 3.4-6.4 3.4-10.2s-1.3-7.3-3.4-10.2l1.7-1.2c2.3 3.2 3.7 7.1 3.7 11.4s-1.4 8.2-3.7 11.4z m3.3-25.2l1.6-1.2c3 4.2 4.9 9.4 4.9 15s-1.9 10.8-4.9 15l-1.6-1.2c2.8-3.8 4.5-8.6 4.5-13.8s-1.7-10-4.5-13.8z' })
+        )
+    );
+};
+
+exports.default = IoVolumeHigh;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/react-icons/lib/io/volume-low.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-icons/lib/io/volume-low.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIconBase = __webpack_require__(/*! react-icon-base */ "./node_modules/react-icon-base/lib/index.js");
+
+var _reactIconBase2 = _interopRequireDefault(_reactIconBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var IoVolumeLow = function IoVolumeLow(props) {
+    return _react2.default.createElement(
+        _reactIconBase2.default,
+        _extends({ viewBox: '0 0 40 40' }, props),
+        _react2.default.createElement(
+            'g',
+            null,
+            _react2.default.createElement('path', { d: 'm24 31.9l-7.4-6.9h-8.1v-10h8.1l7.4-6.9v23.8z m4.4-4.1l-1.5-1.2c1.3-1.9 2.1-4.1 2.1-6.6s-0.8-4.7-2.1-6.6l1.5-1.2c1.6 2.2 2.6 4.9 2.6 7.8s-1 5.6-2.6 7.8z' })
+        )
+    );
+};
+
+exports.default = IoVolumeLow;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/react-icons/lib/io/volume-medium.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-icons/lib/io/volume-medium.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIconBase = __webpack_require__(/*! react-icon-base */ "./node_modules/react-icon-base/lib/index.js");
+
+var _reactIconBase2 = _interopRequireDefault(_reactIconBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var IoVolumeMedium = function IoVolumeMedium(props) {
+    return _react2.default.createElement(
+        _reactIconBase2.default,
+        _extends({ viewBox: '0 0 40 40' }, props),
+        _react2.default.createElement(
+            'g',
+            null,
+            _react2.default.createElement('path', { d: 'm21 31.9l-7.4-6.9h-8.1v-10h8.1l7.4-6.9v23.8z m4.4-4.1l-1.5-1.2c1.3-1.9 2.1-4.1 2.1-6.6s-0.8-4.7-2.1-6.6l1.5-1.2c1.6 2.2 2.6 4.9 2.6 7.8s-1 5.6-2.6 7.8z m5.3 3.6l-1.7-1.2c2.1-2.9 3.4-6.4 3.4-10.2s-1.3-7.3-3.4-10.2l1.7-1.2c2.3 3.2 3.7 7.1 3.7 11.4s-1.4 8.2-3.7 11.4z' })
+        )
+    );
+};
+
+exports.default = IoVolumeMedium;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/react-icons/lib/io/volume-mute.js":
+/*!********************************************************!*\
+  !*** ./node_modules/react-icons/lib/io/volume-mute.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIconBase = __webpack_require__(/*! react-icon-base */ "./node_modules/react-icon-base/lib/index.js");
+
+var _reactIconBase2 = _interopRequireDefault(_reactIconBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var IoVolumeMute = function IoVolumeMute(props) {
+    return _react2.default.createElement(
+        _reactIconBase2.default,
+        _extends({ viewBox: '0 0 40 40' }, props),
+        _react2.default.createElement(
+            'g',
+            null,
+            _react2.default.createElement('path', { d: 'm17.5 17l3.7-4v14l-3.7-4h-5.1v-6h5.1z m8.4-12.3c5.4 3 9.1 8.7 9.1 15.3 0 9.7-7.8 17.5-17.5 17.5-3 0-5.9-0.8-8.4-2.1l-0.1-0.1c-5.4-3-9-8.7-9-15.3 0-9.7 7.8-17.5 17.5-17.5 3 0 5.9 0.8 8.4 2.2h0z m2.4 23c1.5-2.2 2.6-4.8 2.6-7.7 0-5.2-3-9.6-7.2-11.8-0.5-0.2-0.9-0.5-1.4-0.6-1.4-0.6-3.1-0.9-4.8-0.9-2.9 0-5.5 1-7.7 2.5l5.7 5.8h-6l-2.8-2.7c-1.5 2.2-2.5 4.8-2.5 7.7 0 5.1 2.8 9.5 7 11.7 0.5 0.3 1.1 0.6 1.5 0.7 1.5 0.6 3.1 0.9 4.8 0.9 2.9 0 5.6-1 7.8-2.5l-1.6-1.6v-6z' })
+        )
+    );
+};
+
+exports.default = IoVolumeMute;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/recompose/shallowEqual.js":
+/*!************************************************!*\
+  !*** ./node_modules/recompose/shallowEqual.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _shallowEqual = __webpack_require__(/*! fbjs/lib/shallowEqual */ "./node_modules/fbjs/lib/shallowEqual.js");
+
+var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _shallowEqual2.default;
+
+/***/ }),
+
+/***/ "./node_modules/webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ "./src/components/Button.js":
+/*!**********************************!*\
+  !*** ./src/components/Button.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _propTypes = __webpack_require__(/*! prop-types */ "prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _recompose = __webpack_require__(/*! recompose */ "recompose");
+
+var _icons = __webpack_require__(/*! ../icons */ "./src/icons.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// external dependencies
+var ICON_STYLE = {
+  fontSize: 20
+};
+
+// icons
+
+
+var Button = (0, _recompose.pure)(function (_ref) {
+  var children = _ref.children,
+      icon = _ref.icon,
+      label = _ref.label,
+      onClick = _ref.onClick,
+      _ref$style = _ref.style,
+      style = _ref$style === undefined ? {} : _ref$style;
+
+  var Icon = _icons.icons[icon];
+
+  return _react2.default.createElement(
+    'div',
+    {
+      'aria-label': label,
+      onClick: onClick,
+      role: 'button',
+      style: style
+    },
+    _react2.default.createElement(Icon, { style: ICON_STYLE }),
+    children
+  );
+});
+
+Button.propTypes = {
+  children: _propTypes2.default.node,
+  icon: _propTypes2.default.string,
+  onClick: _propTypes2.default.func,
+  style: _propTypes2.default.object
+};
+
+exports.default = Button;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/components/Display.js":
+/*!***********************************!*\
+  !*** ./src/components/Display.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _propTypes = __webpack_require__(/*! prop-types */ "prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _recompose = __webpack_require__(/*! recompose */ "recompose");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Display = (0, _recompose.pure)(function (_ref) {
+  var children = _ref.children,
+      onClick = _ref.onClick,
+      _ref$style = _ref.style,
+      style = _ref$style === undefined ? {} : _ref$style;
+  return _react2.default.createElement(
+    'div',
+    {
+      onClick: onClick,
+      style: style
+    },
+    children
+  );
+}); // external dependencies
+
+
+Display.propTypes = {
+  children: _propTypes2.default.node,
+  onClick: _propTypes2.default.func,
+  style: _propTypes2.default.object
+};
+
+exports.default = Display;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/components/InformationBar.js":
+/*!******************************************!*\
+  !*** ./src/components/InformationBar.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _propTypes = __webpack_require__(/*! prop-types */ "prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _recompose = __webpack_require__(/*! recompose */ "recompose");
+
+var _utils = __webpack_require__(/*! ../utils */ "./src/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// external dependencies
+var InformationBar = (0, _recompose.pure)(function (_ref) {
+  var currentTime = _ref.currentTime,
+      duration = _ref.duration,
+      style = _ref.style;
+
+  var currentTimeDisplay = (0, _utils.getTimeFormatFromCurrentTime)(currentTime);
+  var durationDisplay = (0, _utils.getTimeFormatFromCurrentTime)(duration);
+
+  return _react2.default.createElement(
+    'div',
+    {
+      'aria-label': currentTimeDisplay + ' out of ' + duration + ' has passed',
+      style: style
+    },
+    currentTimeDisplay,
+    ' / ',
+    durationDisplay
+  );
+});
+
+// utils
+
+
+InformationBar.propTypes = {
+  currentTime: _propTypes2.default.number,
+  duration: _propTypes2.default.number
+};
+
+exports.default = InformationBar;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/components/Track.js":
+/*!*********************************!*\
+  !*** ./src/components/Track.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _propTypes = __webpack_require__(/*! prop-types */ "prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _recompose = __webpack_require__(/*! recompose */ "recompose");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Track = (0, _recompose.pure)(function (_ref) {
+  var _ref$style = _ref.style,
+      style = _ref$style === undefined ? {} : _ref$style;
+  return _react2.default.createElement('div', { style: style });
+}); // external dependencies
+
+
+Track.propTypes = {
+  style: _propTypes2.default.object
+};
+
+exports.default = Track;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/components/TrackButton.js":
+/*!***************************************!*\
+  !*** ./src/components/TrackButton.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _propTypes = __webpack_require__(/*! prop-types */ "prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _recompose = __webpack_require__(/*! recompose */ "recompose");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TrackButton = (0, _recompose.pure)(function (_ref) {
+  var label = _ref.label,
+      onMouseDown = _ref.onMouseDown,
+      _ref$style = _ref.style,
+      style = _ref$style === undefined ? {} : _ref$style;
+  return (
+    // eslint workaround
+    _react2.default.createElement('span', {
+      'aria-label': label,
+      onMouseDown: onMouseDown,
+      role: 'button',
+      style: style
+    })
+  );
+}); // external dependencies
+
+
+TrackButton.propTypes = {
+  onMouseDown: _propTypes2.default.func,
+  style: _propTypes2.default.object
+};
+
+exports.default = TrackButton;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/components/VolumeContainer.js":
+/*!*******************************************!*\
+  !*** ./src/components/VolumeContainer.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _propTypes = __webpack_require__(/*! prop-types */ "prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _recompose = __webpack_require__(/*! recompose */ "recompose");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var VolumeContainer = (0, _recompose.pure)(function (_ref) {
+  var children = _ref.children,
+      onMouseEnter = _ref.onMouseEnter,
+      onMouseLeave = _ref.onMouseLeave,
+      _ref$style = _ref.style,
+      style = _ref$style === undefined ? {} : _ref$style;
+  return _react2.default.createElement(
+    'div',
+    {
+      className: '__vidz_volume_change__',
+      onMouseEnter: onMouseEnter,
+      onMouseLeave: onMouseLeave,
+      role: 'button',
+      style: style
+    },
+    children
+  );
+}); // external dependencies
+
+
+VolumeContainer.propTypes = {
+  children: _propTypes2.default.node,
+  onMouseEnter: _propTypes2.default.func,
+  onMouseLeave: _propTypes2.default.func,
+  style: _propTypes2.default.object
+};
+
+exports.default = VolumeContainer;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/icons.js":
+/*!**********************!*\
+  !*** ./src/icons.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.icons = exports.availableIcons = undefined;
+
+var _arrowExpand = __webpack_require__(/*! react-icons/lib/io/arrow-expand */ "./node_modules/react-icons/lib/io/arrow-expand.js");
+
+var _arrowExpand2 = _interopRequireDefault(_arrowExpand);
+
+var _iosFastforward = __webpack_require__(/*! react-icons/lib/io/ios-fastforward */ "./node_modules/react-icons/lib/io/ios-fastforward.js");
+
+var _iosFastforward2 = _interopRequireDefault(_iosFastforward);
+
+var _pause = __webpack_require__(/*! react-icons/lib/io/pause */ "./node_modules/react-icons/lib/io/pause.js");
+
+var _pause2 = _interopRequireDefault(_pause);
+
+var _play = __webpack_require__(/*! react-icons/lib/io/play */ "./node_modules/react-icons/lib/io/play.js");
+
+var _play2 = _interopRequireDefault(_play);
+
+var _arrowShrink = __webpack_require__(/*! react-icons/lib/io/arrow-shrink */ "./node_modules/react-icons/lib/io/arrow-shrink.js");
+
+var _arrowShrink2 = _interopRequireDefault(_arrowShrink);
+
+var _volumeHigh = __webpack_require__(/*! react-icons/lib/io/volume-high */ "./node_modules/react-icons/lib/io/volume-high.js");
+
+var _volumeHigh2 = _interopRequireDefault(_volumeHigh);
+
+var _volumeLow = __webpack_require__(/*! react-icons/lib/io/volume-low */ "./node_modules/react-icons/lib/io/volume-low.js");
+
+var _volumeLow2 = _interopRequireDefault(_volumeLow);
+
+var _volumeMedium = __webpack_require__(/*! react-icons/lib/io/volume-medium */ "./node_modules/react-icons/lib/io/volume-medium.js");
+
+var _volumeMedium2 = _interopRequireDefault(_volumeMedium);
+
+var _volumeMute = __webpack_require__(/*! react-icons/lib/io/volume-mute */ "./node_modules/react-icons/lib/io/volume-mute.js");
+
+var _volumeMute2 = _interopRequireDefault(_volumeMute);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AVAILABLE_ICONS = {
+  EXPAND: 'EXPAND',
+  FAST_FORWARD: 'FAST_FORWARD',
+  PAUSE: 'PAUSE',
+  PLAY: 'PLAY',
+  SHRINK: 'SHRINK',
+  VOLUME_HIGH: 'VOLUME_HIGH',
+  VOLUME_LOW: 'VOLUME_LOW',
+  VOLUME_MEDIUM: 'VOLUME_MEDIUM',
+  VOLUME_MUTE: 'VOLUME_MUTE'
+}; // external dependencies
 
-	module.exports = __webpack_require__(1);
 
+var ICON_MAP = {
+  EXPAND: _arrowExpand2.default,
+  FAST_FORWARD: _iosFastforward2.default,
+  PAUSE: _pause2.default,
+  PLAY: _play2.default,
+  SHRINK: _arrowShrink2.default,
+  VOLUME_HIGH: _volumeHigh2.default,
+  VOLUME_LOW: _volumeLow2.default,
+  VOLUME_MEDIUM: _volumeMedium2.default,
+  VOLUME_MUTE: _volumeMute2.default
+};
 
-/***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
+exports.availableIcons = AVAILABLE_ICONS;
+exports.icons = ICON_MAP;
+exports.default = {
+  availableIcons: AVAILABLE_ICONS,
+  icons: ICON_MAP
+};
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _class, _class2, _temp2; // external dependencies\n\n\n// components\n\n\n// icons\n\n\nvar _elementResizeEvent = __webpack_require__(2);\n\nvar _elementResizeEvent2 = _interopRequireDefault(_elementResizeEvent);\n\nvar _debounce = __webpack_require__(3);\n\nvar _debounce2 = _interopRequireDefault(_debounce);\n\nvar _isUndefined = __webpack_require__(10);\n\nvar _isUndefined2 = _interopRequireDefault(_isUndefined);\n\nvar _react = __webpack_require__(11);\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _reactDom = __webpack_require__(12);\n\nvar _recompose = __webpack_require__(13);\n\nvar _shallowEqual = __webpack_require__(14);\n\nvar _shallowEqual2 = _interopRequireDefault(_shallowEqual);\n\nvar _vidz = __webpack_require__(16);\n\nvar _vidz2 = _interopRequireDefault(_vidz);\n\nvar _Button = __webpack_require__(17);\n\nvar _Button2 = _interopRequireDefault(_Button);\n\nvar _Display = __webpack_require__(29);\n\nvar _Display2 = _interopRequireDefault(_Display);\n\nvar _InformationBar = __webpack_require__(30);\n\nvar _InformationBar2 = _interopRequireDefault(_InformationBar);\n\nvar _Track = __webpack_require__(32);\n\nvar _Track2 = _interopRequireDefault(_Track);\n\nvar _TrackButton = __webpack_require__(33);\n\nvar _TrackButton2 = _interopRequireDefault(_TrackButton);\n\nvar _VolumeContainer = __webpack_require__(34);\n\nvar _VolumeContainer2 = _interopRequireDefault(_VolumeContainer);\n\nvar _icons = __webpack_require__(18);\n\nvar _utils = __webpack_require__(31);\n\nvar _styles = __webpack_require__(35);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar THEMES = ['dark', 'light'];\n\nvar PLAYBACK_SPEEDS = [1, 2, 4, 8, 16];\n\nvar _getFullscreenPropert = (0, _utils.getFullscreenProperties)();\n\nvar exitFullscreen = _getFullscreenPropert.exitFullscreen;\nvar fullscreen = _getFullscreenPropert.fullscreen;\nvar fullscreenchange = _getFullscreenPropert.fullscreenchange;\nvar fullscreenEnabled = _getFullscreenPropert.fullscreenEnabled;\nvar requestFullscreen = _getFullscreenPropert.requestFullscreen;\n\n\nvar transformProperty = (0, _utils.getTransformProperty)();\n\nvar VidzPlayer = (0, _recompose.pure)(_class = (_temp2 = _class2 = function (_Component) {\n  _inherits(VidzPlayer, _Component);\n\n  function VidzPlayer() {\n    var _Object$getPrototypeO;\n\n    var _temp, _this, _ret;\n\n    _classCallCheck(this, VidzPlayer);\n\n    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {\n      args[_key] = arguments[_key];\n    }\n\n    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(VidzPlayer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {\n      autoHideTimeout: null,\n      canUseFullscreen: true,\n      controlsVisible: true,\n      currentTime: 0,\n      duration: 0,\n      isDraggingDurationTrackButton: false,\n      isDraggingVolumeTrackButton: false,\n      isFullscreen: false,\n      isLoaded: false,\n      isMuted: false,\n      isPlaying: false,\n      isVolumeChangeActive: false,\n      playbackRateIndex: 0,\n      queuedOnVolumeSet: [],\n      volume: 1\n    }, _this.duration = null, _this.durationTrack = null, _this.durationTrackButton = null, _this.vidzInstance = null, _this.volume = null, _this.volumeTrack = null, _this.volumeTrackButton = null, _this.debounceSetPlayerDimensionsOnResize = (0, _debounce2.default)(function () {\n      var isFullscreen = _this.state.isFullscreen;\n\n\n      if (isFullscreen) {\n        _this.debounceSetPlayerDimensions();\n      }\n    }, 50), _this.debounceSetPlayerDimensions = (0, _debounce2.default)(function () {\n      var dimensions = _this.getHeightAndWidth();\n\n      _this.vidzInstance.setPlayerDimensions(dimensions);\n    }, 50), _this.getHeightAndWidth = function () {\n      var _this$props = _this.props;\n      var heightFromProps = _this$props.height;\n      var widthFromProps = _this$props.width;\n      var isFullscreen = _this.state.isFullscreen;\n\n\n      var width = widthFromProps;\n\n      if (isFullscreen) {\n        width = window.innerWidth;\n      } else if ((0, _isUndefined2.default)(width)) {\n        width = Math.round(_this.refs.container.clientWidth);\n      }\n\n      var height = heightFromProps;\n\n      if ((0, _isUndefined2.default)(height)) {\n        if (_this.vidzInstance) {\n          var naturalHeight = _this.vidzInstance.player.videoHeight;\n          var naturalWidth = _this.vidzInstance.player.videoWidth;\n          var multiplier = _this.vidzInstance.player.width / naturalWidth;\n\n          height = Math.round(naturalHeight * multiplier);\n        } else {\n          height = Math.round(width * 0.6);\n        }\n      }\n\n      if (isFullscreen) {\n        var maxHeight = window.innerHeight;\n\n        if (height > maxHeight) {\n          height = maxHeight;\n        }\n      }\n\n      return {\n        height: height,\n        width: width\n      };\n    }, _this.onClickDurationTrack = function (e) {\n      var left = _this.duration.getBoundingClientRect().left;\n      var offset = e.pageX - left;\n      var percentage = offset / _this.duration.clientWidth;\n\n      _this.setDurationTrackButtonPosition(percentage, true);\n    }, _this.onClickFastForward = function () {\n      var _this$state = _this.state;\n      var isPlaying = _this$state.isPlaying;\n      var playbackRateIndex = _this$state.playbackRateIndex;\n\n\n      if (isPlaying) {\n        var newIndex = playbackRateIndex === PLAYBACK_SPEEDS.length - 1 ? 0 : playbackRateIndex + 1;\n\n        _this.setState({\n          playbackRateIndex: newIndex\n        });\n\n        _this.vidzInstance.setPlaybackRate(PLAYBACK_SPEEDS[newIndex]);\n      }\n    }, _this.onClickPlayPauseButton = function () {\n      var isPlaying = _this.state.isPlaying;\n\n\n      if (_this.vidzInstance.playbackRate !== 1) {\n        _this.vidzInstance.setPlaybackRate(1);\n\n        _this.setState({\n          playbackRateIndex: 0\n        });\n      }\n\n      if (isPlaying) {\n        _this.vidzInstance.pause();\n      } else {\n        _this.vidzInstance.play();\n      }\n    }, _this.onClickToggleFullscreen = function () {\n      var isFullscreen = _this.state.isFullscreen;\n\n\n      if (isFullscreen) {\n        document[exitFullscreen]();\n      } else {\n        _this.refs.container[requestFullscreen]();\n      }\n    }, _this.onClickToggleVolumeMuted = function () {\n      var isMuted = _this.state.isMuted;\n\n\n      if (isMuted) {\n        _this.setState({\n          isMuted: false\n        });\n\n        _this.vidzInstance.unmute();\n      } else {\n        _this.setState({\n          isMuted: true\n        });\n\n        _this.vidzInstance.mute();\n      }\n    }, _this.onClickVolumeTrack = function (e) {\n      var top = _this.volume.getBoundingClientRect().top;\n      var offset = e.pageY - top;\n      var percentage = offset / _this.volume.clientHeight;\n\n      _this.setVolumeTrackButtonPosition(percentage, true);\n    }, _this.onDragDurationTrackButton = function (e) {\n      var left = _this.duration.getBoundingClientRect().left;\n\n      var offset = e.pageX - left;\n\n      var percentage = offset / _this.duration.clientWidth;\n\n      if (percentage > 1) {\n        percentage = 1;\n      } else if (percentage < 0) {\n        percentage = 0;\n      }\n\n      _this.setDurationTrackButtonPosition(percentage, true);\n    }, _this.onDragVolumeTrackButton = function (e) {\n      var top = _this.volumeTrack.getBoundingClientRect().top;\n\n      var offset = e.pageY - top;\n\n      var percentage = offset / _this.volumeTrack.clientHeight;\n\n      if (percentage > 1) {\n        percentage = 1;\n      } else if (percentage < 0) {\n        percentage = 0;\n      }\n\n      _this.setVolumeTrackButtonPosition(percentage, true);\n    }, _this.onDragEndDurationTrackButton = function (e) {\n      e.stopPropagation();\n      e.preventDefault();\n\n      _this.setState({\n        isDraggingDurationTrackButton: false\n      });\n\n      window.removeEventListener('mouseup', _this.onDragEndDurationTrackButton);\n      window.removeEventListener('mousemove', _this.onDragDurationTrackButton);\n    }, _this.onDragEndVolumeTrackButton = function (e) {\n      e.stopPropagation();\n      e.preventDefault();\n\n      var queuedOnVolumeSet = _this.state.queuedOnVolumeSet;\n\n\n      _this.setState({\n        isDraggingVolumeTrackButton: false\n      });\n\n      queuedOnVolumeSet.forEach(function (fn) {\n        fn();\n      });\n\n      _this.setState({\n        queuedOnVolumeSet: []\n      });\n\n      window.removeEventListener('mouseup', _this.onDragEndVolumeTrackButton);\n      window.removeEventListener('mousemove', _this.onDragVolumeTrackButton);\n    }, _this.onDragStartDurationTrackButton = function (e) {\n      e.stopPropagation();\n      e.preventDefault();\n\n      _this.setState({\n        isDraggingDurationTrackButton: true\n      });\n\n      window.addEventListener('mouseup', _this.onDragEndDurationTrackButton);\n      window.addEventListener('mousemove', _this.onDragDurationTrackButton);\n    }, _this.onDragStartVolumeTrackButton = function (e) {\n      e.stopPropagation();\n      e.preventDefault();\n\n      _this.setState({\n        isDraggingVolumeTrackButton: true\n      });\n\n      window.addEventListener('mouseup', _this.onDragEndVolumeTrackButton);\n      window.addEventListener('mousemove', _this.onDragVolumeTrackButton);\n    }, _this.onFullscreenChange = function () {\n      _this.setState({\n        isFullscreen: document[fullscreen]\n      });\n\n      var dimensions = _this.getHeightAndWidth();\n\n      _this.vidzInstance.setPlayerDimensions(dimensions);\n    }, _this.onLoadedMetadata = function (e, instance) {\n      var onLoadedMetadata = _this.props.onLoadedMetadata;\n\n\n      _this.setPercentLoaded(instance.percentLoaded);\n      _this.setTimeRepresentation({\n        duration: instance.duration\n      });\n\n      if (onLoadedMetadata) {\n        onLoadedMetadata.call(instance, e, instance);\n      }\n    }, _this.onMouseEnterVolumeChange = function () {\n      var queuedOnVolumeSet = _this.state.queuedOnVolumeSet;\n\n\n      if (queuedOnVolumeSet.length) {\n        _this.setState({\n          queuedOnVolumeSet: []\n        });\n      }\n\n      _this.setVolumeChangeState(true);\n    }, _this.onMouseLeaveVolumeChange = function () {\n      var isDraggingVolumeTrackButton = _this.state.isDraggingVolumeTrackButton;\n\n\n      if (isDraggingVolumeTrackButton) {\n        var queuedOnVolumeSet = [_this.setVolumeChangeState];\n\n        _this.setState({\n          queuedOnVolumeSet: queuedOnVolumeSet\n        });\n      } else {\n        _this.setVolumeChangeState();\n      }\n    }, _this.setVolumeChangeState = function () {\n      var isActive = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];\n\n      _this.setState({\n        isVolumeChangeActive: isActive\n      });\n    }, _this.onMouseMoveContainer = function () {\n      var _this$state2 = _this.state;\n      var autoHideTimeout = _this$state2.autoHideTimeout;\n      var controlsVisible = _this$state2.controlsVisible;\n      var isPlaying = _this$state2.isPlaying;\n\n\n      clearTimeout(autoHideTimeout);\n\n      if (!controlsVisible) {\n        _this.setState({\n          controlsVisible: true\n        });\n      }\n\n      if (isPlaying) {\n        _this.setTimeoutToHideControls();\n      }\n    }, _this.onPause = function (e, instance) {\n      var onPause = _this.props.onPause;\n      var autoHideTimeout = _this.state.autoHideTimeout;\n\n\n      clearTimeout(autoHideTimeout);\n\n      _this.setState({\n        controlsVisible: true,\n        isPlaying: false\n      });\n\n      if (onPause) {\n        onPause.call(instance, e, instance);\n      }\n\n      _this.setPercentLoaded(instance.percentLoaded);\n    }, _this.onPlay = function (e, instance) {\n      var onPlay = _this.props.onPlay;\n      var controlsVisible = _this.state.controlsVisible;\n\n\n      _this.setState({\n        isPlaying: true\n      });\n\n      if (onPlay) {\n        onPlay.call(instance, e, instance);\n      }\n\n      _this.setPercentLoaded(instance.percentLoaded);\n\n      if (controlsVisible) {\n        _this.setTimeoutToHideControls();\n      }\n    }, _this.onTimeUpdate = function (e, instance) {\n      var onTimeUpdate = _this.props.onTimeUpdate;\n\n\n      _this.setPercentPlayed(instance.currentTime, instance.duration);\n      _this.setPercentLoaded(instance.percentLoaded);\n      _this.setTimeRepresentation({\n        currentTime: instance.currentTime\n      });\n\n      if (onTimeUpdate) {\n        onTimeUpdate.call(instance, e, instance);\n      }\n    }, _this.onVolumeChange = function (e, instance) {\n      var onVolumeChange = _this.props.onVolumeChange;\n\n\n      var volume = _this.vidzInstance.volume;\n\n      _this.setState({\n        volume: volume\n      });\n\n      if (onVolumeChange) {\n        onVolumeChange.call(instance, e, instance);\n      }\n    }, _this.setDurationTrackButtonPosition = function (percentage) {\n      var setTime = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];\n\n      var marginLeft = Math.round(percentage * 12);\n      var percentInPixels = Math.round(percentage * _this.duration.clientWidth);\n      var left = percentInPixels - marginLeft;\n\n      if (transformProperty) {\n        _this.durationTrackButton.style.transform = 'translate3d(' + left + 'px, 0, 0)';\n      } else {\n        _this.durationTrackButton.style.left = left + 'px';\n      }\n\n      if (setTime) {\n        _this.setTime(percentage);\n      }\n    }, _this.setPercentLoaded = function (percentLoaded) {\n      _this.durationTrack.style.width = percentLoaded + '%';\n    }, _this.setPercentPlayed = function (currentTime, duration) {\n      var percentPlayed = (0, _utils.getPercentPlayed)(currentTime, duration);\n\n      _this.setDurationTrackButtonPosition(percentPlayed / 100);\n    }, _this.setTime = (0, _debounce2.default)(function (percentage) {\n      _this.vidzInstance.setCurrentTime(percentage * _this.vidzInstance.duration);\n    }, 50), _this.setTimeRepresentation = function (_ref) {\n      var currentTime = _ref.currentTime;\n      var duration = _ref.duration;\n\n      if (!(0, _isUndefined2.default)(currentTime)) {\n        _this.setState({\n          currentTime: currentTime\n        });\n      }\n\n      if (!(0, _isUndefined2.default)(duration)) {\n        _this.setState({\n          duration: duration\n        });\n      }\n    }, _this.setTimeoutToHideControls = function () {\n      var preventAutoHideControls = _this.props.preventAutoHideControls;\n\n\n      if (!preventAutoHideControls) {\n        var autoHideTimeout = setTimeout(function () {\n          _this.setState({\n            controlsVisible: false\n          });\n        }, 3000);\n\n        _this.setState({\n          autoHideTimeout: autoHideTimeout\n        });\n      }\n    }, _this.setVidzInstance = function () {\n      if (_this.refs.container.parentNode.clientWidth === 0) {\n        _this.debounceSetPlayerDimensions();\n      }\n\n      var _this$props2 = _this.props;\n      var autoplay = _this$props2.autoplay;\n      var muted = _this$props2.muted;\n\n      var _this$getHeightAndWid = _this.getHeightAndWidth();\n\n      var height = _this$getHeightAndWid.height;\n      var width = _this$getHeightAndWid.width;\n\n\n      _this.vidzInstance = (0, _vidz2.default)(_this.refs.playerContainer, _extends({}, _this.props, {\n        controls: false,\n        height: height,\n        onLoadedMetadata: _this.onLoadedMetadata,\n        onPause: _this.onPause,\n        onPlay: _this.onPlay,\n        onTimeUpdate: _this.onTimeUpdate,\n        onVolumeChange: _this.onVolumeChange,\n        width: width\n      }));\n\n      _this.vidzInstance.player.style.display = 'block';\n\n      if (autoplay) {\n        _this.setState({\n          isPlaying: true\n        });\n      }\n\n      if (muted) {\n        _this.setState({\n          isMuted: true\n        });\n      }\n\n      _this.setState({\n        isLoaded: true\n      });\n    }, _this.setVolume = (0, _debounce2.default)(function (percentage) {\n      _this.vidzInstance.setVolume(percentage);\n    }, 50), _this.setVolumeTrackButtonPosition = function (percentage) {\n      var setVolume = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];\n\n      var top = Math.round(percentage * _this.volumeTrack.clientHeight);\n\n      if (transformProperty) {\n        _this.volumeTrackButton.style.transform = 'translate3d(0, ' + top + 'px, 0)';\n      } else {\n        _this.volumeTrackButton.style.top = top + 'px';\n      }\n\n      if (setVolume) {\n        _this.setVolume(1 - percentage);\n      }\n    }, _temp), _possibleConstructorReturn(_this, _ret);\n  }\n\n  _createClass(VidzPlayer, [{\n    key: 'componentWillMount',\n    value: function componentWillMount() {\n      var canUseFullscreen = document[fullscreenEnabled];\n\n      this.setState({\n        canUseFullscreen: canUseFullscreen\n      });\n    }\n  }, {\n    key: 'componentDidMount',\n    value: function componentDidMount() {\n      this.setVidzInstance();\n\n      (0, _elementResizeEvent2.default)(this.refs.container, this.debounceSetPlayerDimensions);\n\n      document.addEventListener(fullscreenchange, this.onFullscreenChange);\n      window.addEventListener('resize', this.debounceSetPlayerDimensionsOnResize);\n    }\n  }, {\n    key: 'componentDidUpdate',\n    value: function componentDidUpdate(previousProps) {\n      if (!(0, _shallowEqual2.default)(this.props, previousProps) || !this.state.isLoaded) {\n        this.setVidzInstance();\n      }\n    }\n  }, {\n    key: 'componentWillUnmount',\n    value: function componentWillUnmount() {\n      document.removeEventListener(fullscreenchange, this.onFullscreenChange);\n      window.removeEventListener('resize', this.debounceSetPlayerDimensionsOnResize);\n    }\n\n    /**\n     * if in fullscreen mode, resize the player because it isn't handled by the\n     * element resize\n     */\n\n\n    /**\n     * resize the Vidz instance dimensions\n     */\n\n\n    /**\n     * get the intended height and width\n     * \n     * the width is either the explicit width passed as a prop, the width of the \n     * parent container, or if in fullscreen mode the width of the window\n     * \n     * the height is either the explicit height passed as a prop or the aspect\n     * ratio of the video based on its metadata (with a generic default until\n     * metadata has loaded)\n     * \n     * @return {{height: number, width: number}}\n     */\n\n\n    /**\n     * set the currentTime of the video based on the location clicked\n     * \n     * @param {Event} e\n     */\n\n\n    /**\n     * increase the playback rate in increments in PLAYBACK_SPEEDS\n     */\n\n\n    /**\n     * toggle between play and pause\n     */\n\n\n    /**\n     * toggle between fullscreen mode and standard mode\n     */\n\n\n    /**\n     * toggle between muted and unmuted\n     */\n\n\n    /**\n     * set the volume based on the location clicked\n     *\n     * @param {Event} e\n     */\n\n\n    /**\n     * based on where the button was dragged, calculate the percentage\n     * of the total video length and jump to that time location\n     *\n     * @param {Event} e\n     */\n\n\n    /**\n     * based on where the button was dragged, calculate the percentage\n     * of the total volume length and apply that volume\n     *\n     * @param {Event} e\n     */\n\n\n    /**\n     * when finished dragging the button, remove the listeners\n     *\n     * @param {Event} e\n     */\n\n\n    /**\n     * when finished dragging the button, remove the listeners and if there\n     * are functions in the queue to fire, fire them\n     *\n     * @param {Event} e\n     */\n\n\n    /**\n     * when you start dragging, add listeners to update the currentTime\n     * onDrag\n     *\n     * @param {Event} e\n     */\n\n\n    /**\n     * when you start dragging, add listeners to update the volume\n     * onDrag\n     *\n     * @param {Event} e\n     */\n\n\n    /**\n     * when the fullscreen state changes, reset the dimensions of the video\n     */\n\n\n    /**\n     * when metadata has loaded, update the percentLoaded and the\n     * time displayed, and fire the function passed by props if exists\n     *\n     * @param {Event} e\n     * @param {Vidz} instance\n     */\n\n\n    /**\n     * show the volume bar on mouseenter\n     */\n\n\n    /**\n     * hide the volume bar on mouseleave unless a drag is in effect,\n     * else queue up the closure of it\n     */\n\n\n    /**\n     * set the active state of the volume bar\n     * \n     * @param {boolean} isActive\n     */\n\n\n    /**\n     * when mouse movement occurs over the container, clear\n     * the timeout of hiding the controls and set a new one\n     */\n\n\n    /**\n     * on pause set the controls to be visible and the isPlaying state,\n     * plus the function passed by props if it exists\n     * \n     * @param {Event} e\n     * @param {instance} instance\n     */\n\n\n    /**\n     * on play set the hde controls timeout and the isPlaying state,\n     * plus the function passed by props if it exists\n     *\n     * @param {Event} e\n     * @param {instance} instance\n     */\n\n\n    /**\n     * on time update set the currentTime and percent loaded,\n     * plus the function passed by props if it exists\n     *\n     * @param {Event} e\n     * @param {instance} instance\n     */\n\n\n    /**\n     * on volume change set the volume in state,\n     * plus the function passed by props if it exists\n     *\n     * @param {Event} e\n     * @param {instance} instance\n     */\n\n\n    /**\n     * update the position of the durationTrackButton,\n     * and the currentTime if setTime is true\n     * \n     * @param {number} percentage\n     * @param {boolean} setTime=false\n     */\n\n\n    /**\n     * update the width of the duration track with the new percent loaded\n     * \n     * @param {number} percentLoaded\n     */\n\n\n    /**\n     * set the position of the duration track button based on the percent played\n     * \n     * @param {number} currentTime\n     * @param {number} duration\n     */\n\n\n    /**\n     * set the currentTime on the Vidz instance based on the percentage of the duration\n     */\n\n\n    /**\n     * set the currentTime and duration in state so they can be reflected\n     * in the visual display\n     * \n     * @param {number} currentTime\n     * @param {number} duration\n     */\n\n\n    /**\n     * set the timeout to hide the controls from inactivity\n     */\n\n\n    /**\n     * create a new Vidz instance and save it to the class' instance\n     */\n\n\n    /**\n     * update the volume of the Vidz instance based on the percentage passed\n     */\n\n\n    /**\n     * update the position of the volume track button based on the percentage passed,\n     * and set the volume if setVolume is true\n     * \n     * @param {number} percentage\n     * @param {boolean} setVolume=false\n     */\n\n  }, {\n    key: 'render',\n    value: function render() {\n      var _this2 = this;\n\n      var _props = this.props;\n      var controlsBackgroundColor = _props.controlsBackgroundColor;\n      var controlsFontColor = _props.controlsFontColor;\n      var playOnClick = _props.playOnClick;\n      var controlsTrackColor = _props.controlsTrackColor;\n      var theme = _props.theme;\n      var _state = this.state;\n      var canUseFullscreen = _state.canUseFullscreen;\n      var controlsVisible = _state.controlsVisible;\n      var currentTime = _state.currentTime;\n      var duration = _state.duration;\n      var isFullscreen = _state.isFullscreen;\n      var isMuted = _state.isMuted;\n      var isPlaying = _state.isPlaying;\n      var isVolumeChangeActive = _state.isVolumeChangeActive;\n      var playbackRateIndex = _state.playbackRateIndex;\n\n\n      var volume = this.vidzInstance ? this.vidzInstance.volume : 1;\n      var volumeIcon = (0, _utils.getVolumeIcon)(volume, isMuted);\n\n      var styles = void 0;\n\n      switch (theme) {\n        case THEMES[1]:\n          styles = _styles.lightStyles;\n          break;\n\n        default:\n          styles = _styles.darkStyles;\n          break;\n      }\n\n      var controlsStyle = (0, _utils.getControlsContainerStyle)(styles.controlsContainer, controlsVisible);\n      var durationTrackStyle = (0, _utils.getControlStyle)(styles.durationTrack, controlsTrackColor);\n      var durationTrackButtonStyle = (0, _utils.getControlStyle)(styles.durationTrackButton, controlsFontColor);\n      var playPauseButtonStyle = (0, _utils.getControlStyle)(styles.playPauseButton, controlsBackgroundColor, controlsFontColor);\n      var volumeButtonStyle = (0, _utils.getControlStyle)(styles.volumeButton, controlsBackgroundColor, controlsFontColor);\n      var informationContainerStyle = (0, _utils.getControlStyle)(styles.informationContainer, controlsBackgroundColor, controlsFontColor);\n      var fastForwardButtonStyle = (0, _utils.getControlStyle)(styles.fastForwardButton, controlsBackgroundColor, controlsFontColor);\n      var fullscreenButtonStyle = (0, _utils.getControlStyle)(styles.fullscreenButton, controlsBackgroundColor, controlsFontColor);\n      var volumeChangeStyle = (0, _utils.getVolumeChangeStyle)(styles.volumeChange, _styles.allStyles.volumeChangeActive, isVolumeChangeActive, controlsBackgroundColor, controlsFontColor);\n      var volumeChangeTrackStyle = (0, _utils.getControlStyle)(styles.volumeChangeTrack, controlsTrackColor);\n      var volumeTrackButtonStyle = (0, _utils.getControlStyle)(styles.volumeTrackButton, controlsFontColor);\n\n      return _react2.default.createElement(\n        'div',\n        {\n          onMouseMove: this.onMouseMoveContainer,\n          ref: 'container',\n          style: styles.container\n        },\n        _react2.default.createElement('div', {\n          onClick: playOnClick && this.onClickPlayPauseButton,\n          ref: 'playerContainer'\n        }),\n        _react2.default.createElement(\n          'div',\n          { style: controlsStyle },\n          _react2.default.createElement(\n            _Display2.default,\n            {\n              onClick: this.onClickDurationTrack,\n              ref: function ref(component) {\n                _this2.duration = (0, _reactDom.findDOMNode)(component);\n              },\n              style: styles.durationSlider\n            },\n            _react2.default.createElement(_Track2.default, {\n              ref: function ref(component) {\n                _this2.durationTrack = (0, _reactDom.findDOMNode)(component);\n              },\n              style: durationTrackStyle\n            }),\n            _react2.default.createElement(_TrackButton2.default, {\n              label: 'Seek to a different time in the video',\n              onMouseDown: this.onDragStartDurationTrackButton,\n              ref: function ref(component) {\n                _this2.durationTrackButton = (0, _reactDom.findDOMNode)(component);\n              },\n              style: durationTrackButtonStyle\n            })\n          ),\n          _react2.default.createElement(\n            'div',\n            { style: styles.actionsContainer },\n            _react2.default.createElement(_Button2.default, {\n              onClick: this.onClickPlayPauseButton,\n              icon: isPlaying ? _icons.availableIcons.PAUSE : _icons.availableIcons.PLAY,\n              label: 'Toggle playing the video',\n              style: playPauseButtonStyle\n            }),\n            _react2.default.createElement(_InformationBar2.default, {\n              currentTime: currentTime,\n              duration: duration,\n              style: informationContainerStyle\n            }),\n            _react2.default.createElement(\n              _Button2.default,\n              {\n                icon: _icons.availableIcons.FAST_FORWARD,\n                onClick: this.onClickFastForward,\n                label: 'Increase the playback speed',\n                style: fastForwardButtonStyle\n              },\n              _react2.default.createElement(\n                'span',\n                { style: styles.speedIdentifier },\n                PLAYBACK_SPEEDS[playbackRateIndex],\n                'x'\n              )\n            ),\n            _react2.default.createElement(\n              _VolumeContainer2.default,\n              {\n                onMouseEnter: this.onMouseEnterVolumeChange,\n                onMouseLeave: this.onMouseLeaveVolumeChange,\n                style: styles.volumnChangeContainer\n              },\n              _react2.default.createElement(_Button2.default, {\n                icon: volumeIcon,\n                onClick: this.onClickToggleVolumeMuted,\n                label: 'Toggle the video being muted',\n                style: volumeButtonStyle\n              }),\n              _react2.default.createElement(\n                _Display2.default,\n                {\n                  onClick: this.onClickVolumeTrack,\n                  ref: function ref(component) {\n                    _this2.volume = (0, _reactDom.findDOMNode)(component);\n                  },\n                  style: volumeChangeStyle\n                },\n                _react2.default.createElement(_Track2.default, {\n                  ref: function ref(component) {\n                    _this2.volumeTrack = (0, _reactDom.findDOMNode)(component);\n                  },\n                  style: volumeChangeTrackStyle\n                }),\n                _react2.default.createElement(_TrackButton2.default, {\n                  label: 'Change the volume',\n                  onMouseDown: this.onDragStartVolumeTrackButton,\n                  ref: function ref(component) {\n                    _this2.volumeTrackButton = (0, _reactDom.findDOMNode)(component);\n                  },\n                  style: volumeTrackButtonStyle\n                })\n              )\n            ),\n            canUseFullscreen && _react2.default.createElement(_Button2.default, {\n              icon: isFullscreen ? _icons.availableIcons.SHRINK : _icons.availableIcons.EXPAND,\n              label: 'Toggle fullscreen mode',\n              onClick: this.onClickToggleFullscreen,\n              style: fullscreenButtonStyle\n            })\n          )\n        )\n      );\n    }\n  }]);\n\n  return VidzPlayer;\n}(_react.Component), _class2.propTypes = {\n  autoplay: _react.PropTypes.bool,\n  controlsBackgroundColor: _react.PropTypes.string,\n  controlsFontColor: _react.PropTypes.string,\n  controlsTrackColor: _react.PropTypes.string,\n  height: _react.PropTypes.number,\n  loop: _react.PropTypes.bool,\n  mp4: _react.PropTypes.string,\n  muted: _react.PropTypes.bool,\n  ogg: _react.PropTypes.string,\n  onCanPlay: _react.PropTypes.func,\n  onCanPlayType: _react.PropTypes.func,\n  onDurationChange: _react.PropTypes.func,\n  onEmptied: _react.PropTypes.func,\n  onEnded: _react.PropTypes.func,\n  onError: _react.PropTypes.func,\n  onLoad: _react.PropTypes.func,\n  onLoadedData: _react.PropTypes.func,\n  onLoadedMetadata: _react.PropTypes.func,\n  onLoadStart: _react.PropTypes.func,\n  onPause: _react.PropTypes.func,\n  onPlay: _react.PropTypes.func,\n  onProgress: _react.PropTypes.func,\n  onSeeked: _react.PropTypes.func,\n  onSeeking: _react.PropTypes.func,\n  onStalled: _react.PropTypes.func,\n  onSuspend: _react.PropTypes.func,\n  onTimeUpdate: _react.PropTypes.func,\n  onWaiting: _react.PropTypes.func,\n  playOnClick: _react.PropTypes.bool,\n  preload: _react.PropTypes.string,\n  preventAutoHideControls: _react.PropTypes.bool,\n  theme: _react.PropTypes.oneOf(THEMES),\n  webm: _react.PropTypes.string,\n  width: _react.PropTypes.number\n}, _class2.defaultProps = {\n  autoplay: false,\n  controls: false,\n  loop: false,\n  muted: false,\n  playOnClick: false,\n  preventAutoHideControls: false,\n  theme: THEMES[0]\n}, _temp2)) || _class;\n\nexports.default = VidzPlayer;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMS5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9zcmMvaW5kZXguanM/MWZkZiJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBleHRlcm5hbCBkZXBlbmRlbmNpZXNcbmltcG9ydCBlbGVtZW50UmVzaXplIGZyb20gJ2VsZW1lbnQtcmVzaXplLWV2ZW50JztcbmltcG9ydCBkZWJvdW5jZSBmcm9tICdsb2Rhc2gvZGVib3VuY2UnO1xuaW1wb3J0IGlzVW5kZWZpbmVkIGZyb20gJ2xvZGFzaC9pc1VuZGVmaW5lZCc7XG5pbXBvcnQgUmVhY3QsIHtcbiAgQ29tcG9uZW50LFxuICBQcm9wVHlwZXNcbn0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHtcbiAgZmluZERPTU5vZGVcbn0gZnJvbSAncmVhY3QtZG9tJztcbmltcG9ydCB7XG4gIHB1cmVcbn0gZnJvbSAncmVjb21wb3NlJztcbmltcG9ydCBzaGFsbG93RXF1YWwgZnJvbSAncmVjb21wb3NlL3NoYWxsb3dFcXVhbCc7XG5pbXBvcnQgdmlkeiBmcm9tICd2aWR6JztcblxuLy8gY29tcG9uZW50c1xuaW1wb3J0IEJ1dHRvbiBmcm9tICcuL2NvbXBvbmVudHMvQnV0dG9uJztcbmltcG9ydCBEaXNwbGF5IGZyb20gJy4vY29tcG9uZW50cy9EaXNwbGF5JztcbmltcG9ydCBJbmZvcm1hdGlvbkJhciBmcm9tICcuL2NvbXBvbmVudHMvSW5mb3JtYXRpb25CYXInO1xuaW1wb3J0IFRyYWNrIGZyb20gJy4vY29tcG9uZW50cy9UcmFjayc7XG5pbXBvcnQgVHJhY2tCdXR0b24gZnJvbSAnLi9jb21wb25lbnRzL1RyYWNrQnV0dG9uJztcbmltcG9ydCBWb2x1bWVDb250YWluZXIgZnJvbSAnLi9jb21wb25lbnRzL1ZvbHVtZUNvbnRhaW5lcic7XG5cbi8vIGljb25zXG5pbXBvcnQge1xuICBhdmFpbGFibGVJY29uc1xufSBmcm9tICcuL2ljb25zJztcblxuaW1wb3J0IHtcbiAgZ2V0Q29udHJvbHNDb250YWluZXJTdHlsZSxcbiAgZ2V0Q29udHJvbFN0eWxlLFxuICBnZXRGdWxsc2NyZWVuUHJvcGVydGllcyxcbiAgZ2V0UGVyY2VudFBsYXllZCxcbiAgZ2V0VHJhbnNmb3JtUHJvcGVydHksXG4gIGdldFZvbHVtZUNoYW5nZVN0eWxlLFxuICBnZXRWb2x1bWVJY29uXG59IGZyb20gJy4vdXRpbHMnO1xuXG5pbXBvcnQge1xuICBhbGxTdHlsZXMsXG4gIGRhcmtTdHlsZXMsXG4gIGxpZ2h0U3R5bGVzXG59IGZyb20gJy4vc3R5bGVzJztcblxuY29uc3QgVEhFTUVTID0gW1xuICAnZGFyaycsXG4gICdsaWdodCdcbl07XG5cbmNvbnN0IFBMQVlCQUNLX1NQRUVEUyA9IFsxLCAyLCA0LCA4LCAxNl07XG5cbmNvbnN0IHtcbiAgZXhpdEZ1bGxzY3JlZW4sXG4gIGZ1bGxzY3JlZW4sXG4gIGZ1bGxzY3JlZW5jaGFuZ2UsXG4gIGZ1bGxzY3JlZW5FbmFibGVkLFxuICByZXF1ZXN0RnVsbHNjcmVlblxufSA9IGdldEZ1bGxzY3JlZW5Qcm9wZXJ0aWVzKCk7XG5cbmNvbnN0IHRyYW5zZm9ybVByb3BlcnR5ID0gZ2V0VHJhbnNmb3JtUHJvcGVydHkoKTtcblxuQHB1cmVcbmNsYXNzIFZpZHpQbGF5ZXIgZXh0ZW5kcyBDb21wb25lbnQge1xuICBzdGF0aWMgcHJvcFR5cGVzID0ge1xuICAgIGF1dG9wbGF5OiBQcm9wVHlwZXMuYm9vbCxcbiAgICBjb250cm9sc0JhY2tncm91bmRDb2xvcjogUHJvcFR5cGVzLnN0cmluZyxcbiAgICBjb250cm9sc0ZvbnRDb2xvcjogUHJvcFR5cGVzLnN0cmluZyxcbiAgICBjb250cm9sc1RyYWNrQ29sb3I6IFByb3BUeXBlcy5zdHJpbmcsXG4gICAgaGVpZ2h0OiBQcm9wVHlwZXMubnVtYmVyLFxuICAgIGxvb3A6IFByb3BUeXBlcy5ib29sLFxuICAgIG1wNDogUHJvcFR5cGVzLnN0cmluZyxcbiAgICBtdXRlZDogUHJvcFR5cGVzLmJvb2wsXG4gICAgb2dnOiBQcm9wVHlwZXMuc3RyaW5nLFxuICAgIG9uQ2FuUGxheTogUHJvcFR5cGVzLmZ1bmMsXG4gICAgb25DYW5QbGF5VHlwZTogUHJvcFR5cGVzLmZ1bmMsXG4gICAgb25EdXJhdGlvbkNoYW5nZTogUHJvcFR5cGVzLmZ1bmMsXG4gICAgb25FbXB0aWVkOiBQcm9wVHlwZXMuZnVuYyxcbiAgICBvbkVuZGVkOiBQcm9wVHlwZXMuZnVuYyxcbiAgICBvbkVycm9yOiBQcm9wVHlwZXMuZnVuYyxcbiAgICBvbkxvYWQ6IFByb3BUeXBlcy5mdW5jLFxuICAgIG9uTG9hZGVkRGF0YTogUHJvcFR5cGVzLmZ1bmMsXG4gICAgb25Mb2FkZWRNZXRhZGF0YTogUHJvcFR5cGVzLmZ1bmMsXG4gICAgb25Mb2FkU3RhcnQ6IFByb3BUeXBlcy5mdW5jLFxuICAgIG9uUGF1c2U6IFByb3BUeXBlcy5mdW5jLFxuICAgIG9uUGxheTogUHJvcFR5cGVzLmZ1bmMsXG4gICAgb25Qcm9ncmVzczogUHJvcFR5cGVzLmZ1bmMsXG4gICAgb25TZWVrZWQ6IFByb3BUeXBlcy5mdW5jLFxuICAgIG9uU2Vla2luZzogUHJvcFR5cGVzLmZ1bmMsXG4gICAgb25TdGFsbGVkOiBQcm9wVHlwZXMuZnVuYyxcbiAgICBvblN1c3BlbmQ6IFByb3BUeXBlcy5mdW5jLFxuICAgIG9uVGltZVVwZGF0ZTogUHJvcFR5cGVzLmZ1bmMsXG4gICAgb25XYWl0aW5nOiBQcm9wVHlwZXMuZnVuYyxcbiAgICBwbGF5T25DbGljazogUHJvcFR5cGVzLmJvb2wsXG4gICAgcHJlbG9hZDogUHJvcFR5cGVzLnN0cmluZyxcbiAgICBwcmV2ZW50QXV0b0hpZGVDb250cm9sczogUHJvcFR5cGVzLmJvb2wsXG4gICAgdGhlbWU6IFByb3BUeXBlcy5vbmVPZihUSEVNRVMpLFxuICAgIHdlYm06IFByb3BUeXBlcy5zdHJpbmcsXG4gICAgd2lkdGg6IFByb3BUeXBlcy5udW1iZXJcbiAgfTtcblxuICBzdGF0aWMgZGVmYXVsdFByb3BzID0ge1xuICAgIGF1dG9wbGF5OiBmYWxzZSxcbiAgICBjb250cm9sczogZmFsc2UsXG4gICAgbG9vcDogZmFsc2UsXG4gICAgbXV0ZWQ6IGZhbHNlLFxuICAgIHBsYXlPbkNsaWNrOiBmYWxzZSxcbiAgICBwcmV2ZW50QXV0b0hpZGVDb250cm9sczogZmFsc2UsXG4gICAgdGhlbWU6IFRIRU1FU1swXVxuICB9O1xuXG4gIHN0YXRlID0ge1xuICAgIGF1dG9IaWRlVGltZW91dDogbnVsbCxcbiAgICBjYW5Vc2VGdWxsc2NyZWVuOiB0cnVlLFxuICAgIGNvbnRyb2xzVmlzaWJsZTogdHJ1ZSxcbiAgICBjdXJyZW50VGltZTogMCxcbiAgICBkdXJhdGlvbjogMCxcbiAgICBpc0RyYWdnaW5nRHVyYXRpb25UcmFja0J1dHRvbjogZmFsc2UsXG4gICAgaXNEcmFnZ2luZ1ZvbHVtZVRyYWNrQnV0dG9uOiBmYWxzZSxcbiAgICBpc0Z1bGxzY3JlZW46IGZhbHNlLFxuICAgIGlzTG9hZGVkOiBmYWxzZSxcbiAgICBpc011dGVkOiBmYWxzZSxcbiAgICBpc1BsYXlpbmc6IGZhbHNlLFxuICAgIGlzVm9sdW1lQ2hhbmdlQWN0aXZlOiBmYWxzZSxcbiAgICBwbGF5YmFja1JhdGVJbmRleDogMCxcbiAgICBxdWV1ZWRPblZvbHVtZVNldDogW10sXG4gICAgdm9sdW1lOiAxXG4gIH07XG5cbiAgY29tcG9uZW50V2lsbE1vdW50KCkge1xuICAgIGNvbnN0IGNhblVzZUZ1bGxzY3JlZW4gPSBkb2N1bWVudFtmdWxsc2NyZWVuRW5hYmxlZF07XG5cbiAgICB0aGlzLnNldFN0YXRlKHtcbiAgICAgIGNhblVzZUZ1bGxzY3JlZW5cbiAgICB9KTtcbiAgfVxuXG4gIGNvbXBvbmVudERpZE1vdW50KCkge1xuICAgIHRoaXMuc2V0Vmlkekluc3RhbmNlKCk7XG5cbiAgICBlbGVtZW50UmVzaXplKHRoaXMucmVmcy5jb250YWluZXIsIHRoaXMuZGVib3VuY2VTZXRQbGF5ZXJEaW1lbnNpb25zKTtcblxuICAgIGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoZnVsbHNjcmVlbmNoYW5nZSwgdGhpcy5vbkZ1bGxzY3JlZW5DaGFuZ2UpO1xuICAgIHdpbmRvdy5hZGRFdmVudExpc3RlbmVyKCdyZXNpemUnLCB0aGlzLmRlYm91bmNlU2V0UGxheWVyRGltZW5zaW9uc09uUmVzaXplKTtcbiAgfVxuXG4gIGNvbXBvbmVudERpZFVwZGF0ZShwcmV2aW91c1Byb3BzKSB7XG4gICAgaWYgKCFzaGFsbG93RXF1YWwodGhpcy5wcm9wcywgcHJldmlvdXNQcm9wcykgfHwgIXRoaXMuc3RhdGUuaXNMb2FkZWQpIHtcbiAgICAgIHRoaXMuc2V0Vmlkekluc3RhbmNlKCk7XG4gICAgfVxuICB9XG5cbiAgY29tcG9uZW50V2lsbFVubW91bnQoKSB7XG4gICAgZG9jdW1lbnQucmVtb3ZlRXZlbnRMaXN0ZW5lcihmdWxsc2NyZWVuY2hhbmdlLCB0aGlzLm9uRnVsbHNjcmVlbkNoYW5nZSk7XG4gICAgd2luZG93LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ3Jlc2l6ZScsIHRoaXMuZGVib3VuY2VTZXRQbGF5ZXJEaW1lbnNpb25zT25SZXNpemUpO1xuICB9XG5cbiAgZHVyYXRpb24gPSBudWxsO1xuICBkdXJhdGlvblRyYWNrID0gbnVsbDtcbiAgZHVyYXRpb25UcmFja0J1dHRvbiA9IG51bGw7XG4gIHZpZHpJbnN0YW5jZSA9IG51bGw7XG4gIHZvbHVtZSA9IG51bGw7XG4gIHZvbHVtZVRyYWNrID0gbnVsbDtcbiAgdm9sdW1lVHJhY2tCdXR0b24gPSBudWxsO1xuXG4gIC8qKlxuICAgKiBpZiBpbiBmdWxsc2NyZWVuIG1vZGUsIHJlc2l6ZSB0aGUgcGxheWVyIGJlY2F1c2UgaXQgaXNuJ3QgaGFuZGxlZCBieSB0aGVcbiAgICogZWxlbWVudCByZXNpemVcbiAgICovXG4gIGRlYm91bmNlU2V0UGxheWVyRGltZW5zaW9uc09uUmVzaXplID0gZGVib3VuY2UoKCkgPT4ge1xuICAgIGNvbnN0IHtcbiAgICAgIGlzRnVsbHNjcmVlblxuICAgIH0gPSB0aGlzLnN0YXRlO1xuXG4gICAgaWYgKGlzRnVsbHNjcmVlbikge1xuICAgICAgdGhpcy5kZWJvdW5jZVNldFBsYXllckRpbWVuc2lvbnMoKTtcbiAgICB9XG4gIH0sIDUwKTtcblxuICAvKipcbiAgICogcmVzaXplIHRoZSBWaWR6IGluc3RhbmNlIGRpbWVuc2lvbnNcbiAgICovXG4gIGRlYm91bmNlU2V0UGxheWVyRGltZW5zaW9ucyA9IGRlYm91bmNlKCgpID0+IHtcbiAgICBjb25zdCBkaW1lbnNpb25zID0gdGhpcy5nZXRIZWlnaHRBbmRXaWR0aCgpO1xuXG4gICAgdGhpcy52aWR6SW5zdGFuY2Uuc2V0UGxheWVyRGltZW5zaW9ucyhkaW1lbnNpb25zKTtcbiAgfSwgNTApO1xuXG4gIC8qKlxuICAgKiBnZXQgdGhlIGludGVuZGVkIGhlaWdodCBhbmQgd2lkdGhcbiAgICogXG4gICAqIHRoZSB3aWR0aCBpcyBlaXRoZXIgdGhlIGV4cGxpY2l0IHdpZHRoIHBhc3NlZCBhcyBhIHByb3AsIHRoZSB3aWR0aCBvZiB0aGUgXG4gICAqIHBhcmVudCBjb250YWluZXIsIG9yIGlmIGluIGZ1bGxzY3JlZW4gbW9kZSB0aGUgd2lkdGggb2YgdGhlIHdpbmRvd1xuICAgKiBcbiAgICogdGhlIGhlaWdodCBpcyBlaXRoZXIgdGhlIGV4cGxpY2l0IGhlaWdodCBwYXNzZWQgYXMgYSBwcm9wIG9yIHRoZSBhc3BlY3RcbiAgICogcmF0aW8gb2YgdGhlIHZpZGVvIGJhc2VkIG9uIGl0cyBtZXRhZGF0YSAod2l0aCBhIGdlbmVyaWMgZGVmYXVsdCB1bnRpbFxuICAgKiBtZXRhZGF0YSBoYXMgbG9hZGVkKVxuICAgKiBcbiAgICogQHJldHVybiB7e2hlaWdodDogbnVtYmVyLCB3aWR0aDogbnVtYmVyfX1cbiAgICovXG4gIGdldEhlaWdodEFuZFdpZHRoID0gKCkgPT4ge1xuICAgIGNvbnN0IHtcbiAgICAgIGhlaWdodDogaGVpZ2h0RnJvbVByb3BzLFxuICAgICAgd2lkdGg6IHdpZHRoRnJvbVByb3BzXG4gICAgfSA9IHRoaXMucHJvcHM7XG4gICAgY29uc3Qge1xuICAgICAgaXNGdWxsc2NyZWVuXG4gICAgfSA9IHRoaXMuc3RhdGU7XG5cbiAgICBsZXQgd2lkdGggPSB3aWR0aEZyb21Qcm9wcztcblxuICAgIGlmIChpc0Z1bGxzY3JlZW4pIHtcbiAgICAgIHdpZHRoID0gd2luZG93LmlubmVyV2lkdGg7XG4gICAgfSBlbHNlIGlmIChpc1VuZGVmaW5lZCh3aWR0aCkpIHtcbiAgICAgIHdpZHRoID0gTWF0aC5yb3VuZCh0aGlzLnJlZnMuY29udGFpbmVyLmNsaWVudFdpZHRoKTtcbiAgICB9XG5cbiAgICBsZXQgaGVpZ2h0ID0gaGVpZ2h0RnJvbVByb3BzO1xuXG4gICAgaWYgKGlzVW5kZWZpbmVkKGhlaWdodCkpIHtcbiAgICAgIGlmICh0aGlzLnZpZHpJbnN0YW5jZSkge1xuICAgICAgICBjb25zdCBuYXR1cmFsSGVpZ2h0ID0gdGhpcy52aWR6SW5zdGFuY2UucGxheWVyLnZpZGVvSGVpZ2h0O1xuICAgICAgICBjb25zdCBuYXR1cmFsV2lkdGggPSB0aGlzLnZpZHpJbnN0YW5jZS5wbGF5ZXIudmlkZW9XaWR0aDtcbiAgICAgICAgY29uc3QgbXVsdGlwbGllciA9IHRoaXMudmlkekluc3RhbmNlLnBsYXllci53aWR0aCAvIG5hdHVyYWxXaWR0aDtcblxuICAgICAgICBoZWlnaHQgPSBNYXRoLnJvdW5kKG5hdHVyYWxIZWlnaHQgKiBtdWx0aXBsaWVyKTtcbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIGhlaWdodCA9IE1hdGgucm91bmQod2lkdGggKiAwLjYpO1xuICAgICAgfVxuICAgIH1cblxuICAgIGlmIChpc0Z1bGxzY3JlZW4pIHtcbiAgICAgIGNvbnN0IG1heEhlaWdodCA9IHdpbmRvdy5pbm5lckhlaWdodDtcblxuICAgICAgaWYgKGhlaWdodCA+IG1heEhlaWdodCkge1xuICAgICAgICBoZWlnaHQgPSBtYXhIZWlnaHQ7XG4gICAgICB9XG4gICAgfVxuXG4gICAgcmV0dXJuIHtcbiAgICAgIGhlaWdodCxcbiAgICAgIHdpZHRoXG4gICAgfTtcbiAgfTtcblxuICAvKipcbiAgICogc2V0IHRoZSBjdXJyZW50VGltZSBvZiB0aGUgdmlkZW8gYmFzZWQgb24gdGhlIGxvY2F0aW9uIGNsaWNrZWRcbiAgICogXG4gICAqIEBwYXJhbSB7RXZlbnR9IGVcbiAgICovXG4gIG9uQ2xpY2tEdXJhdGlvblRyYWNrID0gKGUpID0+IHtcbiAgICBjb25zdCBsZWZ0ID0gdGhpcy5kdXJhdGlvbi5nZXRCb3VuZGluZ0NsaWVudFJlY3QoKS5sZWZ0O1xuICAgIGNvbnN0IG9mZnNldCA9IGUucGFnZVggLSBsZWZ0O1xuICAgIGNvbnN0IHBlcmNlbnRhZ2UgPSBvZmZzZXQgLyB0aGlzLmR1cmF0aW9uLmNsaWVudFdpZHRoO1xuXG4gICAgdGhpcy5zZXREdXJhdGlvblRyYWNrQnV0dG9uUG9zaXRpb24ocGVyY2VudGFnZSwgdHJ1ZSk7XG4gIH07XG5cbiAgLyoqXG4gICAqIGluY3JlYXNlIHRoZSBwbGF5YmFjayByYXRlIGluIGluY3JlbWVudHMgaW4gUExBWUJBQ0tfU1BFRURTXG4gICAqL1xuICBvbkNsaWNrRmFzdEZvcndhcmQgPSAoKSA9PiB7XG4gICAgY29uc3Qge1xuICAgICAgaXNQbGF5aW5nLFxuICAgICAgcGxheWJhY2tSYXRlSW5kZXhcbiAgICB9ID0gdGhpcy5zdGF0ZTtcblxuICAgIGlmIChpc1BsYXlpbmcpIHtcbiAgICAgIGNvbnN0IG5ld0luZGV4ID0gcGxheWJhY2tSYXRlSW5kZXggPT09IFBMQVlCQUNLX1NQRUVEUy5sZW5ndGggLSAxID8gMCA6IHBsYXliYWNrUmF0ZUluZGV4ICsgMTtcblxuICAgICAgdGhpcy5zZXRTdGF0ZSh7XG4gICAgICAgIHBsYXliYWNrUmF0ZUluZGV4OiBuZXdJbmRleFxuICAgICAgfSk7XG5cbiAgICAgIHRoaXMudmlkekluc3RhbmNlLnNldFBsYXliYWNrUmF0ZShQTEFZQkFDS19TUEVFRFNbbmV3SW5kZXhdKTtcbiAgICB9XG4gIH07XG5cbiAgLyoqXG4gICAqIHRvZ2dsZSBiZXR3ZWVuIHBsYXkgYW5kIHBhdXNlXG4gICAqL1xuICBvbkNsaWNrUGxheVBhdXNlQnV0dG9uID0gKCkgPT4ge1xuICAgIGNvbnN0IHtcbiAgICAgIGlzUGxheWluZ1xuICAgIH0gPSB0aGlzLnN0YXRlO1xuXG4gICAgaWYgKHRoaXMudmlkekluc3RhbmNlLnBsYXliYWNrUmF0ZSAhPT0gMSkge1xuICAgICAgdGhpcy52aWR6SW5zdGFuY2Uuc2V0UGxheWJhY2tSYXRlKDEpO1xuXG4gICAgICB0aGlzLnNldFN0YXRlKHtcbiAgICAgICAgcGxheWJhY2tSYXRlSW5kZXg6IDBcbiAgICAgIH0pO1xuICAgIH1cblxuICAgIGlmIChpc1BsYXlpbmcpIHtcbiAgICAgIHRoaXMudmlkekluc3RhbmNlLnBhdXNlKCk7XG4gICAgfSBlbHNlIHtcbiAgICAgIHRoaXMudmlkekluc3RhbmNlLnBsYXkoKTtcbiAgICB9XG4gIH07XG5cbiAgLyoqXG4gICAqIHRvZ2dsZSBiZXR3ZWVuIGZ1bGxzY3JlZW4gbW9kZSBhbmQgc3RhbmRhcmQgbW9kZVxuICAgKi9cbiAgb25DbGlja1RvZ2dsZUZ1bGxzY3JlZW4gPSAoKSA9PiB7XG4gICAgY29uc3Qge1xuICAgICAgaXNGdWxsc2NyZWVuXG4gICAgfSA9IHRoaXMuc3RhdGU7XG5cbiAgICBpZiAoaXNGdWxsc2NyZWVuKSB7XG4gICAgICBkb2N1bWVudFtleGl0RnVsbHNjcmVlbl0oKTtcbiAgICB9IGVsc2Uge1xuICAgICAgdGhpcy5yZWZzLmNvbnRhaW5lcltyZXF1ZXN0RnVsbHNjcmVlbl0oKTtcbiAgICB9XG4gIH07XG5cbiAgLyoqXG4gICAqIHRvZ2dsZSBiZXR3ZWVuIG11dGVkIGFuZCB1bm11dGVkXG4gICAqL1xuICBvbkNsaWNrVG9nZ2xlVm9sdW1lTXV0ZWQgPSAoKSA9PiB7XG4gICAgY29uc3Qge1xuICAgICAgaXNNdXRlZFxuICAgIH0gPSB0aGlzLnN0YXRlO1xuXG4gICAgaWYgKGlzTXV0ZWQpIHtcbiAgICAgIHRoaXMuc2V0U3RhdGUoe1xuICAgICAgICBpc011dGVkOiBmYWxzZVxuICAgICAgfSk7XG5cbiAgICAgIHRoaXMudmlkekluc3RhbmNlLnVubXV0ZSgpO1xuICAgIH0gZWxzZSB7XG4gICAgICB0aGlzLnNldFN0YXRlKHtcbiAgICAgICAgaXNNdXRlZDogdHJ1ZVxuICAgICAgfSk7XG5cbiAgICAgIHRoaXMudmlkekluc3RhbmNlLm11dGUoKTtcbiAgICB9XG4gIH07XG5cbiAgLyoqXG4gICAqIHNldCB0aGUgdm9sdW1lIGJhc2VkIG9uIHRoZSBsb2NhdGlvbiBjbGlja2VkXG4gICAqXG4gICAqIEBwYXJhbSB7RXZlbnR9IGVcbiAgICovXG4gIG9uQ2xpY2tWb2x1bWVUcmFjayA9IChlKSA9PiB7XG4gICAgY29uc3QgdG9wID0gdGhpcy52b2x1bWUuZ2V0Qm91bmRpbmdDbGllbnRSZWN0KCkudG9wO1xuICAgIGNvbnN0IG9mZnNldCA9IGUucGFnZVkgLSB0b3A7XG4gICAgY29uc3QgcGVyY2VudGFnZSA9IG9mZnNldCAvIHRoaXMudm9sdW1lLmNsaWVudEhlaWdodDtcblxuICAgIHRoaXMuc2V0Vm9sdW1lVHJhY2tCdXR0b25Qb3NpdGlvbihwZXJjZW50YWdlLCB0cnVlKTtcbiAgfTtcblxuICAvKipcbiAgICogYmFzZWQgb24gd2hlcmUgdGhlIGJ1dHRvbiB3YXMgZHJhZ2dlZCwgY2FsY3VsYXRlIHRoZSBwZXJjZW50YWdlXG4gICAqIG9mIHRoZSB0b3RhbCB2aWRlbyBsZW5ndGggYW5kIGp1bXAgdG8gdGhhdCB0aW1lIGxvY2F0aW9uXG4gICAqXG4gICAqIEBwYXJhbSB7RXZlbnR9IGVcbiAgICovXG4gIG9uRHJhZ0R1cmF0aW9uVHJhY2tCdXR0b24gPSAoZSkgPT4ge1xuICAgIGNvbnN0IGxlZnQgPSB0aGlzLmR1cmF0aW9uLmdldEJvdW5kaW5nQ2xpZW50UmVjdCgpLmxlZnQ7XG5cbiAgICBsZXQgb2Zmc2V0ID0gZS5wYWdlWCAtIGxlZnQ7XG5cbiAgICBsZXQgcGVyY2VudGFnZSA9IG9mZnNldCAvIHRoaXMuZHVyYXRpb24uY2xpZW50V2lkdGg7XG5cbiAgICBpZiAocGVyY2VudGFnZSA+IDEpIHtcbiAgICAgIHBlcmNlbnRhZ2UgPSAxO1xuICAgIH0gZWxzZSBpZiAocGVyY2VudGFnZSA8IDApIHtcbiAgICAgIHBlcmNlbnRhZ2UgPSAwO1xuICAgIH1cblxuICAgIHRoaXMuc2V0RHVyYXRpb25UcmFja0J1dHRvblBvc2l0aW9uKHBlcmNlbnRhZ2UsIHRydWUpO1xuICB9O1xuXG4gIC8qKlxuICAgKiBiYXNlZCBvbiB3aGVyZSB0aGUgYnV0dG9uIHdhcyBkcmFnZ2VkLCBjYWxjdWxhdGUgdGhlIHBlcmNlbnRhZ2VcbiAgICogb2YgdGhlIHRvdGFsIHZvbHVtZSBsZW5ndGggYW5kIGFwcGx5IHRoYXQgdm9sdW1lXG4gICAqXG4gICAqIEBwYXJhbSB7RXZlbnR9IGVcbiAgICovXG4gIG9uRHJhZ1ZvbHVtZVRyYWNrQnV0dG9uID0gKGUpID0+IHtcbiAgICBjb25zdCB0b3AgPSB0aGlzLnZvbHVtZVRyYWNrLmdldEJvdW5kaW5nQ2xpZW50UmVjdCgpLnRvcDtcblxuICAgIGxldCBvZmZzZXQgPSBlLnBhZ2VZIC0gdG9wO1xuXG4gICAgbGV0IHBlcmNlbnRhZ2UgPSBvZmZzZXQgLyB0aGlzLnZvbHVtZVRyYWNrLmNsaWVudEhlaWdodDtcblxuICAgIGlmIChwZXJjZW50YWdlID4gMSkge1xuICAgICAgcGVyY2VudGFnZSA9IDE7XG4gICAgfSBlbHNlIGlmIChwZXJjZW50YWdlIDwgMCkge1xuICAgICAgcGVyY2VudGFnZSA9IDA7XG4gICAgfVxuXG4gICAgdGhpcy5zZXRWb2x1bWVUcmFja0J1dHRvblBvc2l0aW9uKHBlcmNlbnRhZ2UsIHRydWUpO1xuICB9O1xuXG4gIC8qKlxuICAgKiB3aGVuIGZpbmlzaGVkIGRyYWdnaW5nIHRoZSBidXR0b24sIHJlbW92ZSB0aGUgbGlzdGVuZXJzXG4gICAqXG4gICAqIEBwYXJhbSB7RXZlbnR9IGVcbiAgICovXG4gIG9uRHJhZ0VuZER1cmF0aW9uVHJhY2tCdXR0b24gPSAoZSkgPT4ge1xuICAgIGUuc3RvcFByb3BhZ2F0aW9uKCk7XG4gICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuXG4gICAgdGhpcy5zZXRTdGF0ZSh7XG4gICAgICBpc0RyYWdnaW5nRHVyYXRpb25UcmFja0J1dHRvbjogZmFsc2VcbiAgICB9KTtcblxuICAgIHdpbmRvdy5yZW1vdmVFdmVudExpc3RlbmVyKCdtb3VzZXVwJywgdGhpcy5vbkRyYWdFbmREdXJhdGlvblRyYWNrQnV0dG9uKTtcbiAgICB3aW5kb3cucmVtb3ZlRXZlbnRMaXN0ZW5lcignbW91c2Vtb3ZlJywgdGhpcy5vbkRyYWdEdXJhdGlvblRyYWNrQnV0dG9uKTtcbiAgfTtcblxuICAvKipcbiAgICogd2hlbiBmaW5pc2hlZCBkcmFnZ2luZyB0aGUgYnV0dG9uLCByZW1vdmUgdGhlIGxpc3RlbmVycyBhbmQgaWYgdGhlcmVcbiAgICogYXJlIGZ1bmN0aW9ucyBpbiB0aGUgcXVldWUgdG8gZmlyZSwgZmlyZSB0aGVtXG4gICAqXG4gICAqIEBwYXJhbSB7RXZlbnR9IGVcbiAgICovXG4gIG9uRHJhZ0VuZFZvbHVtZVRyYWNrQnV0dG9uID0gKGUpID0+IHtcbiAgICBlLnN0b3BQcm9wYWdhdGlvbigpO1xuICAgIGUucHJldmVudERlZmF1bHQoKTtcblxuICAgIGNvbnN0IHtcbiAgICAgIHF1ZXVlZE9uVm9sdW1lU2V0XG4gICAgfSA9IHRoaXMuc3RhdGU7XG5cbiAgICB0aGlzLnNldFN0YXRlKHtcbiAgICAgIGlzRHJhZ2dpbmdWb2x1bWVUcmFja0J1dHRvbjogZmFsc2VcbiAgICB9KTtcblxuICAgIHF1ZXVlZE9uVm9sdW1lU2V0LmZvckVhY2goKGZuKSA9PiB7XG4gICAgICBmbigpO1xuICAgIH0pO1xuXG4gICAgdGhpcy5zZXRTdGF0ZSh7XG4gICAgICBxdWV1ZWRPblZvbHVtZVNldDogW11cbiAgICB9KTtcblxuICAgIHdpbmRvdy5yZW1vdmVFdmVudExpc3RlbmVyKCdtb3VzZXVwJywgdGhpcy5vbkRyYWdFbmRWb2x1bWVUcmFja0J1dHRvbik7XG4gICAgd2luZG93LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ21vdXNlbW92ZScsIHRoaXMub25EcmFnVm9sdW1lVHJhY2tCdXR0b24pO1xuICB9O1xuXG4gIC8qKlxuICAgKiB3aGVuIHlvdSBzdGFydCBkcmFnZ2luZywgYWRkIGxpc3RlbmVycyB0byB1cGRhdGUgdGhlIGN1cnJlbnRUaW1lXG4gICAqIG9uRHJhZ1xuICAgKlxuICAgKiBAcGFyYW0ge0V2ZW50fSBlXG4gICAqL1xuICBvbkRyYWdTdGFydER1cmF0aW9uVHJhY2tCdXR0b24gPSAoZSkgPT4ge1xuICAgIGUuc3RvcFByb3BhZ2F0aW9uKCk7XG4gICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuXG4gICAgdGhpcy5zZXRTdGF0ZSh7XG4gICAgICBpc0RyYWdnaW5nRHVyYXRpb25UcmFja0J1dHRvbjogdHJ1ZVxuICAgIH0pO1xuXG4gICAgd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ21vdXNldXAnLCB0aGlzLm9uRHJhZ0VuZER1cmF0aW9uVHJhY2tCdXR0b24pO1xuICAgIHdpbmRvdy5hZGRFdmVudExpc3RlbmVyKCdtb3VzZW1vdmUnLCB0aGlzLm9uRHJhZ0R1cmF0aW9uVHJhY2tCdXR0b24pO1xuICB9O1xuXG4gIC8qKlxuICAgKiB3aGVuIHlvdSBzdGFydCBkcmFnZ2luZywgYWRkIGxpc3RlbmVycyB0byB1cGRhdGUgdGhlIHZvbHVtZVxuICAgKiBvbkRyYWdcbiAgICpcbiAgICogQHBhcmFtIHtFdmVudH0gZVxuICAgKi9cbiAgb25EcmFnU3RhcnRWb2x1bWVUcmFja0J1dHRvbiA9IChlKSA9PiB7XG4gICAgZS5zdG9wUHJvcGFnYXRpb24oKTtcbiAgICBlLnByZXZlbnREZWZhdWx0KCk7XG5cbiAgICB0aGlzLnNldFN0YXRlKHtcbiAgICAgIGlzRHJhZ2dpbmdWb2x1bWVUcmFja0J1dHRvbjogdHJ1ZVxuICAgIH0pO1xuXG4gICAgd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ21vdXNldXAnLCB0aGlzLm9uRHJhZ0VuZFZvbHVtZVRyYWNrQnV0dG9uKTtcbiAgICB3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcignbW91c2Vtb3ZlJywgdGhpcy5vbkRyYWdWb2x1bWVUcmFja0J1dHRvbik7XG4gIH07XG5cbiAgLyoqXG4gICAqIHdoZW4gdGhlIGZ1bGxzY3JlZW4gc3RhdGUgY2hhbmdlcywgcmVzZXQgdGhlIGRpbWVuc2lvbnMgb2YgdGhlIHZpZGVvXG4gICAqL1xuICBvbkZ1bGxzY3JlZW5DaGFuZ2UgPSAoKSA9PiB7XG4gICAgdGhpcy5zZXRTdGF0ZSh7XG4gICAgICBpc0Z1bGxzY3JlZW46IGRvY3VtZW50W2Z1bGxzY3JlZW5dXG4gICAgfSk7XG5cbiAgICBjb25zdCBkaW1lbnNpb25zID0gdGhpcy5nZXRIZWlnaHRBbmRXaWR0aCgpO1xuXG4gICAgdGhpcy52aWR6SW5zdGFuY2Uuc2V0UGxheWVyRGltZW5zaW9ucyhkaW1lbnNpb25zKTtcbiAgfTtcblxuICAvKipcbiAgICogd2hlbiBtZXRhZGF0YSBoYXMgbG9hZGVkLCB1cGRhdGUgdGhlIHBlcmNlbnRMb2FkZWQgYW5kIHRoZVxuICAgKiB0aW1lIGRpc3BsYXllZCwgYW5kIGZpcmUgdGhlIGZ1bmN0aW9uIHBhc3NlZCBieSBwcm9wcyBpZiBleGlzdHNcbiAgICpcbiAgICogQHBhcmFtIHtFdmVudH0gZVxuICAgKiBAcGFyYW0ge1ZpZHp9IGluc3RhbmNlXG4gICAqL1xuICBvbkxvYWRlZE1ldGFkYXRhID0gKGUsIGluc3RhbmNlKSA9PiB7XG4gICAgY29uc3Qge1xuICAgICAgb25Mb2FkZWRNZXRhZGF0YVxuICAgIH0gPSB0aGlzLnByb3BzO1xuXG4gICAgdGhpcy5zZXRQZXJjZW50TG9hZGVkKGluc3RhbmNlLnBlcmNlbnRMb2FkZWQpO1xuICAgIHRoaXMuc2V0VGltZVJlcHJlc2VudGF0aW9uKHtcbiAgICAgIGR1cmF0aW9uOiBpbnN0YW5jZS5kdXJhdGlvblxuICAgIH0pO1xuXG4gICAgaWYgKG9uTG9hZGVkTWV0YWRhdGEpIHtcbiAgICAgIG9uTG9hZGVkTWV0YWRhdGEuY2FsbChpbnN0YW5jZSwgZSwgaW5zdGFuY2UpO1xuICAgIH1cbiAgfTtcblxuICAvKipcbiAgICogc2hvdyB0aGUgdm9sdW1lIGJhciBvbiBtb3VzZWVudGVyXG4gICAqL1xuICBvbk1vdXNlRW50ZXJWb2x1bWVDaGFuZ2UgPSAoKSA9PiB7XG4gICAgY29uc3Qge1xuICAgICAgcXVldWVkT25Wb2x1bWVTZXRcbiAgICB9ID0gdGhpcy5zdGF0ZTtcblxuICAgIGlmIChxdWV1ZWRPblZvbHVtZVNldC5sZW5ndGgpIHtcbiAgICAgIHRoaXMuc2V0U3RhdGUoe1xuICAgICAgICBxdWV1ZWRPblZvbHVtZVNldDogW11cbiAgICAgIH0pO1xuICAgIH1cblxuICAgIHRoaXMuc2V0Vm9sdW1lQ2hhbmdlU3RhdGUodHJ1ZSk7XG4gIH07XG5cbiAgLyoqXG4gICAqIGhpZGUgdGhlIHZvbHVtZSBiYXIgb24gbW91c2VsZWF2ZSB1bmxlc3MgYSBkcmFnIGlzIGluIGVmZmVjdCxcbiAgICogZWxzZSBxdWV1ZSB1cCB0aGUgY2xvc3VyZSBvZiBpdFxuICAgKi9cbiAgb25Nb3VzZUxlYXZlVm9sdW1lQ2hhbmdlID0gKCkgPT4ge1xuICAgIGNvbnN0IHtcbiAgICAgIGlzRHJhZ2dpbmdWb2x1bWVUcmFja0J1dHRvblxuICAgIH0gPSB0aGlzLnN0YXRlO1xuXG4gICAgaWYgKGlzRHJhZ2dpbmdWb2x1bWVUcmFja0J1dHRvbikge1xuICAgICAgY29uc3QgcXVldWVkT25Wb2x1bWVTZXQgPSBbXG4gICAgICAgIHRoaXMuc2V0Vm9sdW1lQ2hhbmdlU3RhdGVcbiAgICAgIF07XG5cbiAgICAgIHRoaXMuc2V0U3RhdGUoe1xuICAgICAgICBxdWV1ZWRPblZvbHVtZVNldFxuICAgICAgfSk7XG4gICAgfSBlbHNlIHtcbiAgICAgIHRoaXMuc2V0Vm9sdW1lQ2hhbmdlU3RhdGUoKTtcbiAgICB9XG4gIH07XG5cbiAgLyoqXG4gICAqIHNldCB0aGUgYWN0aXZlIHN0YXRlIG9mIHRoZSB2b2x1bWUgYmFyXG4gICAqIFxuICAgKiBAcGFyYW0ge2Jvb2xlYW59IGlzQWN0aXZlXG4gICAqL1xuICBzZXRWb2x1bWVDaGFuZ2VTdGF0ZSA9IChpc0FjdGl2ZSA9IGZhbHNlKSA9PiB7XG4gICAgdGhpcy5zZXRTdGF0ZSh7XG4gICAgICBpc1ZvbHVtZUNoYW5nZUFjdGl2ZTogaXNBY3RpdmVcbiAgICB9KTtcbiAgfTtcblxuICAvKipcbiAgICogd2hlbiBtb3VzZSBtb3ZlbWVudCBvY2N1cnMgb3ZlciB0aGUgY29udGFpbmVyLCBjbGVhclxuICAgKiB0aGUgdGltZW91dCBvZiBoaWRpbmcgdGhlIGNvbnRyb2xzIGFuZCBzZXQgYSBuZXcgb25lXG4gICAqL1xuICBvbk1vdXNlTW92ZUNvbnRhaW5lciA9ICgpID0+IHtcbiAgICBjb25zdCB7XG4gICAgICBhdXRvSGlkZVRpbWVvdXQsXG4gICAgICBjb250cm9sc1Zpc2libGUsXG4gICAgICBpc1BsYXlpbmdcbiAgICB9ID0gdGhpcy5zdGF0ZTtcblxuICAgIGNsZWFyVGltZW91dChhdXRvSGlkZVRpbWVvdXQpO1xuXG4gICAgaWYgKCFjb250cm9sc1Zpc2libGUpIHtcbiAgICAgIHRoaXMuc2V0U3RhdGUoe1xuICAgICAgICBjb250cm9sc1Zpc2libGU6IHRydWVcbiAgICAgIH0pO1xuICAgIH1cblxuICAgIGlmIChpc1BsYXlpbmcpIHtcbiAgICAgIHRoaXMuc2V0VGltZW91dFRvSGlkZUNvbnRyb2xzKCk7XG4gICAgfVxuICB9O1xuXG4gIC8qKlxuICAgKiBvbiBwYXVzZSBzZXQgdGhlIGNvbnRyb2xzIHRvIGJlIHZpc2libGUgYW5kIHRoZSBpc1BsYXlpbmcgc3RhdGUsXG4gICAqIHBsdXMgdGhlIGZ1bmN0aW9uIHBhc3NlZCBieSBwcm9wcyBpZiBpdCBleGlzdHNcbiAgICogXG4gICAqIEBwYXJhbSB7RXZlbnR9IGVcbiAgICogQHBhcmFtIHtpbnN0YW5jZX0gaW5zdGFuY2VcbiAgICovXG4gIG9uUGF1c2UgPSAoZSwgaW5zdGFuY2UpID0+IHtcbiAgICBjb25zdCB7XG4gICAgICBvblBhdXNlXG4gICAgfSA9IHRoaXMucHJvcHM7XG4gICAgY29uc3Qge1xuICAgICAgYXV0b0hpZGVUaW1lb3V0XG4gICAgfSA9IHRoaXMuc3RhdGU7XG5cbiAgICBjbGVhclRpbWVvdXQoYXV0b0hpZGVUaW1lb3V0KTtcblxuICAgIHRoaXMuc2V0U3RhdGUoe1xuICAgICAgY29udHJvbHNWaXNpYmxlOiB0cnVlLFxuICAgICAgaXNQbGF5aW5nOiBmYWxzZVxuICAgIH0pO1xuXG4gICAgaWYgKG9uUGF1c2UpIHtcbiAgICAgIG9uUGF1c2UuY2FsbChpbnN0YW5jZSwgZSwgaW5zdGFuY2UpO1xuICAgIH1cblxuICAgIHRoaXMuc2V0UGVyY2VudExvYWRlZChpbnN0YW5jZS5wZXJjZW50TG9hZGVkKTtcbiAgfTtcblxuICAvKipcbiAgICogb24gcGxheSBzZXQgdGhlIGhkZSBjb250cm9scyB0aW1lb3V0IGFuZCB0aGUgaXNQbGF5aW5nIHN0YXRlLFxuICAgKiBwbHVzIHRoZSBmdW5jdGlvbiBwYXNzZWQgYnkgcHJvcHMgaWYgaXQgZXhpc3RzXG4gICAqXG4gICAqIEBwYXJhbSB7RXZlbnR9IGVcbiAgICogQHBhcmFtIHtpbnN0YW5jZX0gaW5zdGFuY2VcbiAgICovXG4gIG9uUGxheSA9IChlLCBpbnN0YW5jZSkgPT4ge1xuICAgIGNvbnN0IHtcbiAgICAgIG9uUGxheVxuICAgIH0gPSB0aGlzLnByb3BzO1xuICAgIGNvbnN0IHtcbiAgICAgIGNvbnRyb2xzVmlzaWJsZVxuICAgIH0gPSB0aGlzLnN0YXRlO1xuXG4gICAgdGhpcy5zZXRTdGF0ZSh7XG4gICAgICBpc1BsYXlpbmc6IHRydWVcbiAgICB9KTtcblxuICAgIGlmIChvblBsYXkpIHtcbiAgICAgIG9uUGxheS5jYWxsKGluc3RhbmNlLCBlLCBpbnN0YW5jZSk7XG4gICAgfVxuXG4gICAgdGhpcy5zZXRQZXJjZW50TG9hZGVkKGluc3RhbmNlLnBlcmNlbnRMb2FkZWQpO1xuXG4gICAgaWYgKGNvbnRyb2xzVmlzaWJsZSkge1xuICAgICAgdGhpcy5zZXRUaW1lb3V0VG9IaWRlQ29udHJvbHMoKTtcbiAgICB9XG4gIH07XG5cbiAgLyoqXG4gICAqIG9uIHRpbWUgdXBkYXRlIHNldCB0aGUgY3VycmVudFRpbWUgYW5kIHBlcmNlbnQgbG9hZGVkLFxuICAgKiBwbHVzIHRoZSBmdW5jdGlvbiBwYXNzZWQgYnkgcHJvcHMgaWYgaXQgZXhpc3RzXG4gICAqXG4gICAqIEBwYXJhbSB7RXZlbnR9IGVcbiAgICogQHBhcmFtIHtpbnN0YW5jZX0gaW5zdGFuY2VcbiAgICovXG4gIG9uVGltZVVwZGF0ZSA9IChlLCBpbnN0YW5jZSkgPT4ge1xuICAgIGNvbnN0IHtcbiAgICAgIG9uVGltZVVwZGF0ZVxuICAgIH0gPSB0aGlzLnByb3BzO1xuXG4gICAgdGhpcy5zZXRQZXJjZW50UGxheWVkKGluc3RhbmNlLmN1cnJlbnRUaW1lLCBpbnN0YW5jZS5kdXJhdGlvbik7XG4gICAgdGhpcy5zZXRQZXJjZW50TG9hZGVkKGluc3RhbmNlLnBlcmNlbnRMb2FkZWQpO1xuICAgIHRoaXMuc2V0VGltZVJlcHJlc2VudGF0aW9uKHtcbiAgICAgIGN1cnJlbnRUaW1lOiBpbnN0YW5jZS5jdXJyZW50VGltZVxuICAgIH0pO1xuXG4gICAgaWYgKG9uVGltZVVwZGF0ZSkge1xuICAgICAgb25UaW1lVXBkYXRlLmNhbGwoaW5zdGFuY2UsIGUsIGluc3RhbmNlKTtcbiAgICB9XG4gIH07XG5cbiAgLyoqXG4gICAqIG9uIHZvbHVtZSBjaGFuZ2Ugc2V0IHRoZSB2b2x1bWUgaW4gc3RhdGUsXG4gICAqIHBsdXMgdGhlIGZ1bmN0aW9uIHBhc3NlZCBieSBwcm9wcyBpZiBpdCBleGlzdHNcbiAgICpcbiAgICogQHBhcmFtIHtFdmVudH0gZVxuICAgKiBAcGFyYW0ge2luc3RhbmNlfSBpbnN0YW5jZVxuICAgKi9cbiAgb25Wb2x1bWVDaGFuZ2UgPSAoZSwgaW5zdGFuY2UpID0+IHtcbiAgICBjb25zdCB7XG4gICAgICBvblZvbHVtZUNoYW5nZVxuICAgIH0gPSB0aGlzLnByb3BzO1xuXG4gICAgY29uc3Qgdm9sdW1lID0gdGhpcy52aWR6SW5zdGFuY2Uudm9sdW1lO1xuXG4gICAgdGhpcy5zZXRTdGF0ZSh7XG4gICAgICB2b2x1bWVcbiAgICB9KTtcblxuICAgIGlmIChvblZvbHVtZUNoYW5nZSkge1xuICAgICAgb25Wb2x1bWVDaGFuZ2UuY2FsbChpbnN0YW5jZSwgZSwgaW5zdGFuY2UpO1xuICAgIH1cbiAgfTtcblxuICAvKipcbiAgICogdXBkYXRlIHRoZSBwb3NpdGlvbiBvZiB0aGUgZHVyYXRpb25UcmFja0J1dHRvbixcbiAgICogYW5kIHRoZSBjdXJyZW50VGltZSBpZiBzZXRUaW1lIGlzIHRydWVcbiAgICogXG4gICAqIEBwYXJhbSB7bnVtYmVyfSBwZXJjZW50YWdlXG4gICAqIEBwYXJhbSB7Ym9vbGVhbn0gc2V0VGltZT1mYWxzZVxuICAgKi9cbiAgc2V0RHVyYXRpb25UcmFja0J1dHRvblBvc2l0aW9uID0gKHBlcmNlbnRhZ2UsIHNldFRpbWUgPSBmYWxzZSkgPT4ge1xuICAgIGNvbnN0IG1hcmdpbkxlZnQgPSBNYXRoLnJvdW5kKHBlcmNlbnRhZ2UgKiAxMik7XG4gICAgY29uc3QgcGVyY2VudEluUGl4ZWxzID0gTWF0aC5yb3VuZChwZXJjZW50YWdlICogdGhpcy5kdXJhdGlvbi5jbGllbnRXaWR0aCk7XG4gICAgY29uc3QgbGVmdCA9IHBlcmNlbnRJblBpeGVscyAtIG1hcmdpbkxlZnQ7XG5cbiAgICBpZiAodHJhbnNmb3JtUHJvcGVydHkpIHtcbiAgICAgIHRoaXMuZHVyYXRpb25UcmFja0J1dHRvbi5zdHlsZS50cmFuc2Zvcm0gPSBgdHJhbnNsYXRlM2QoJHtsZWZ0fXB4LCAwLCAwKWA7XG4gICAgfSBlbHNlIHtcbiAgICAgIHRoaXMuZHVyYXRpb25UcmFja0J1dHRvbi5zdHlsZS5sZWZ0ID0gYCR7bGVmdH1weGA7XG4gICAgfVxuXG4gICAgaWYgKHNldFRpbWUpIHtcbiAgICAgIHRoaXMuc2V0VGltZShwZXJjZW50YWdlKTtcbiAgICB9XG4gIH07XG5cbiAgLyoqXG4gICAqIHVwZGF0ZSB0aGUgd2lkdGggb2YgdGhlIGR1cmF0aW9uIHRyYWNrIHdpdGggdGhlIG5ldyBwZXJjZW50IGxvYWRlZFxuICAgKiBcbiAgICogQHBhcmFtIHtudW1iZXJ9IHBlcmNlbnRMb2FkZWRcbiAgICovXG4gIHNldFBlcmNlbnRMb2FkZWQgPSAocGVyY2VudExvYWRlZCkgPT4ge1xuICAgIHRoaXMuZHVyYXRpb25UcmFjay5zdHlsZS53aWR0aCA9IGAke3BlcmNlbnRMb2FkZWR9JWA7XG4gIH07XG5cbiAgLyoqXG4gICAqIHNldCB0aGUgcG9zaXRpb24gb2YgdGhlIGR1cmF0aW9uIHRyYWNrIGJ1dHRvbiBiYXNlZCBvbiB0aGUgcGVyY2VudCBwbGF5ZWRcbiAgICogXG4gICAqIEBwYXJhbSB7bnVtYmVyfSBjdXJyZW50VGltZVxuICAgKiBAcGFyYW0ge251bWJlcn0gZHVyYXRpb25cbiAgICovXG4gIHNldFBlcmNlbnRQbGF5ZWQgPSAoY3VycmVudFRpbWUsIGR1cmF0aW9uKSA9PiB7XG4gICAgY29uc3QgcGVyY2VudFBsYXllZCA9IGdldFBlcmNlbnRQbGF5ZWQoY3VycmVudFRpbWUsIGR1cmF0aW9uKTtcblxuICAgIHRoaXMuc2V0RHVyYXRpb25UcmFja0J1dHRvblBvc2l0aW9uKHBlcmNlbnRQbGF5ZWQgLyAxMDApO1xuICB9O1xuXG4gIC8qKlxuICAgKiBzZXQgdGhlIGN1cnJlbnRUaW1lIG9uIHRoZSBWaWR6IGluc3RhbmNlIGJhc2VkIG9uIHRoZSBwZXJjZW50YWdlIG9mIHRoZSBkdXJhdGlvblxuICAgKi9cbiAgc2V0VGltZSA9IGRlYm91bmNlKChwZXJjZW50YWdlKSA9PiB7XG4gICAgdGhpcy52aWR6SW5zdGFuY2Uuc2V0Q3VycmVudFRpbWUocGVyY2VudGFnZSAqIHRoaXMudmlkekluc3RhbmNlLmR1cmF0aW9uKTtcbiAgfSwgNTApO1xuXG4gIC8qKlxuICAgKiBzZXQgdGhlIGN1cnJlbnRUaW1lIGFuZCBkdXJhdGlvbiBpbiBzdGF0ZSBzbyB0aGV5IGNhbiBiZSByZWZsZWN0ZWRcbiAgICogaW4gdGhlIHZpc3VhbCBkaXNwbGF5XG4gICAqIFxuICAgKiBAcGFyYW0ge251bWJlcn0gY3VycmVudFRpbWVcbiAgICogQHBhcmFtIHtudW1iZXJ9IGR1cmF0aW9uXG4gICAqL1xuICBzZXRUaW1lUmVwcmVzZW50YXRpb24gPSAoe2N1cnJlbnRUaW1lLCBkdXJhdGlvbn0pID0+IHtcbiAgICBpZiAoIWlzVW5kZWZpbmVkKGN1cnJlbnRUaW1lKSkge1xuICAgICAgdGhpcy5zZXRTdGF0ZSh7XG4gICAgICAgIGN1cnJlbnRUaW1lXG4gICAgICB9KTtcbiAgICB9XG5cbiAgICBpZiAoIWlzVW5kZWZpbmVkKGR1cmF0aW9uKSkge1xuICAgICAgdGhpcy5zZXRTdGF0ZSh7XG4gICAgICAgIGR1cmF0aW9uXG4gICAgICB9KTtcbiAgICB9XG4gIH07XG5cbiAgLyoqXG4gICAqIHNldCB0aGUgdGltZW91dCB0byBoaWRlIHRoZSBjb250cm9scyBmcm9tIGluYWN0aXZpdHlcbiAgICovXG4gIHNldFRpbWVvdXRUb0hpZGVDb250cm9scyA9ICgpID0+IHtcbiAgICBjb25zdCB7XG4gICAgICBwcmV2ZW50QXV0b0hpZGVDb250cm9sc1xuICAgIH0gPSB0aGlzLnByb3BzO1xuXG4gICAgaWYgKCFwcmV2ZW50QXV0b0hpZGVDb250cm9scykge1xuICAgICAgY29uc3QgYXV0b0hpZGVUaW1lb3V0ID0gc2V0VGltZW91dCgoKSA9PiB7XG4gICAgICAgIHRoaXMuc2V0U3RhdGUoe1xuICAgICAgICAgIGNvbnRyb2xzVmlzaWJsZTogZmFsc2VcbiAgICAgICAgfSk7XG4gICAgICB9LCAzMDAwKTtcblxuICAgICAgdGhpcy5zZXRTdGF0ZSh7XG4gICAgICAgIGF1dG9IaWRlVGltZW91dFxuICAgICAgfSk7XG4gICAgfVxuICB9O1xuXG4gIC8qKlxuICAgKiBjcmVhdGUgYSBuZXcgVmlkeiBpbnN0YW5jZSBhbmQgc2F2ZSBpdCB0byB0aGUgY2xhc3MnIGluc3RhbmNlXG4gICAqL1xuICBzZXRWaWR6SW5zdGFuY2UgPSAoKSA9PiB7XG4gICAgaWYgKHRoaXMucmVmcy5jb250YWluZXIucGFyZW50Tm9kZS5jbGllbnRXaWR0aCA9PT0gMCkge1xuICAgICAgdGhpcy5kZWJvdW5jZVNldFBsYXllckRpbWVuc2lvbnMoKTtcbiAgICB9XG5cbiAgICBjb25zdCB7XG4gICAgICBhdXRvcGxheSxcbiAgICAgIG11dGVkXG4gICAgfSA9IHRoaXMucHJvcHM7XG5cbiAgICBjb25zdCB7XG4gICAgICBoZWlnaHQsXG4gICAgICB3aWR0aFxuICAgIH0gPSB0aGlzLmdldEhlaWdodEFuZFdpZHRoKCk7XG5cbiAgICB0aGlzLnZpZHpJbnN0YW5jZSA9IHZpZHoodGhpcy5yZWZzLnBsYXllckNvbnRhaW5lciwge1xuICAgICAgLi4udGhpcy5wcm9wcyxcbiAgICAgIGNvbnRyb2xzOiBmYWxzZSxcbiAgICAgIGhlaWdodCxcbiAgICAgIG9uTG9hZGVkTWV0YWRhdGE6IHRoaXMub25Mb2FkZWRNZXRhZGF0YSxcbiAgICAgIG9uUGF1c2U6IHRoaXMub25QYXVzZSxcbiAgICAgIG9uUGxheTogdGhpcy5vblBsYXksXG4gICAgICBvblRpbWVVcGRhdGU6IHRoaXMub25UaW1lVXBkYXRlLFxuICAgICAgb25Wb2x1bWVDaGFuZ2U6IHRoaXMub25Wb2x1bWVDaGFuZ2UsXG4gICAgICB3aWR0aFxuICAgIH0pO1xuXG4gICAgdGhpcy52aWR6SW5zdGFuY2UucGxheWVyLnN0eWxlLmRpc3BsYXkgPSAnYmxvY2snO1xuXG4gICAgaWYgKGF1dG9wbGF5KSB7XG4gICAgICB0aGlzLnNldFN0YXRlKHtcbiAgICAgICAgaXNQbGF5aW5nOiB0cnVlXG4gICAgICB9KTtcbiAgICB9XG5cbiAgICBpZiAobXV0ZWQpIHtcbiAgICAgIHRoaXMuc2V0U3RhdGUoe1xuICAgICAgICBpc011dGVkOiB0cnVlXG4gICAgICB9KTtcbiAgICB9XG5cbiAgICB0aGlzLnNldFN0YXRlKHtcbiAgICAgIGlzTG9hZGVkOiB0cnVlXG4gICAgfSk7XG4gIH07XG5cbiAgLyoqXG4gICAqIHVwZGF0ZSB0aGUgdm9sdW1lIG9mIHRoZSBWaWR6IGluc3RhbmNlIGJhc2VkIG9uIHRoZSBwZXJjZW50YWdlIHBhc3NlZFxuICAgKi9cbiAgc2V0Vm9sdW1lID0gZGVib3VuY2UoKHBlcmNlbnRhZ2UpID0+IHtcbiAgICB0aGlzLnZpZHpJbnN0YW5jZS5zZXRWb2x1bWUocGVyY2VudGFnZSk7XG4gIH0sIDUwKTtcblxuICAvKipcbiAgICogdXBkYXRlIHRoZSBwb3NpdGlvbiBvZiB0aGUgdm9sdW1lIHRyYWNrIGJ1dHRvbiBiYXNlZCBvbiB0aGUgcGVyY2VudGFnZSBwYXNzZWQsXG4gICAqIGFuZCBzZXQgdGhlIHZvbHVtZSBpZiBzZXRWb2x1bWUgaXMgdHJ1ZVxuICAgKiBcbiAgICogQHBhcmFtIHtudW1iZXJ9IHBlcmNlbnRhZ2VcbiAgICogQHBhcmFtIHtib29sZWFufSBzZXRWb2x1bWU9ZmFsc2VcbiAgICovXG4gIHNldFZvbHVtZVRyYWNrQnV0dG9uUG9zaXRpb24gPSAocGVyY2VudGFnZSwgc2V0Vm9sdW1lID0gZmFsc2UpID0+IHtcbiAgICBjb25zdCB0b3AgPSBNYXRoLnJvdW5kKHBlcmNlbnRhZ2UgKiB0aGlzLnZvbHVtZVRyYWNrLmNsaWVudEhlaWdodCk7XG5cbiAgICBpZiAodHJhbnNmb3JtUHJvcGVydHkpIHtcbiAgICAgIHRoaXMudm9sdW1lVHJhY2tCdXR0b24uc3R5bGUudHJhbnNmb3JtID0gYHRyYW5zbGF0ZTNkKDAsICR7dG9wfXB4LCAwKWA7XG4gICAgfSBlbHNlIHtcbiAgICAgIHRoaXMudm9sdW1lVHJhY2tCdXR0b24uc3R5bGUudG9wID0gYCR7dG9wfXB4YDtcbiAgICB9XG5cbiAgICBpZiAoc2V0Vm9sdW1lKSB7XG4gICAgICB0aGlzLnNldFZvbHVtZSgxIC0gcGVyY2VudGFnZSk7XG4gICAgfVxuICB9O1xuXG4gIHJlbmRlcigpIHtcbiAgICBjb25zdCB7XG4gICAgICBjb250cm9sc0JhY2tncm91bmRDb2xvcixcbiAgICAgIGNvbnRyb2xzRm9udENvbG9yLFxuICAgICAgcGxheU9uQ2xpY2ssXG4gICAgICBjb250cm9sc1RyYWNrQ29sb3IsXG4gICAgICB0aGVtZVxuICAgIH0gPSB0aGlzLnByb3BzO1xuICAgIGNvbnN0IHtcbiAgICAgIGNhblVzZUZ1bGxzY3JlZW4sXG4gICAgICBjb250cm9sc1Zpc2libGUsXG4gICAgICBjdXJyZW50VGltZSxcbiAgICAgIGR1cmF0aW9uLFxuICAgICAgaXNGdWxsc2NyZWVuLFxuICAgICAgaXNNdXRlZCxcbiAgICAgIGlzUGxheWluZyxcbiAgICAgIGlzVm9sdW1lQ2hhbmdlQWN0aXZlLFxuICAgICAgcGxheWJhY2tSYXRlSW5kZXhcbiAgICB9ID0gdGhpcy5zdGF0ZTtcblxuICAgIGNvbnN0IHZvbHVtZSA9IHRoaXMudmlkekluc3RhbmNlID8gdGhpcy52aWR6SW5zdGFuY2Uudm9sdW1lIDogMTtcbiAgICBjb25zdCB2b2x1bWVJY29uID0gZ2V0Vm9sdW1lSWNvbih2b2x1bWUsIGlzTXV0ZWQpO1xuXG4gICAgbGV0IHN0eWxlcztcblxuICAgIHN3aXRjaCAodGhlbWUpIHtcbiAgICAgIGNhc2UgVEhFTUVTWzFdOlxuICAgICAgICBzdHlsZXMgPSBsaWdodFN0eWxlcztcbiAgICAgICAgYnJlYWs7XG5cbiAgICAgIGRlZmF1bHQ6XG4gICAgICAgIHN0eWxlcyA9IGRhcmtTdHlsZXM7XG4gICAgICAgIGJyZWFrO1xuICAgIH1cblxuICAgIGNvbnN0IGNvbnRyb2xzU3R5bGUgPSBnZXRDb250cm9sc0NvbnRhaW5lclN0eWxlKHN0eWxlcy5jb250cm9sc0NvbnRhaW5lciwgY29udHJvbHNWaXNpYmxlKTtcbiAgICBjb25zdCBkdXJhdGlvblRyYWNrU3R5bGUgPSBnZXRDb250cm9sU3R5bGUoc3R5bGVzLmR1cmF0aW9uVHJhY2ssIGNvbnRyb2xzVHJhY2tDb2xvcik7XG4gICAgY29uc3QgZHVyYXRpb25UcmFja0J1dHRvblN0eWxlID0gZ2V0Q29udHJvbFN0eWxlKHN0eWxlcy5kdXJhdGlvblRyYWNrQnV0dG9uLCBjb250cm9sc0ZvbnRDb2xvcik7XG4gICAgY29uc3QgcGxheVBhdXNlQnV0dG9uU3R5bGUgPSBnZXRDb250cm9sU3R5bGUoc3R5bGVzLnBsYXlQYXVzZUJ1dHRvbiwgY29udHJvbHNCYWNrZ3JvdW5kQ29sb3IsIGNvbnRyb2xzRm9udENvbG9yKTtcbiAgICBjb25zdCB2b2x1bWVCdXR0b25TdHlsZSA9IGdldENvbnRyb2xTdHlsZShzdHlsZXMudm9sdW1lQnV0dG9uLCBjb250cm9sc0JhY2tncm91bmRDb2xvciwgY29udHJvbHNGb250Q29sb3IpO1xuICAgIGNvbnN0IGluZm9ybWF0aW9uQ29udGFpbmVyU3R5bGUgPSBnZXRDb250cm9sU3R5bGUoc3R5bGVzLmluZm9ybWF0aW9uQ29udGFpbmVyLCBjb250cm9sc0JhY2tncm91bmRDb2xvciwgY29udHJvbHNGb250Q29sb3IpO1xuICAgIGNvbnN0IGZhc3RGb3J3YXJkQnV0dG9uU3R5bGUgPSBnZXRDb250cm9sU3R5bGUoc3R5bGVzLmZhc3RGb3J3YXJkQnV0dG9uLCBjb250cm9sc0JhY2tncm91bmRDb2xvciwgY29udHJvbHNGb250Q29sb3IpO1xuICAgIGNvbnN0IGZ1bGxzY3JlZW5CdXR0b25TdHlsZSA9IGdldENvbnRyb2xTdHlsZShzdHlsZXMuZnVsbHNjcmVlbkJ1dHRvbiwgY29udHJvbHNCYWNrZ3JvdW5kQ29sb3IsIGNvbnRyb2xzRm9udENvbG9yKTtcbiAgICBjb25zdCB2b2x1bWVDaGFuZ2VTdHlsZSA9IGdldFZvbHVtZUNoYW5nZVN0eWxlKHN0eWxlcy52b2x1bWVDaGFuZ2UsIGFsbFN0eWxlcy52b2x1bWVDaGFuZ2VBY3RpdmUsXG4gICAgICBpc1ZvbHVtZUNoYW5nZUFjdGl2ZSwgY29udHJvbHNCYWNrZ3JvdW5kQ29sb3IsIGNvbnRyb2xzRm9udENvbG9yKTtcbiAgICBjb25zdCB2b2x1bWVDaGFuZ2VUcmFja1N0eWxlID0gZ2V0Q29udHJvbFN0eWxlKHN0eWxlcy52b2x1bWVDaGFuZ2VUcmFjaywgY29udHJvbHNUcmFja0NvbG9yKTtcbiAgICBjb25zdCB2b2x1bWVUcmFja0J1dHRvblN0eWxlID0gZ2V0Q29udHJvbFN0eWxlKHN0eWxlcy52b2x1bWVUcmFja0J1dHRvbiwgY29udHJvbHNGb250Q29sb3IpO1xuXG4gICAgcmV0dXJuIChcbiAgICAgIDxkaXZcbiAgICAgICAgb25Nb3VzZU1vdmU9e3RoaXMub25Nb3VzZU1vdmVDb250YWluZXJ9XG4gICAgICAgIHJlZj1cImNvbnRhaW5lclwiXG4gICAgICAgIHN0eWxlPXtzdHlsZXMuY29udGFpbmVyfVxuICAgICAgPlxuICAgICAgICA8ZGl2XG4gICAgICAgICAgb25DbGljaz17cGxheU9uQ2xpY2sgJiYgdGhpcy5vbkNsaWNrUGxheVBhdXNlQnV0dG9ufVxuICAgICAgICAgIHJlZj1cInBsYXllckNvbnRhaW5lclwiXG4gICAgICAgIC8+XG5cbiAgICAgICAgPGRpdiBzdHlsZT17Y29udHJvbHNTdHlsZX0+XG4gICAgICAgICAgPERpc3BsYXlcbiAgICAgICAgICAgIG9uQ2xpY2s9e3RoaXMub25DbGlja0R1cmF0aW9uVHJhY2t9XG4gICAgICAgICAgICByZWY9eyhjb21wb25lbnQpID0+IHtcbiAgICAgICAgICAgICAgdGhpcy5kdXJhdGlvbiA9IGZpbmRET01Ob2RlKGNvbXBvbmVudCk7XG4gICAgICAgICAgICB9fVxuICAgICAgICAgICAgc3R5bGU9e3N0eWxlcy5kdXJhdGlvblNsaWRlcn1cbiAgICAgICAgICA+XG4gICAgICAgICAgICA8VHJhY2tcbiAgICAgICAgICAgICAgcmVmPXsoY29tcG9uZW50KSA9PiB7XG4gICAgICAgICAgICAgICAgdGhpcy5kdXJhdGlvblRyYWNrID0gZmluZERPTU5vZGUoY29tcG9uZW50KTtcbiAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgc3R5bGU9e2R1cmF0aW9uVHJhY2tTdHlsZX1cbiAgICAgICAgICAgIC8+XG5cbiAgICAgICAgICAgIDxUcmFja0J1dHRvblxuICAgICAgICAgICAgICBsYWJlbD1cIlNlZWsgdG8gYSBkaWZmZXJlbnQgdGltZSBpbiB0aGUgdmlkZW9cIlxuICAgICAgICAgICAgICBvbk1vdXNlRG93bj17dGhpcy5vbkRyYWdTdGFydER1cmF0aW9uVHJhY2tCdXR0b259XG4gICAgICAgICAgICAgIHJlZj17KGNvbXBvbmVudCkgPT4ge1xuICAgICAgICAgICAgICAgIHRoaXMuZHVyYXRpb25UcmFja0J1dHRvbiA9IGZpbmRET01Ob2RlKGNvbXBvbmVudCk7XG4gICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgIHN0eWxlPXtkdXJhdGlvblRyYWNrQnV0dG9uU3R5bGV9XG4gICAgICAgICAgICAvPlxuICAgICAgICAgIDwvRGlzcGxheT5cbiAgICAgICAgICBcbiAgICAgICAgICA8ZGl2IHN0eWxlPXtzdHlsZXMuYWN0aW9uc0NvbnRhaW5lcn0+XG4gICAgICAgICAgICA8QnV0dG9uXG4gICAgICAgICAgICAgIG9uQ2xpY2s9e3RoaXMub25DbGlja1BsYXlQYXVzZUJ1dHRvbn1cbiAgICAgICAgICAgICAgaWNvbj17aXNQbGF5aW5nID8gYXZhaWxhYmxlSWNvbnMuUEFVU0UgOiBhdmFpbGFibGVJY29ucy5QTEFZfVxuICAgICAgICAgICAgICBsYWJlbD1cIlRvZ2dsZSBwbGF5aW5nIHRoZSB2aWRlb1wiXG4gICAgICAgICAgICAgIHN0eWxlPXtwbGF5UGF1c2VCdXR0b25TdHlsZX1cbiAgICAgICAgICAgIC8+XG5cbiAgICAgICAgICAgIDxJbmZvcm1hdGlvbkJhclxuICAgICAgICAgICAgICBjdXJyZW50VGltZT17Y3VycmVudFRpbWV9XG4gICAgICAgICAgICAgIGR1cmF0aW9uPXtkdXJhdGlvbn1cbiAgICAgICAgICAgICAgc3R5bGU9e2luZm9ybWF0aW9uQ29udGFpbmVyU3R5bGV9XG4gICAgICAgICAgICAvPlxuXG4gICAgICAgICAgICA8QnV0dG9uXG4gICAgICAgICAgICAgIGljb249e2F2YWlsYWJsZUljb25zLkZBU1RfRk9SV0FSRH1cbiAgICAgICAgICAgICAgb25DbGljaz17dGhpcy5vbkNsaWNrRmFzdEZvcndhcmR9XG4gICAgICAgICAgICAgIGxhYmVsPVwiSW5jcmVhc2UgdGhlIHBsYXliYWNrIHNwZWVkXCJcbiAgICAgICAgICAgICAgc3R5bGU9e2Zhc3RGb3J3YXJkQnV0dG9uU3R5bGV9XG4gICAgICAgICAgICA+XG4gICAgICAgICAgICAgIDxzcGFuIHN0eWxlPXtzdHlsZXMuc3BlZWRJZGVudGlmaWVyfT5cbiAgICAgICAgICAgICAgICB7UExBWUJBQ0tfU1BFRURTW3BsYXliYWNrUmF0ZUluZGV4XX14XG4gICAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICAgIDwvQnV0dG9uPlxuXG4gICAgICAgICAgICA8Vm9sdW1lQ29udGFpbmVyXG4gICAgICAgICAgICAgIG9uTW91c2VFbnRlcj17dGhpcy5vbk1vdXNlRW50ZXJWb2x1bWVDaGFuZ2V9XG4gICAgICAgICAgICAgIG9uTW91c2VMZWF2ZT17dGhpcy5vbk1vdXNlTGVhdmVWb2x1bWVDaGFuZ2V9XG4gICAgICAgICAgICAgIHN0eWxlPXtzdHlsZXMudm9sdW1uQ2hhbmdlQ29udGFpbmVyfVxuICAgICAgICAgICAgPlxuICAgICAgICAgICAgICA8QnV0dG9uXG4gICAgICAgICAgICAgICAgaWNvbj17dm9sdW1lSWNvbn1cbiAgICAgICAgICAgICAgICBvbkNsaWNrPXt0aGlzLm9uQ2xpY2tUb2dnbGVWb2x1bWVNdXRlZH1cbiAgICAgICAgICAgICAgICBsYWJlbD1cIlRvZ2dsZSB0aGUgdmlkZW8gYmVpbmcgbXV0ZWRcIlxuICAgICAgICAgICAgICAgIHN0eWxlPXt2b2x1bWVCdXR0b25TdHlsZX1cbiAgICAgICAgICAgICAgLz5cblxuICAgICAgICAgICAgICA8RGlzcGxheVxuICAgICAgICAgICAgICAgIG9uQ2xpY2s9e3RoaXMub25DbGlja1ZvbHVtZVRyYWNrfVxuICAgICAgICAgICAgICAgIHJlZj17KGNvbXBvbmVudCkgPT4ge1xuICAgICAgICAgICAgICAgICAgdGhpcy52b2x1bWUgPSBmaW5kRE9NTm9kZShjb21wb25lbnQpO1xuICAgICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgICAgc3R5bGU9e3ZvbHVtZUNoYW5nZVN0eWxlfVxuICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgPFRyYWNrXG4gICAgICAgICAgICAgICAgICByZWY9eyhjb21wb25lbnQpID0+IHtcbiAgICAgICAgICAgICAgICAgICAgdGhpcy52b2x1bWVUcmFjayA9IGZpbmRET01Ob2RlKGNvbXBvbmVudCk7XG4gICAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICAgICAgc3R5bGU9e3ZvbHVtZUNoYW5nZVRyYWNrU3R5bGV9XG4gICAgICAgICAgICAgICAgLz5cblxuICAgICAgICAgICAgICAgIDxUcmFja0J1dHRvblxuICAgICAgICAgICAgICAgICAgbGFiZWw9XCJDaGFuZ2UgdGhlIHZvbHVtZVwiXG4gICAgICAgICAgICAgICAgICBvbk1vdXNlRG93bj17dGhpcy5vbkRyYWdTdGFydFZvbHVtZVRyYWNrQnV0dG9ufVxuICAgICAgICAgICAgICAgICAgcmVmPXsoY29tcG9uZW50KSA9PiB7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMudm9sdW1lVHJhY2tCdXR0b24gPSBmaW5kRE9NTm9kZShjb21wb25lbnQpO1xuICAgICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgICAgIHN0eWxlPXt2b2x1bWVUcmFja0J1dHRvblN0eWxlfVxuICAgICAgICAgICAgICAgIC8+XG4gICAgICAgICAgICAgIDwvRGlzcGxheT5cbiAgICAgICAgICAgIDwvVm9sdW1lQ29udGFpbmVyPlxuXG4gICAgICAgICAgICB7Y2FuVXNlRnVsbHNjcmVlbiAmJiAoXG4gICAgICAgICAgICAgIDxCdXR0b25cbiAgICAgICAgICAgICAgICBpY29uPXtpc0Z1bGxzY3JlZW4gPyBhdmFpbGFibGVJY29ucy5TSFJJTksgOiBhdmFpbGFibGVJY29ucy5FWFBBTkR9XG4gICAgICAgICAgICAgICAgbGFiZWw9XCJUb2dnbGUgZnVsbHNjcmVlbiBtb2RlXCJcbiAgICAgICAgICAgICAgICBvbkNsaWNrPXt0aGlzLm9uQ2xpY2tUb2dnbGVGdWxsc2NyZWVufVxuICAgICAgICAgICAgICAgIHN0eWxlPXtmdWxsc2NyZWVuQnV0dG9uU3R5bGV9XG4gICAgICAgICAgICAgIC8+XG4gICAgICAgICAgICApfVxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PlxuICAgICk7XG4gIH1cbn1cblxuZXhwb3J0IGRlZmF1bHQgVmlkelBsYXllcjtcblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9pbmRleC5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBO0FBQ0E7OztBQUFBO0FBQ0E7OztBQUFBO0FBQ0E7OztBQUFBO0FBQ0E7OztBQUdBO0FBQ0E7QUFFQTtBQUNBO0FBRUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBRUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBRUE7QUFDQTtBQUdBO0FBQ0E7QUFTQTtBQUNBOzs7Ozs7Ozs7QUFLQTtBQUNBO0FBSUE7QUFDQTtBQU9BO0FBQ0E7QUFOQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFFQTs7Ozs7Ozs7Ozs7Ozs7QUFnREE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFmQTtBQTBEQTtBQUNBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQU1BO0FBQ0E7QUFDQTtBQUNBO0FBY0E7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBT0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFJQTtBQVFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUtBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFJQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUtBO0FBQ0E7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFLQTtBQUNBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFLQTtBQUNBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBUUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBU0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQVNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFRQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQVNBO0FBQ0E7QUFDQTtBQUhBO0FBQ0E7QUFDQTtBQU1BO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQVNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBU0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFNQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBU0E7QUFDQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBS0E7QUFDQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBREE7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQU1BO0FBQ0E7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUdBO0FBQ0E7QUFEQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBT0E7QUFDQTtBQUFBO0FBQ0E7QUFEQTtBQUdBO0FBTUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBS0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBU0E7QUFBQTtBQUNBO0FBQ0E7QUFNQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFDQTtBQUlBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQVNBO0FBQUE7QUFDQTtBQUNBO0FBTUE7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQVNBO0FBQ0E7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBU0E7QUFDQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFTQTtBQUNBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQVFBO0FBQ0E7QUFTQTtBQUNBO0FBQ0E7QUFDQTtBQU1BO0FBQ0E7QUFTQTtBQUFBO0FBQ0E7QUFBQTtBQUNBO0FBQ0E7QUFEQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUdBO0FBQ0E7QUFLQTtBQUNBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUdBO0FBQ0E7QUFNQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBQUE7QUFBQTtBQUNBO0FBREE7QUFDQTtBQURBO0FBQUE7QUFDQTtBQUNBO0FBYUE7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBVEE7QUFDQTtBQVdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFHQTtBQU1BO0FBQ0E7QUFTQTtBQUNBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOzs7OztBQTV0QkE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBR0E7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFtc0JBO0FBQUE7QUFDQTtBQURBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQWtCQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQVBBO0FBQ0E7QUFTQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQUtBO0FBQ0E7QUFDQTtBQUZBO0FBS0E7QUFBQTtBQUFBO0FBQ0E7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUxBO0FBT0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBT0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFOQTtBQWRBO0FBd0JBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFKQTtBQU9BO0FBQ0E7QUFDQTtBQUNBO0FBSEE7QUFNQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBTUE7QUFBQTtBQUFBO0FBQ0E7QUFEQTtBQUFBO0FBTkE7QUFXQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQUtBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFKQTtBQU9BO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFMQTtBQU9BO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFKQTtBQU9BO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBTkE7QUFkQTtBQVpBO0FBcUNBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFKQTtBQS9EQTtBQXpCQTtBQVZBO0FBNkdBOzs7O0FBNzdCQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBbENBO0FBc0NBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBUEE7QUFDQTtBQTA1QkE7Iiwic291cmNlUm9vdCI6IiJ9");
+/***/ }),
 
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-	eval("var exports = function exports(element, fn) {\n  var window = this\n  var document = window.document\n  var isIE\n  var requestFrame\n\n  var attachEvent = document.attachEvent\n  if (typeof navigator !== 'undefined') {\n    isIE = navigator.userAgent.match(/Trident/) || navigator.userAgent.match(/Edge/)\n  }\n\n  requestFrame = (function () {\n    var raf = window.requestAnimationFrame ||\n      window.mozRequestAnimationFrame ||\n        window.webkitRequestAnimationFrame ||\n          function fallbackRAF(func) {\n            return window.setTimeout(func, 20)\n          }\n    return function requestFrameFunction(func) {\n      return raf(func)\n    }\n  })()\n\n  var cancelFrame = (function () {\n    var cancel = window.cancelAnimationFrame ||\n      window.mozCancelAnimationFrame ||\n        window.webkitCancelAnimationFrame ||\n          window.clearTimeout\n    return function cancelFrameFunction(id) {\n      return cancel(id)\n    }\n  })()\n\n  function resizeListener(e) {\n    var win = e.target || e.srcElement\n    if (win.__resizeRAF__) {\n      cancelFrame(win.__resizeRAF__)\n    }\n    win.__resizeRAF__ = requestFrame(function () {\n      var trigger = win.__resizeTrigger__\n      trigger.__resizeListeners__.forEach(function (fn) {\n        fn.call(trigger, e)\n      })\n    })\n  }\n\n  function objectLoad() {\n    this.contentDocument.defaultView.__resizeTrigger__ = this.__resizeElement__\n    this.contentDocument.defaultView.addEventListener('resize', resizeListener)\n  }\n\n  if (!element.__resizeListeners__) {\n    element.__resizeListeners__ = []\n    if (attachEvent) {\n      element.__resizeTrigger__ = element\n      element.attachEvent('onresize', resizeListener)\n    } else {\n      if (getComputedStyle(element).position === 'static') {\n        element.style.position = 'relative'\n      }\n      var obj = element.__resizeTrigger__ = document.createElement('object')\n      obj.setAttribute('style', 'display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1;')\n      obj.setAttribute('class', 'resize-sensor')\n      obj.__resizeElement__ = element\n      obj.onload = objectLoad\n      obj.type = 'text/html'\n      if (isIE) {\n        element.appendChild(obj)\n      }\n      obj.data = 'about:blank'\n      if (!isIE) {\n        element.appendChild(obj)\n      }\n    }\n  }\n  element.__resizeListeners__.push(fn)\n}\n\nmodule.exports = (typeof window === 'undefined') ? exports : exports.bind(window)\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMi5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL34vZWxlbWVudC1yZXNpemUtZXZlbnQvaW5kZXguanM/Mzg4MCJdLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgZXhwb3J0cyA9IGZ1bmN0aW9uIGV4cG9ydHMoZWxlbWVudCwgZm4pIHtcbiAgdmFyIHdpbmRvdyA9IHRoaXNcbiAgdmFyIGRvY3VtZW50ID0gd2luZG93LmRvY3VtZW50XG4gIHZhciBpc0lFXG4gIHZhciByZXF1ZXN0RnJhbWVcblxuICB2YXIgYXR0YWNoRXZlbnQgPSBkb2N1bWVudC5hdHRhY2hFdmVudFxuICBpZiAodHlwZW9mIG5hdmlnYXRvciAhPT0gJ3VuZGVmaW5lZCcpIHtcbiAgICBpc0lFID0gbmF2aWdhdG9yLnVzZXJBZ2VudC5tYXRjaCgvVHJpZGVudC8pIHx8IG5hdmlnYXRvci51c2VyQWdlbnQubWF0Y2goL0VkZ2UvKVxuICB9XG5cbiAgcmVxdWVzdEZyYW1lID0gKGZ1bmN0aW9uICgpIHtcbiAgICB2YXIgcmFmID0gd2luZG93LnJlcXVlc3RBbmltYXRpb25GcmFtZSB8fFxuICAgICAgd2luZG93Lm1velJlcXVlc3RBbmltYXRpb25GcmFtZSB8fFxuICAgICAgICB3aW5kb3cud2Via2l0UmVxdWVzdEFuaW1hdGlvbkZyYW1lIHx8XG4gICAgICAgICAgZnVuY3Rpb24gZmFsbGJhY2tSQUYoZnVuYykge1xuICAgICAgICAgICAgcmV0dXJuIHdpbmRvdy5zZXRUaW1lb3V0KGZ1bmMsIDIwKVxuICAgICAgICAgIH1cbiAgICByZXR1cm4gZnVuY3Rpb24gcmVxdWVzdEZyYW1lRnVuY3Rpb24oZnVuYykge1xuICAgICAgcmV0dXJuIHJhZihmdW5jKVxuICAgIH1cbiAgfSkoKVxuXG4gIHZhciBjYW5jZWxGcmFtZSA9IChmdW5jdGlvbiAoKSB7XG4gICAgdmFyIGNhbmNlbCA9IHdpbmRvdy5jYW5jZWxBbmltYXRpb25GcmFtZSB8fFxuICAgICAgd2luZG93Lm1vekNhbmNlbEFuaW1hdGlvbkZyYW1lIHx8XG4gICAgICAgIHdpbmRvdy53ZWJraXRDYW5jZWxBbmltYXRpb25GcmFtZSB8fFxuICAgICAgICAgIHdpbmRvdy5jbGVhclRpbWVvdXRcbiAgICByZXR1cm4gZnVuY3Rpb24gY2FuY2VsRnJhbWVGdW5jdGlvbihpZCkge1xuICAgICAgcmV0dXJuIGNhbmNlbChpZClcbiAgICB9XG4gIH0pKClcblxuICBmdW5jdGlvbiByZXNpemVMaXN0ZW5lcihlKSB7XG4gICAgdmFyIHdpbiA9IGUudGFyZ2V0IHx8IGUuc3JjRWxlbWVudFxuICAgIGlmICh3aW4uX19yZXNpemVSQUZfXykge1xuICAgICAgY2FuY2VsRnJhbWUod2luLl9fcmVzaXplUkFGX18pXG4gICAgfVxuICAgIHdpbi5fX3Jlc2l6ZVJBRl9fID0gcmVxdWVzdEZyYW1lKGZ1bmN0aW9uICgpIHtcbiAgICAgIHZhciB0cmlnZ2VyID0gd2luLl9fcmVzaXplVHJpZ2dlcl9fXG4gICAgICB0cmlnZ2VyLl9fcmVzaXplTGlzdGVuZXJzX18uZm9yRWFjaChmdW5jdGlvbiAoZm4pIHtcbiAgICAgICAgZm4uY2FsbCh0cmlnZ2VyLCBlKVxuICAgICAgfSlcbiAgICB9KVxuICB9XG5cbiAgZnVuY3Rpb24gb2JqZWN0TG9hZCgpIHtcbiAgICB0aGlzLmNvbnRlbnREb2N1bWVudC5kZWZhdWx0Vmlldy5fX3Jlc2l6ZVRyaWdnZXJfXyA9IHRoaXMuX19yZXNpemVFbGVtZW50X19cbiAgICB0aGlzLmNvbnRlbnREb2N1bWVudC5kZWZhdWx0Vmlldy5hZGRFdmVudExpc3RlbmVyKCdyZXNpemUnLCByZXNpemVMaXN0ZW5lcilcbiAgfVxuXG4gIGlmICghZWxlbWVudC5fX3Jlc2l6ZUxpc3RlbmVyc19fKSB7XG4gICAgZWxlbWVudC5fX3Jlc2l6ZUxpc3RlbmVyc19fID0gW11cbiAgICBpZiAoYXR0YWNoRXZlbnQpIHtcbiAgICAgIGVsZW1lbnQuX19yZXNpemVUcmlnZ2VyX18gPSBlbGVtZW50XG4gICAgICBlbGVtZW50LmF0dGFjaEV2ZW50KCdvbnJlc2l6ZScsIHJlc2l6ZUxpc3RlbmVyKVxuICAgIH0gZWxzZSB7XG4gICAgICBpZiAoZ2V0Q29tcHV0ZWRTdHlsZShlbGVtZW50KS5wb3NpdGlvbiA9PT0gJ3N0YXRpYycpIHtcbiAgICAgICAgZWxlbWVudC5zdHlsZS5wb3NpdGlvbiA9ICdyZWxhdGl2ZSdcbiAgICAgIH1cbiAgICAgIHZhciBvYmogPSBlbGVtZW50Ll9fcmVzaXplVHJpZ2dlcl9fID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnb2JqZWN0JylcbiAgICAgIG9iai5zZXRBdHRyaWJ1dGUoJ3N0eWxlJywgJ2Rpc3BsYXk6IGJsb2NrOyBwb3NpdGlvbjogYWJzb2x1dGU7IHRvcDogMDsgbGVmdDogMDsgaGVpZ2h0OiAxMDAlOyB3aWR0aDogMTAwJTsgb3ZlcmZsb3c6IGhpZGRlbjsgcG9pbnRlci1ldmVudHM6IG5vbmU7IHotaW5kZXg6IC0xOycpXG4gICAgICBvYmouc2V0QXR0cmlidXRlKCdjbGFzcycsICdyZXNpemUtc2Vuc29yJylcbiAgICAgIG9iai5fX3Jlc2l6ZUVsZW1lbnRfXyA9IGVsZW1lbnRcbiAgICAgIG9iai5vbmxvYWQgPSBvYmplY3RMb2FkXG4gICAgICBvYmoudHlwZSA9ICd0ZXh0L2h0bWwnXG4gICAgICBpZiAoaXNJRSkge1xuICAgICAgICBlbGVtZW50LmFwcGVuZENoaWxkKG9iailcbiAgICAgIH1cbiAgICAgIG9iai5kYXRhID0gJ2Fib3V0OmJsYW5rJ1xuICAgICAgaWYgKCFpc0lFKSB7XG4gICAgICAgIGVsZW1lbnQuYXBwZW5kQ2hpbGQob2JqKVxuICAgICAgfVxuICAgIH1cbiAgfVxuICBlbGVtZW50Ll9fcmVzaXplTGlzdGVuZXJzX18ucHVzaChmbilcbn1cblxubW9kdWxlLmV4cG9ydHMgPSAodHlwZW9mIHdpbmRvdyA9PT0gJ3VuZGVmaW5lZCcpID8gZXhwb3J0cyA6IGV4cG9ydHMuYmluZCh3aW5kb3cpXG5cblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIC4vfi9lbGVtZW50LXJlc2l6ZS1ldmVudC9pbmRleC5qc1xuICoqIG1vZHVsZSBpZCA9IDJcbiAqKiBtb2R1bGUgY2h1bmtzID0gMFxuICoqLyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Iiwic291cmNlUm9vdCI6IiJ9");
+"use strict";
 
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
 
-	eval("var isObject = __webpack_require__(4),\n    now = __webpack_require__(5),\n    toNumber = __webpack_require__(6);\n\n/** Used as the `TypeError` message for \"Functions\" methods. */\nvar FUNC_ERROR_TEXT = 'Expected a function';\n\n/* Built-in method references for those with the same name as other `lodash` methods. */\nvar nativeMax = Math.max,\n    nativeMin = Math.min;\n\n/**\n * Creates a debounced function that delays invoking `func` until after `wait`\n * milliseconds have elapsed since the last time the debounced function was\n * invoked. The debounced function comes with a `cancel` method to cancel\n * delayed `func` invocations and a `flush` method to immediately invoke them.\n * Provide an options object to indicate whether `func` should be invoked on\n * the leading and/or trailing edge of the `wait` timeout. The `func` is invoked\n * with the last arguments provided to the debounced function. Subsequent calls\n * to the debounced function return the result of the last `func` invocation.\n *\n * **Note:** If `leading` and `trailing` options are `true`, `func` is invoked\n * on the trailing edge of the timeout only if the debounced function is\n * invoked more than once during the `wait` timeout.\n *\n * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)\n * for details over the differences between `_.debounce` and `_.throttle`.\n *\n * @static\n * @memberOf _\n * @since 0.1.0\n * @category Function\n * @param {Function} func The function to debounce.\n * @param {number} [wait=0] The number of milliseconds to delay.\n * @param {Object} [options={}] The options object.\n * @param {boolean} [options.leading=false]\n *  Specify invoking on the leading edge of the timeout.\n * @param {number} [options.maxWait]\n *  The maximum time `func` is allowed to be delayed before it's invoked.\n * @param {boolean} [options.trailing=true]\n *  Specify invoking on the trailing edge of the timeout.\n * @returns {Function} Returns the new debounced function.\n * @example\n *\n * // Avoid costly calculations while the window size is in flux.\n * jQuery(window).on('resize', _.debounce(calculateLayout, 150));\n *\n * // Invoke `sendMail` when clicked, debouncing subsequent calls.\n * jQuery(element).on('click', _.debounce(sendMail, 300, {\n *   'leading': true,\n *   'trailing': false\n * }));\n *\n * // Ensure `batchLog` is invoked once after 1 second of debounced calls.\n * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });\n * var source = new EventSource('/stream');\n * jQuery(source).on('message', debounced);\n *\n * // Cancel the trailing debounced invocation.\n * jQuery(window).on('popstate', debounced.cancel);\n */\nfunction debounce(func, wait, options) {\n  var lastArgs,\n      lastThis,\n      maxWait,\n      result,\n      timerId,\n      lastCallTime,\n      lastInvokeTime = 0,\n      leading = false,\n      maxing = false,\n      trailing = true;\n\n  if (typeof func != 'function') {\n    throw new TypeError(FUNC_ERROR_TEXT);\n  }\n  wait = toNumber(wait) || 0;\n  if (isObject(options)) {\n    leading = !!options.leading;\n    maxing = 'maxWait' in options;\n    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;\n    trailing = 'trailing' in options ? !!options.trailing : trailing;\n  }\n\n  function invokeFunc(time) {\n    var args = lastArgs,\n        thisArg = lastThis;\n\n    lastArgs = lastThis = undefined;\n    lastInvokeTime = time;\n    result = func.apply(thisArg, args);\n    return result;\n  }\n\n  function leadingEdge(time) {\n    // Reset any `maxWait` timer.\n    lastInvokeTime = time;\n    // Start the timer for the trailing edge.\n    timerId = setTimeout(timerExpired, wait);\n    // Invoke the leading edge.\n    return leading ? invokeFunc(time) : result;\n  }\n\n  function remainingWait(time) {\n    var timeSinceLastCall = time - lastCallTime,\n        timeSinceLastInvoke = time - lastInvokeTime,\n        result = wait - timeSinceLastCall;\n\n    return maxing ? nativeMin(result, maxWait - timeSinceLastInvoke) : result;\n  }\n\n  function shouldInvoke(time) {\n    var timeSinceLastCall = time - lastCallTime,\n        timeSinceLastInvoke = time - lastInvokeTime;\n\n    // Either this is the first call, activity has stopped and we're at the\n    // trailing edge, the system time has gone backwards and we're treating\n    // it as the trailing edge, or we've hit the `maxWait` limit.\n    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||\n      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));\n  }\n\n  function timerExpired() {\n    var time = now();\n    if (shouldInvoke(time)) {\n      return trailingEdge(time);\n    }\n    // Restart the timer.\n    timerId = setTimeout(timerExpired, remainingWait(time));\n  }\n\n  function trailingEdge(time) {\n    timerId = undefined;\n\n    // Only invoke if we have `lastArgs` which means `func` has been\n    // debounced at least once.\n    if (trailing && lastArgs) {\n      return invokeFunc(time);\n    }\n    lastArgs = lastThis = undefined;\n    return result;\n  }\n\n  function cancel() {\n    lastInvokeTime = 0;\n    lastArgs = lastCallTime = lastThis = timerId = undefined;\n  }\n\n  function flush() {\n    return timerId === undefined ? result : trailingEdge(now());\n  }\n\n  function debounced() {\n    var time = now(),\n        isInvoking = shouldInvoke(time);\n\n    lastArgs = arguments;\n    lastThis = this;\n    lastCallTime = time;\n\n    if (isInvoking) {\n      if (timerId === undefined) {\n        return leadingEdge(lastCallTime);\n      }\n      if (maxing) {\n        // Handle invocations in a tight loop.\n        timerId = setTimeout(timerExpired, wait);\n        return invokeFunc(lastCallTime);\n      }\n    }\n    if (timerId === undefined) {\n      timerId = setTimeout(timerExpired, wait);\n    }\n    return result;\n  }\n  debounced.cancel = cancel;\n  debounced.flush = flush;\n  return debounced;\n}\n\nmodule.exports = debounce;\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL34vbG9kYXNoL2RlYm91bmNlLmpzPzNjYjUiXSwic291cmNlc0NvbnRlbnQiOlsidmFyIGlzT2JqZWN0ID0gcmVxdWlyZSgnLi9pc09iamVjdCcpLFxuICAgIG5vdyA9IHJlcXVpcmUoJy4vbm93JyksXG4gICAgdG9OdW1iZXIgPSByZXF1aXJlKCcuL3RvTnVtYmVyJyk7XG5cbi8qKiBVc2VkIGFzIHRoZSBgVHlwZUVycm9yYCBtZXNzYWdlIGZvciBcIkZ1bmN0aW9uc1wiIG1ldGhvZHMuICovXG52YXIgRlVOQ19FUlJPUl9URVhUID0gJ0V4cGVjdGVkIGEgZnVuY3Rpb24nO1xuXG4vKiBCdWlsdC1pbiBtZXRob2QgcmVmZXJlbmNlcyBmb3IgdGhvc2Ugd2l0aCB0aGUgc2FtZSBuYW1lIGFzIG90aGVyIGBsb2Rhc2hgIG1ldGhvZHMuICovXG52YXIgbmF0aXZlTWF4ID0gTWF0aC5tYXgsXG4gICAgbmF0aXZlTWluID0gTWF0aC5taW47XG5cbi8qKlxuICogQ3JlYXRlcyBhIGRlYm91bmNlZCBmdW5jdGlvbiB0aGF0IGRlbGF5cyBpbnZva2luZyBgZnVuY2AgdW50aWwgYWZ0ZXIgYHdhaXRgXG4gKiBtaWxsaXNlY29uZHMgaGF2ZSBlbGFwc2VkIHNpbmNlIHRoZSBsYXN0IHRpbWUgdGhlIGRlYm91bmNlZCBmdW5jdGlvbiB3YXNcbiAqIGludm9rZWQuIFRoZSBkZWJvdW5jZWQgZnVuY3Rpb24gY29tZXMgd2l0aCBhIGBjYW5jZWxgIG1ldGhvZCB0byBjYW5jZWxcbiAqIGRlbGF5ZWQgYGZ1bmNgIGludm9jYXRpb25zIGFuZCBhIGBmbHVzaGAgbWV0aG9kIHRvIGltbWVkaWF0ZWx5IGludm9rZSB0aGVtLlxuICogUHJvdmlkZSBhbiBvcHRpb25zIG9iamVjdCB0byBpbmRpY2F0ZSB3aGV0aGVyIGBmdW5jYCBzaG91bGQgYmUgaW52b2tlZCBvblxuICogdGhlIGxlYWRpbmcgYW5kL29yIHRyYWlsaW5nIGVkZ2Ugb2YgdGhlIGB3YWl0YCB0aW1lb3V0LiBUaGUgYGZ1bmNgIGlzIGludm9rZWRcbiAqIHdpdGggdGhlIGxhc3QgYXJndW1lbnRzIHByb3ZpZGVkIHRvIHRoZSBkZWJvdW5jZWQgZnVuY3Rpb24uIFN1YnNlcXVlbnQgY2FsbHNcbiAqIHRvIHRoZSBkZWJvdW5jZWQgZnVuY3Rpb24gcmV0dXJuIHRoZSByZXN1bHQgb2YgdGhlIGxhc3QgYGZ1bmNgIGludm9jYXRpb24uXG4gKlxuICogKipOb3RlOioqIElmIGBsZWFkaW5nYCBhbmQgYHRyYWlsaW5nYCBvcHRpb25zIGFyZSBgdHJ1ZWAsIGBmdW5jYCBpcyBpbnZva2VkXG4gKiBvbiB0aGUgdHJhaWxpbmcgZWRnZSBvZiB0aGUgdGltZW91dCBvbmx5IGlmIHRoZSBkZWJvdW5jZWQgZnVuY3Rpb24gaXNcbiAqIGludm9rZWQgbW9yZSB0aGFuIG9uY2UgZHVyaW5nIHRoZSBgd2FpdGAgdGltZW91dC5cbiAqXG4gKiBTZWUgW0RhdmlkIENvcmJhY2hvJ3MgYXJ0aWNsZV0oaHR0cHM6Ly9jc3MtdHJpY2tzLmNvbS9kZWJvdW5jaW5nLXRocm90dGxpbmctZXhwbGFpbmVkLWV4YW1wbGVzLylcbiAqIGZvciBkZXRhaWxzIG92ZXIgdGhlIGRpZmZlcmVuY2VzIGJldHdlZW4gYF8uZGVib3VuY2VgIGFuZCBgXy50aHJvdHRsZWAuXG4gKlxuICogQHN0YXRpY1xuICogQG1lbWJlck9mIF9cbiAqIEBzaW5jZSAwLjEuMFxuICogQGNhdGVnb3J5IEZ1bmN0aW9uXG4gKiBAcGFyYW0ge0Z1bmN0aW9ufSBmdW5jIFRoZSBmdW5jdGlvbiB0byBkZWJvdW5jZS5cbiAqIEBwYXJhbSB7bnVtYmVyfSBbd2FpdD0wXSBUaGUgbnVtYmVyIG9mIG1pbGxpc2Vjb25kcyB0byBkZWxheS5cbiAqIEBwYXJhbSB7T2JqZWN0fSBbb3B0aW9ucz17fV0gVGhlIG9wdGlvbnMgb2JqZWN0LlxuICogQHBhcmFtIHtib29sZWFufSBbb3B0aW9ucy5sZWFkaW5nPWZhbHNlXVxuICogIFNwZWNpZnkgaW52b2tpbmcgb24gdGhlIGxlYWRpbmcgZWRnZSBvZiB0aGUgdGltZW91dC5cbiAqIEBwYXJhbSB7bnVtYmVyfSBbb3B0aW9ucy5tYXhXYWl0XVxuICogIFRoZSBtYXhpbXVtIHRpbWUgYGZ1bmNgIGlzIGFsbG93ZWQgdG8gYmUgZGVsYXllZCBiZWZvcmUgaXQncyBpbnZva2VkLlxuICogQHBhcmFtIHtib29sZWFufSBbb3B0aW9ucy50cmFpbGluZz10cnVlXVxuICogIFNwZWNpZnkgaW52b2tpbmcgb24gdGhlIHRyYWlsaW5nIGVkZ2Ugb2YgdGhlIHRpbWVvdXQuXG4gKiBAcmV0dXJucyB7RnVuY3Rpb259IFJldHVybnMgdGhlIG5ldyBkZWJvdW5jZWQgZnVuY3Rpb24uXG4gKiBAZXhhbXBsZVxuICpcbiAqIC8vIEF2b2lkIGNvc3RseSBjYWxjdWxhdGlvbnMgd2hpbGUgdGhlIHdpbmRvdyBzaXplIGlzIGluIGZsdXguXG4gKiBqUXVlcnkod2luZG93KS5vbigncmVzaXplJywgXy5kZWJvdW5jZShjYWxjdWxhdGVMYXlvdXQsIDE1MCkpO1xuICpcbiAqIC8vIEludm9rZSBgc2VuZE1haWxgIHdoZW4gY2xpY2tlZCwgZGVib3VuY2luZyBzdWJzZXF1ZW50IGNhbGxzLlxuICogalF1ZXJ5KGVsZW1lbnQpLm9uKCdjbGljaycsIF8uZGVib3VuY2Uoc2VuZE1haWwsIDMwMCwge1xuICogICAnbGVhZGluZyc6IHRydWUsXG4gKiAgICd0cmFpbGluZyc6IGZhbHNlXG4gKiB9KSk7XG4gKlxuICogLy8gRW5zdXJlIGBiYXRjaExvZ2AgaXMgaW52b2tlZCBvbmNlIGFmdGVyIDEgc2Vjb25kIG9mIGRlYm91bmNlZCBjYWxscy5cbiAqIHZhciBkZWJvdW5jZWQgPSBfLmRlYm91bmNlKGJhdGNoTG9nLCAyNTAsIHsgJ21heFdhaXQnOiAxMDAwIH0pO1xuICogdmFyIHNvdXJjZSA9IG5ldyBFdmVudFNvdXJjZSgnL3N0cmVhbScpO1xuICogalF1ZXJ5KHNvdXJjZSkub24oJ21lc3NhZ2UnLCBkZWJvdW5jZWQpO1xuICpcbiAqIC8vIENhbmNlbCB0aGUgdHJhaWxpbmcgZGVib3VuY2VkIGludm9jYXRpb24uXG4gKiBqUXVlcnkod2luZG93KS5vbigncG9wc3RhdGUnLCBkZWJvdW5jZWQuY2FuY2VsKTtcbiAqL1xuZnVuY3Rpb24gZGVib3VuY2UoZnVuYywgd2FpdCwgb3B0aW9ucykge1xuICB2YXIgbGFzdEFyZ3MsXG4gICAgICBsYXN0VGhpcyxcbiAgICAgIG1heFdhaXQsXG4gICAgICByZXN1bHQsXG4gICAgICB0aW1lcklkLFxuICAgICAgbGFzdENhbGxUaW1lLFxuICAgICAgbGFzdEludm9rZVRpbWUgPSAwLFxuICAgICAgbGVhZGluZyA9IGZhbHNlLFxuICAgICAgbWF4aW5nID0gZmFsc2UsXG4gICAgICB0cmFpbGluZyA9IHRydWU7XG5cbiAgaWYgKHR5cGVvZiBmdW5jICE9ICdmdW5jdGlvbicpIHtcbiAgICB0aHJvdyBuZXcgVHlwZUVycm9yKEZVTkNfRVJST1JfVEVYVCk7XG4gIH1cbiAgd2FpdCA9IHRvTnVtYmVyKHdhaXQpIHx8IDA7XG4gIGlmIChpc09iamVjdChvcHRpb25zKSkge1xuICAgIGxlYWRpbmcgPSAhIW9wdGlvbnMubGVhZGluZztcbiAgICBtYXhpbmcgPSAnbWF4V2FpdCcgaW4gb3B0aW9ucztcbiAgICBtYXhXYWl0ID0gbWF4aW5nID8gbmF0aXZlTWF4KHRvTnVtYmVyKG9wdGlvbnMubWF4V2FpdCkgfHwgMCwgd2FpdCkgOiBtYXhXYWl0O1xuICAgIHRyYWlsaW5nID0gJ3RyYWlsaW5nJyBpbiBvcHRpb25zID8gISFvcHRpb25zLnRyYWlsaW5nIDogdHJhaWxpbmc7XG4gIH1cblxuICBmdW5jdGlvbiBpbnZva2VGdW5jKHRpbWUpIHtcbiAgICB2YXIgYXJncyA9IGxhc3RBcmdzLFxuICAgICAgICB0aGlzQXJnID0gbGFzdFRoaXM7XG5cbiAgICBsYXN0QXJncyA9IGxhc3RUaGlzID0gdW5kZWZpbmVkO1xuICAgIGxhc3RJbnZva2VUaW1lID0gdGltZTtcbiAgICByZXN1bHQgPSBmdW5jLmFwcGx5KHRoaXNBcmcsIGFyZ3MpO1xuICAgIHJldHVybiByZXN1bHQ7XG4gIH1cblxuICBmdW5jdGlvbiBsZWFkaW5nRWRnZSh0aW1lKSB7XG4gICAgLy8gUmVzZXQgYW55IGBtYXhXYWl0YCB0aW1lci5cbiAgICBsYXN0SW52b2tlVGltZSA9IHRpbWU7XG4gICAgLy8gU3RhcnQgdGhlIHRpbWVyIGZvciB0aGUgdHJhaWxpbmcgZWRnZS5cbiAgICB0aW1lcklkID0gc2V0VGltZW91dCh0aW1lckV4cGlyZWQsIHdhaXQpO1xuICAgIC8vIEludm9rZSB0aGUgbGVhZGluZyBlZGdlLlxuICAgIHJldHVybiBsZWFkaW5nID8gaW52b2tlRnVuYyh0aW1lKSA6IHJlc3VsdDtcbiAgfVxuXG4gIGZ1bmN0aW9uIHJlbWFpbmluZ1dhaXQodGltZSkge1xuICAgIHZhciB0aW1lU2luY2VMYXN0Q2FsbCA9IHRpbWUgLSBsYXN0Q2FsbFRpbWUsXG4gICAgICAgIHRpbWVTaW5jZUxhc3RJbnZva2UgPSB0aW1lIC0gbGFzdEludm9rZVRpbWUsXG4gICAgICAgIHJlc3VsdCA9IHdhaXQgLSB0aW1lU2luY2VMYXN0Q2FsbDtcblxuICAgIHJldHVybiBtYXhpbmcgPyBuYXRpdmVNaW4ocmVzdWx0LCBtYXhXYWl0IC0gdGltZVNpbmNlTGFzdEludm9rZSkgOiByZXN1bHQ7XG4gIH1cblxuICBmdW5jdGlvbiBzaG91bGRJbnZva2UodGltZSkge1xuICAgIHZhciB0aW1lU2luY2VMYXN0Q2FsbCA9IHRpbWUgLSBsYXN0Q2FsbFRpbWUsXG4gICAgICAgIHRpbWVTaW5jZUxhc3RJbnZva2UgPSB0aW1lIC0gbGFzdEludm9rZVRpbWU7XG5cbiAgICAvLyBFaXRoZXIgdGhpcyBpcyB0aGUgZmlyc3QgY2FsbCwgYWN0aXZpdHkgaGFzIHN0b3BwZWQgYW5kIHdlJ3JlIGF0IHRoZVxuICAgIC8vIHRyYWlsaW5nIGVkZ2UsIHRoZSBzeXN0ZW0gdGltZSBoYXMgZ29uZSBiYWNrd2FyZHMgYW5kIHdlJ3JlIHRyZWF0aW5nXG4gICAgLy8gaXQgYXMgdGhlIHRyYWlsaW5nIGVkZ2UsIG9yIHdlJ3ZlIGhpdCB0aGUgYG1heFdhaXRgIGxpbWl0LlxuICAgIHJldHVybiAobGFzdENhbGxUaW1lID09PSB1bmRlZmluZWQgfHwgKHRpbWVTaW5jZUxhc3RDYWxsID49IHdhaXQpIHx8XG4gICAgICAodGltZVNpbmNlTGFzdENhbGwgPCAwKSB8fCAobWF4aW5nICYmIHRpbWVTaW5jZUxhc3RJbnZva2UgPj0gbWF4V2FpdCkpO1xuICB9XG5cbiAgZnVuY3Rpb24gdGltZXJFeHBpcmVkKCkge1xuICAgIHZhciB0aW1lID0gbm93KCk7XG4gICAgaWYgKHNob3VsZEludm9rZSh0aW1lKSkge1xuICAgICAgcmV0dXJuIHRyYWlsaW5nRWRnZSh0aW1lKTtcbiAgICB9XG4gICAgLy8gUmVzdGFydCB0aGUgdGltZXIuXG4gICAgdGltZXJJZCA9IHNldFRpbWVvdXQodGltZXJFeHBpcmVkLCByZW1haW5pbmdXYWl0KHRpbWUpKTtcbiAgfVxuXG4gIGZ1bmN0aW9uIHRyYWlsaW5nRWRnZSh0aW1lKSB7XG4gICAgdGltZXJJZCA9IHVuZGVmaW5lZDtcblxuICAgIC8vIE9ubHkgaW52b2tlIGlmIHdlIGhhdmUgYGxhc3RBcmdzYCB3aGljaCBtZWFucyBgZnVuY2AgaGFzIGJlZW5cbiAgICAvLyBkZWJvdW5jZWQgYXQgbGVhc3Qgb25jZS5cbiAgICBpZiAodHJhaWxpbmcgJiYgbGFzdEFyZ3MpIHtcbiAgICAgIHJldHVybiBpbnZva2VGdW5jKHRpbWUpO1xuICAgIH1cbiAgICBsYXN0QXJncyA9IGxhc3RUaGlzID0gdW5kZWZpbmVkO1xuICAgIHJldHVybiByZXN1bHQ7XG4gIH1cblxuICBmdW5jdGlvbiBjYW5jZWwoKSB7XG4gICAgbGFzdEludm9rZVRpbWUgPSAwO1xuICAgIGxhc3RBcmdzID0gbGFzdENhbGxUaW1lID0gbGFzdFRoaXMgPSB0aW1lcklkID0gdW5kZWZpbmVkO1xuICB9XG5cbiAgZnVuY3Rpb24gZmx1c2goKSB7XG4gICAgcmV0dXJuIHRpbWVySWQgPT09IHVuZGVmaW5lZCA/IHJlc3VsdCA6IHRyYWlsaW5nRWRnZShub3coKSk7XG4gIH1cblxuICBmdW5jdGlvbiBkZWJvdW5jZWQoKSB7XG4gICAgdmFyIHRpbWUgPSBub3coKSxcbiAgICAgICAgaXNJbnZva2luZyA9IHNob3VsZEludm9rZSh0aW1lKTtcblxuICAgIGxhc3RBcmdzID0gYXJndW1lbnRzO1xuICAgIGxhc3RUaGlzID0gdGhpcztcbiAgICBsYXN0Q2FsbFRpbWUgPSB0aW1lO1xuXG4gICAgaWYgKGlzSW52b2tpbmcpIHtcbiAgICAgIGlmICh0aW1lcklkID09PSB1bmRlZmluZWQpIHtcbiAgICAgICAgcmV0dXJuIGxlYWRpbmdFZGdlKGxhc3RDYWxsVGltZSk7XG4gICAgICB9XG4gICAgICBpZiAobWF4aW5nKSB7XG4gICAgICAgIC8vIEhhbmRsZSBpbnZvY2F0aW9ucyBpbiBhIHRpZ2h0IGxvb3AuXG4gICAgICAgIHRpbWVySWQgPSBzZXRUaW1lb3V0KHRpbWVyRXhwaXJlZCwgd2FpdCk7XG4gICAgICAgIHJldHVybiBpbnZva2VGdW5jKGxhc3RDYWxsVGltZSk7XG4gICAgICB9XG4gICAgfVxuICAgIGlmICh0aW1lcklkID09PSB1bmRlZmluZWQpIHtcbiAgICAgIHRpbWVySWQgPSBzZXRUaW1lb3V0KHRpbWVyRXhwaXJlZCwgd2FpdCk7XG4gICAgfVxuICAgIHJldHVybiByZXN1bHQ7XG4gIH1cbiAgZGVib3VuY2VkLmNhbmNlbCA9IGNhbmNlbDtcbiAgZGVib3VuY2VkLmZsdXNoID0gZmx1c2g7XG4gIHJldHVybiBkZWJvdW5jZWQ7XG59XG5cbm1vZHVsZS5leHBvcnRzID0gZGVib3VuY2U7XG5cblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIC4vfi9sb2Rhc2gvZGVib3VuY2UuanNcbiAqKiBtb2R1bGUgaWQgPSAzXG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	eval("/**\n * Checks if `value` is the\n * [language type](http://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-language-types)\n * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)\n *\n * @static\n * @memberOf _\n * @since 0.1.0\n * @category Lang\n * @param {*} value The value to check.\n * @returns {boolean} Returns `true` if `value` is an object, else `false`.\n * @example\n *\n * _.isObject({});\n * // => true\n *\n * _.isObject([1, 2, 3]);\n * // => true\n *\n * _.isObject(_.noop);\n * // => true\n *\n * _.isObject(null);\n * // => false\n */\nfunction isObject(value) {\n  var type = typeof value;\n  return !!value && (type == 'object' || type == 'function');\n}\n\nmodule.exports = isObject;\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiNC5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL34vbG9kYXNoL2lzT2JqZWN0LmpzP2U4ODQiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBDaGVja3MgaWYgYHZhbHVlYCBpcyB0aGVcbiAqIFtsYW5ndWFnZSB0eXBlXShodHRwOi8vd3d3LmVjbWEtaW50ZXJuYXRpb25hbC5vcmcvZWNtYS0yNjIvNi4wLyNzZWMtZWNtYXNjcmlwdC1sYW5ndWFnZS10eXBlcylcbiAqIG9mIGBPYmplY3RgLiAoZS5nLiBhcnJheXMsIGZ1bmN0aW9ucywgb2JqZWN0cywgcmVnZXhlcywgYG5ldyBOdW1iZXIoMClgLCBhbmQgYG5ldyBTdHJpbmcoJycpYClcbiAqXG4gKiBAc3RhdGljXG4gKiBAbWVtYmVyT2YgX1xuICogQHNpbmNlIDAuMS4wXG4gKiBAY2F0ZWdvcnkgTGFuZ1xuICogQHBhcmFtIHsqfSB2YWx1ZSBUaGUgdmFsdWUgdG8gY2hlY2suXG4gKiBAcmV0dXJucyB7Ym9vbGVhbn0gUmV0dXJucyBgdHJ1ZWAgaWYgYHZhbHVlYCBpcyBhbiBvYmplY3QsIGVsc2UgYGZhbHNlYC5cbiAqIEBleGFtcGxlXG4gKlxuICogXy5pc09iamVjdCh7fSk7XG4gKiAvLyA9PiB0cnVlXG4gKlxuICogXy5pc09iamVjdChbMSwgMiwgM10pO1xuICogLy8gPT4gdHJ1ZVxuICpcbiAqIF8uaXNPYmplY3QoXy5ub29wKTtcbiAqIC8vID0+IHRydWVcbiAqXG4gKiBfLmlzT2JqZWN0KG51bGwpO1xuICogLy8gPT4gZmFsc2VcbiAqL1xuZnVuY3Rpb24gaXNPYmplY3QodmFsdWUpIHtcbiAgdmFyIHR5cGUgPSB0eXBlb2YgdmFsdWU7XG4gIHJldHVybiAhIXZhbHVlICYmICh0eXBlID09ICdvYmplY3QnIHx8IHR5cGUgPT0gJ2Z1bmN0aW9uJyk7XG59XG5cbm1vZHVsZS5leHBvcnRzID0gaXNPYmplY3Q7XG5cblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIC4vfi9sb2Rhc2gvaXNPYmplY3QuanNcbiAqKiBtb2R1bGUgaWQgPSA0XG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
+var _class, _temp2; // external dependencies
 
-	eval("/**\n * Gets the timestamp of the number of milliseconds that have elapsed since\n * the Unix epoch (1 January 1970 00:00:00 UTC).\n *\n * @static\n * @memberOf _\n * @since 2.4.0\n * @category Date\n * @returns {number} Returns the timestamp.\n * @example\n *\n * _.defer(function(stamp) {\n *   console.log(_.now() - stamp);\n * }, _.now());\n * // => Logs the number of milliseconds it took for the deferred invocation.\n */\nfunction now() {\n  return Date.now();\n}\n\nmodule.exports = now;\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiNS5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL34vbG9kYXNoL25vdy5qcz9lYTc0Il0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogR2V0cyB0aGUgdGltZXN0YW1wIG9mIHRoZSBudW1iZXIgb2YgbWlsbGlzZWNvbmRzIHRoYXQgaGF2ZSBlbGFwc2VkIHNpbmNlXG4gKiB0aGUgVW5peCBlcG9jaCAoMSBKYW51YXJ5IDE5NzAgMDA6MDA6MDAgVVRDKS5cbiAqXG4gKiBAc3RhdGljXG4gKiBAbWVtYmVyT2YgX1xuICogQHNpbmNlIDIuNC4wXG4gKiBAY2F0ZWdvcnkgRGF0ZVxuICogQHJldHVybnMge251bWJlcn0gUmV0dXJucyB0aGUgdGltZXN0YW1wLlxuICogQGV4YW1wbGVcbiAqXG4gKiBfLmRlZmVyKGZ1bmN0aW9uKHN0YW1wKSB7XG4gKiAgIGNvbnNvbGUubG9nKF8ubm93KCkgLSBzdGFtcCk7XG4gKiB9LCBfLm5vdygpKTtcbiAqIC8vID0+IExvZ3MgdGhlIG51bWJlciBvZiBtaWxsaXNlY29uZHMgaXQgdG9vayBmb3IgdGhlIGRlZmVycmVkIGludm9jYXRpb24uXG4gKi9cbmZ1bmN0aW9uIG5vdygpIHtcbiAgcmV0dXJuIERhdGUubm93KCk7XG59XG5cbm1vZHVsZS5leHBvcnRzID0gbm93O1xuXG5cblxuLyoqKioqKioqKioqKioqKioqXG4gKiogV0VCUEFDSyBGT09URVJcbiAqKiAuL34vbG9kYXNoL25vdy5qc1xuICoqIG1vZHVsZSBpZCA9IDVcbiAqKiBtb2R1bGUgY2h1bmtzID0gMFxuICoqLyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==");
 
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
+// components
 
-	eval("var isFunction = __webpack_require__(7),\n    isObject = __webpack_require__(4),\n    isSymbol = __webpack_require__(8);\n\n/** Used as references for various `Number` constants. */\nvar NAN = 0 / 0;\n\n/** Used to match leading and trailing whitespace. */\nvar reTrim = /^\\s+|\\s+$/g;\n\n/** Used to detect bad signed hexadecimal string values. */\nvar reIsBadHex = /^[-+]0x[0-9a-f]+$/i;\n\n/** Used to detect binary string values. */\nvar reIsBinary = /^0b[01]+$/i;\n\n/** Used to detect octal string values. */\nvar reIsOctal = /^0o[0-7]+$/i;\n\n/** Built-in method references without a dependency on `root`. */\nvar freeParseInt = parseInt;\n\n/**\n * Converts `value` to a number.\n *\n * @static\n * @memberOf _\n * @since 4.0.0\n * @category Lang\n * @param {*} value The value to process.\n * @returns {number} Returns the number.\n * @example\n *\n * _.toNumber(3.2);\n * // => 3.2\n *\n * _.toNumber(Number.MIN_VALUE);\n * // => 5e-324\n *\n * _.toNumber(Infinity);\n * // => Infinity\n *\n * _.toNumber('3.2');\n * // => 3.2\n */\nfunction toNumber(value) {\n  if (typeof value == 'number') {\n    return value;\n  }\n  if (isSymbol(value)) {\n    return NAN;\n  }\n  if (isObject(value)) {\n    var other = isFunction(value.valueOf) ? value.valueOf() : value;\n    value = isObject(other) ? (other + '') : other;\n  }\n  if (typeof value != 'string') {\n    return value === 0 ? value : +value;\n  }\n  value = value.replace(reTrim, '');\n  var isBinary = reIsBinary.test(value);\n  return (isBinary || reIsOctal.test(value))\n    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)\n    : (reIsBadHex.test(value) ? NAN : +value);\n}\n\nmodule.exports = toNumber;\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiNi5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL34vbG9kYXNoL3RvTnVtYmVyLmpzPzU2MWUiXSwic291cmNlc0NvbnRlbnQiOlsidmFyIGlzRnVuY3Rpb24gPSByZXF1aXJlKCcuL2lzRnVuY3Rpb24nKSxcbiAgICBpc09iamVjdCA9IHJlcXVpcmUoJy4vaXNPYmplY3QnKSxcbiAgICBpc1N5bWJvbCA9IHJlcXVpcmUoJy4vaXNTeW1ib2wnKTtcblxuLyoqIFVzZWQgYXMgcmVmZXJlbmNlcyBmb3IgdmFyaW91cyBgTnVtYmVyYCBjb25zdGFudHMuICovXG52YXIgTkFOID0gMCAvIDA7XG5cbi8qKiBVc2VkIHRvIG1hdGNoIGxlYWRpbmcgYW5kIHRyYWlsaW5nIHdoaXRlc3BhY2UuICovXG52YXIgcmVUcmltID0gL15cXHMrfFxccyskL2c7XG5cbi8qKiBVc2VkIHRvIGRldGVjdCBiYWQgc2lnbmVkIGhleGFkZWNpbWFsIHN0cmluZyB2YWx1ZXMuICovXG52YXIgcmVJc0JhZEhleCA9IC9eWy0rXTB4WzAtOWEtZl0rJC9pO1xuXG4vKiogVXNlZCB0byBkZXRlY3QgYmluYXJ5IHN0cmluZyB2YWx1ZXMuICovXG52YXIgcmVJc0JpbmFyeSA9IC9eMGJbMDFdKyQvaTtcblxuLyoqIFVzZWQgdG8gZGV0ZWN0IG9jdGFsIHN0cmluZyB2YWx1ZXMuICovXG52YXIgcmVJc09jdGFsID0gL14wb1swLTddKyQvaTtcblxuLyoqIEJ1aWx0LWluIG1ldGhvZCByZWZlcmVuY2VzIHdpdGhvdXQgYSBkZXBlbmRlbmN5IG9uIGByb290YC4gKi9cbnZhciBmcmVlUGFyc2VJbnQgPSBwYXJzZUludDtcblxuLyoqXG4gKiBDb252ZXJ0cyBgdmFsdWVgIHRvIGEgbnVtYmVyLlxuICpcbiAqIEBzdGF0aWNcbiAqIEBtZW1iZXJPZiBfXG4gKiBAc2luY2UgNC4wLjBcbiAqIEBjYXRlZ29yeSBMYW5nXG4gKiBAcGFyYW0geyp9IHZhbHVlIFRoZSB2YWx1ZSB0byBwcm9jZXNzLlxuICogQHJldHVybnMge251bWJlcn0gUmV0dXJucyB0aGUgbnVtYmVyLlxuICogQGV4YW1wbGVcbiAqXG4gKiBfLnRvTnVtYmVyKDMuMik7XG4gKiAvLyA9PiAzLjJcbiAqXG4gKiBfLnRvTnVtYmVyKE51bWJlci5NSU5fVkFMVUUpO1xuICogLy8gPT4gNWUtMzI0XG4gKlxuICogXy50b051bWJlcihJbmZpbml0eSk7XG4gKiAvLyA9PiBJbmZpbml0eVxuICpcbiAqIF8udG9OdW1iZXIoJzMuMicpO1xuICogLy8gPT4gMy4yXG4gKi9cbmZ1bmN0aW9uIHRvTnVtYmVyKHZhbHVlKSB7XG4gIGlmICh0eXBlb2YgdmFsdWUgPT0gJ251bWJlcicpIHtcbiAgICByZXR1cm4gdmFsdWU7XG4gIH1cbiAgaWYgKGlzU3ltYm9sKHZhbHVlKSkge1xuICAgIHJldHVybiBOQU47XG4gIH1cbiAgaWYgKGlzT2JqZWN0KHZhbHVlKSkge1xuICAgIHZhciBvdGhlciA9IGlzRnVuY3Rpb24odmFsdWUudmFsdWVPZikgPyB2YWx1ZS52YWx1ZU9mKCkgOiB2YWx1ZTtcbiAgICB2YWx1ZSA9IGlzT2JqZWN0KG90aGVyKSA/IChvdGhlciArICcnKSA6IG90aGVyO1xuICB9XG4gIGlmICh0eXBlb2YgdmFsdWUgIT0gJ3N0cmluZycpIHtcbiAgICByZXR1cm4gdmFsdWUgPT09IDAgPyB2YWx1ZSA6ICt2YWx1ZTtcbiAgfVxuICB2YWx1ZSA9IHZhbHVlLnJlcGxhY2UocmVUcmltLCAnJyk7XG4gIHZhciBpc0JpbmFyeSA9IHJlSXNCaW5hcnkudGVzdCh2YWx1ZSk7XG4gIHJldHVybiAoaXNCaW5hcnkgfHwgcmVJc09jdGFsLnRlc3QodmFsdWUpKVxuICAgID8gZnJlZVBhcnNlSW50KHZhbHVlLnNsaWNlKDIpLCBpc0JpbmFyeSA/IDIgOiA4KVxuICAgIDogKHJlSXNCYWRIZXgudGVzdCh2YWx1ZSkgPyBOQU4gOiArdmFsdWUpO1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IHRvTnVtYmVyO1xuXG5cblxuLyoqKioqKioqKioqKioqKioqXG4gKiogV0VCUEFDSyBGT09URVJcbiAqKiAuL34vbG9kYXNoL3RvTnVtYmVyLmpzXG4gKiogbW9kdWxlIGlkID0gNlxuICoqIG1vZHVsZSBjaHVua3MgPSAwXG4gKiovIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=");
 
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
+// icons
 
-	eval("var isObject = __webpack_require__(4);\n\n/** `Object#toString` result references. */\nvar funcTag = '[object Function]',\n    genTag = '[object GeneratorFunction]';\n\n/** Used for built-in method references. */\nvar objectProto = Object.prototype;\n\n/**\n * Used to resolve the\n * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)\n * of values.\n */\nvar objectToString = objectProto.toString;\n\n/**\n * Checks if `value` is classified as a `Function` object.\n *\n * @static\n * @memberOf _\n * @since 0.1.0\n * @category Lang\n * @param {*} value The value to check.\n * @returns {boolean} Returns `true` if `value` is correctly classified,\n *  else `false`.\n * @example\n *\n * _.isFunction(_);\n * // => true\n *\n * _.isFunction(/abc/);\n * // => false\n */\nfunction isFunction(value) {\n  // The use of `Object#toString` avoids issues with the `typeof` operator\n  // in Safari 8 which returns 'object' for typed array and weak map constructors,\n  // and PhantomJS 1.9 which returns 'function' for `NodeList` instances.\n  var tag = isObject(value) ? objectToString.call(value) : '';\n  return tag == funcTag || tag == genTag;\n}\n\nmodule.exports = isFunction;\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiNy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL34vbG9kYXNoL2lzRnVuY3Rpb24uanM/MmFhYSJdLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgaXNPYmplY3QgPSByZXF1aXJlKCcuL2lzT2JqZWN0Jyk7XG5cbi8qKiBgT2JqZWN0I3RvU3RyaW5nYCByZXN1bHQgcmVmZXJlbmNlcy4gKi9cbnZhciBmdW5jVGFnID0gJ1tvYmplY3QgRnVuY3Rpb25dJyxcbiAgICBnZW5UYWcgPSAnW29iamVjdCBHZW5lcmF0b3JGdW5jdGlvbl0nO1xuXG4vKiogVXNlZCBmb3IgYnVpbHQtaW4gbWV0aG9kIHJlZmVyZW5jZXMuICovXG52YXIgb2JqZWN0UHJvdG8gPSBPYmplY3QucHJvdG90eXBlO1xuXG4vKipcbiAqIFVzZWQgdG8gcmVzb2x2ZSB0aGVcbiAqIFtgdG9TdHJpbmdUYWdgXShodHRwOi8vZWNtYS1pbnRlcm5hdGlvbmFsLm9yZy9lY21hLTI2Mi82LjAvI3NlYy1vYmplY3QucHJvdG90eXBlLnRvc3RyaW5nKVxuICogb2YgdmFsdWVzLlxuICovXG52YXIgb2JqZWN0VG9TdHJpbmcgPSBvYmplY3RQcm90by50b1N0cmluZztcblxuLyoqXG4gKiBDaGVja3MgaWYgYHZhbHVlYCBpcyBjbGFzc2lmaWVkIGFzIGEgYEZ1bmN0aW9uYCBvYmplY3QuXG4gKlxuICogQHN0YXRpY1xuICogQG1lbWJlck9mIF9cbiAqIEBzaW5jZSAwLjEuMFxuICogQGNhdGVnb3J5IExhbmdcbiAqIEBwYXJhbSB7Kn0gdmFsdWUgVGhlIHZhbHVlIHRvIGNoZWNrLlxuICogQHJldHVybnMge2Jvb2xlYW59IFJldHVybnMgYHRydWVgIGlmIGB2YWx1ZWAgaXMgY29ycmVjdGx5IGNsYXNzaWZpZWQsXG4gKiAgZWxzZSBgZmFsc2VgLlxuICogQGV4YW1wbGVcbiAqXG4gKiBfLmlzRnVuY3Rpb24oXyk7XG4gKiAvLyA9PiB0cnVlXG4gKlxuICogXy5pc0Z1bmN0aW9uKC9hYmMvKTtcbiAqIC8vID0+IGZhbHNlXG4gKi9cbmZ1bmN0aW9uIGlzRnVuY3Rpb24odmFsdWUpIHtcbiAgLy8gVGhlIHVzZSBvZiBgT2JqZWN0I3RvU3RyaW5nYCBhdm9pZHMgaXNzdWVzIHdpdGggdGhlIGB0eXBlb2ZgIG9wZXJhdG9yXG4gIC8vIGluIFNhZmFyaSA4IHdoaWNoIHJldHVybnMgJ29iamVjdCcgZm9yIHR5cGVkIGFycmF5IGFuZCB3ZWFrIG1hcCBjb25zdHJ1Y3RvcnMsXG4gIC8vIGFuZCBQaGFudG9tSlMgMS45IHdoaWNoIHJldHVybnMgJ2Z1bmN0aW9uJyBmb3IgYE5vZGVMaXN0YCBpbnN0YW5jZXMuXG4gIHZhciB0YWcgPSBpc09iamVjdCh2YWx1ZSkgPyBvYmplY3RUb1N0cmluZy5jYWxsKHZhbHVlKSA6ICcnO1xuICByZXR1cm4gdGFnID09IGZ1bmNUYWcgfHwgdGFnID09IGdlblRhZztcbn1cblxubW9kdWxlLmV4cG9ydHMgPSBpc0Z1bmN0aW9uO1xuXG5cblxuLyoqKioqKioqKioqKioqKioqXG4gKiogV0VCUEFDSyBGT09URVJcbiAqKiAuL34vbG9kYXNoL2lzRnVuY3Rpb24uanNcbiAqKiBtb2R1bGUgaWQgPSA3XG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==");
 
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
+var _elementResizeEvent = __webpack_require__(/*! element-resize-event */ "./node_modules/element-resize-event/index.js");
 
-	eval("var isObjectLike = __webpack_require__(9);\n\n/** `Object#toString` result references. */\nvar symbolTag = '[object Symbol]';\n\n/** Used for built-in method references. */\nvar objectProto = Object.prototype;\n\n/**\n * Used to resolve the\n * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)\n * of values.\n */\nvar objectToString = objectProto.toString;\n\n/**\n * Checks if `value` is classified as a `Symbol` primitive or object.\n *\n * @static\n * @memberOf _\n * @since 4.0.0\n * @category Lang\n * @param {*} value The value to check.\n * @returns {boolean} Returns `true` if `value` is correctly classified,\n *  else `false`.\n * @example\n *\n * _.isSymbol(Symbol.iterator);\n * // => true\n *\n * _.isSymbol('abc');\n * // => false\n */\nfunction isSymbol(value) {\n  return typeof value == 'symbol' ||\n    (isObjectLike(value) && objectToString.call(value) == symbolTag);\n}\n\nmodule.exports = isSymbol;\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiOC5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL34vbG9kYXNoL2lzU3ltYm9sLmpzPzdhYjkiXSwic291cmNlc0NvbnRlbnQiOlsidmFyIGlzT2JqZWN0TGlrZSA9IHJlcXVpcmUoJy4vaXNPYmplY3RMaWtlJyk7XG5cbi8qKiBgT2JqZWN0I3RvU3RyaW5nYCByZXN1bHQgcmVmZXJlbmNlcy4gKi9cbnZhciBzeW1ib2xUYWcgPSAnW29iamVjdCBTeW1ib2xdJztcblxuLyoqIFVzZWQgZm9yIGJ1aWx0LWluIG1ldGhvZCByZWZlcmVuY2VzLiAqL1xudmFyIG9iamVjdFByb3RvID0gT2JqZWN0LnByb3RvdHlwZTtcblxuLyoqXG4gKiBVc2VkIHRvIHJlc29sdmUgdGhlXG4gKiBbYHRvU3RyaW5nVGFnYF0oaHR0cDovL2VjbWEtaW50ZXJuYXRpb25hbC5vcmcvZWNtYS0yNjIvNi4wLyNzZWMtb2JqZWN0LnByb3RvdHlwZS50b3N0cmluZylcbiAqIG9mIHZhbHVlcy5cbiAqL1xudmFyIG9iamVjdFRvU3RyaW5nID0gb2JqZWN0UHJvdG8udG9TdHJpbmc7XG5cbi8qKlxuICogQ2hlY2tzIGlmIGB2YWx1ZWAgaXMgY2xhc3NpZmllZCBhcyBhIGBTeW1ib2xgIHByaW1pdGl2ZSBvciBvYmplY3QuXG4gKlxuICogQHN0YXRpY1xuICogQG1lbWJlck9mIF9cbiAqIEBzaW5jZSA0LjAuMFxuICogQGNhdGVnb3J5IExhbmdcbiAqIEBwYXJhbSB7Kn0gdmFsdWUgVGhlIHZhbHVlIHRvIGNoZWNrLlxuICogQHJldHVybnMge2Jvb2xlYW59IFJldHVybnMgYHRydWVgIGlmIGB2YWx1ZWAgaXMgY29ycmVjdGx5IGNsYXNzaWZpZWQsXG4gKiAgZWxzZSBgZmFsc2VgLlxuICogQGV4YW1wbGVcbiAqXG4gKiBfLmlzU3ltYm9sKFN5bWJvbC5pdGVyYXRvcik7XG4gKiAvLyA9PiB0cnVlXG4gKlxuICogXy5pc1N5bWJvbCgnYWJjJyk7XG4gKiAvLyA9PiBmYWxzZVxuICovXG5mdW5jdGlvbiBpc1N5bWJvbCh2YWx1ZSkge1xuICByZXR1cm4gdHlwZW9mIHZhbHVlID09ICdzeW1ib2wnIHx8XG4gICAgKGlzT2JqZWN0TGlrZSh2YWx1ZSkgJiYgb2JqZWN0VG9TdHJpbmcuY2FsbCh2YWx1ZSkgPT0gc3ltYm9sVGFnKTtcbn1cblxubW9kdWxlLmV4cG9ydHMgPSBpc1N5bWJvbDtcblxuXG5cbi8qKioqKioqKioqKioqKioqKlxuICoqIFdFQlBBQ0sgRk9PVEVSXG4gKiogLi9+L2xvZGFzaC9pc1N5bWJvbC5qc1xuICoqIG1vZHVsZSBpZCA9IDhcbiAqKiBtb2R1bGUgY2h1bmtzID0gMFxuICoqLyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==");
+var _elementResizeEvent2 = _interopRequireDefault(_elementResizeEvent);
 
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
+var _debounce = __webpack_require__(/*! lodash/debounce */ "./node_modules/lodash/debounce.js");
 
-	eval("/**\n * Checks if `value` is object-like. A value is object-like if it's not `null`\n * and has a `typeof` result of \"object\".\n *\n * @static\n * @memberOf _\n * @since 4.0.0\n * @category Lang\n * @param {*} value The value to check.\n * @returns {boolean} Returns `true` if `value` is object-like, else `false`.\n * @example\n *\n * _.isObjectLike({});\n * // => true\n *\n * _.isObjectLike([1, 2, 3]);\n * // => true\n *\n * _.isObjectLike(_.noop);\n * // => false\n *\n * _.isObjectLike(null);\n * // => false\n */\nfunction isObjectLike(value) {\n  return !!value && typeof value == 'object';\n}\n\nmodule.exports = isObjectLike;\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiOS5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL34vbG9kYXNoL2lzT2JqZWN0TGlrZS5qcz8zNmJlIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQ2hlY2tzIGlmIGB2YWx1ZWAgaXMgb2JqZWN0LWxpa2UuIEEgdmFsdWUgaXMgb2JqZWN0LWxpa2UgaWYgaXQncyBub3QgYG51bGxgXG4gKiBhbmQgaGFzIGEgYHR5cGVvZmAgcmVzdWx0IG9mIFwib2JqZWN0XCIuXG4gKlxuICogQHN0YXRpY1xuICogQG1lbWJlck9mIF9cbiAqIEBzaW5jZSA0LjAuMFxuICogQGNhdGVnb3J5IExhbmdcbiAqIEBwYXJhbSB7Kn0gdmFsdWUgVGhlIHZhbHVlIHRvIGNoZWNrLlxuICogQHJldHVybnMge2Jvb2xlYW59IFJldHVybnMgYHRydWVgIGlmIGB2YWx1ZWAgaXMgb2JqZWN0LWxpa2UsIGVsc2UgYGZhbHNlYC5cbiAqIEBleGFtcGxlXG4gKlxuICogXy5pc09iamVjdExpa2Uoe30pO1xuICogLy8gPT4gdHJ1ZVxuICpcbiAqIF8uaXNPYmplY3RMaWtlKFsxLCAyLCAzXSk7XG4gKiAvLyA9PiB0cnVlXG4gKlxuICogXy5pc09iamVjdExpa2UoXy5ub29wKTtcbiAqIC8vID0+IGZhbHNlXG4gKlxuICogXy5pc09iamVjdExpa2UobnVsbCk7XG4gKiAvLyA9PiBmYWxzZVxuICovXG5mdW5jdGlvbiBpc09iamVjdExpa2UodmFsdWUpIHtcbiAgcmV0dXJuICEhdmFsdWUgJiYgdHlwZW9mIHZhbHVlID09ICdvYmplY3QnO1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IGlzT2JqZWN0TGlrZTtcblxuXG5cbi8qKioqKioqKioqKioqKioqKlxuICoqIFdFQlBBQ0sgRk9PVEVSXG4gKiogLi9+L2xvZGFzaC9pc09iamVjdExpa2UuanNcbiAqKiBtb2R1bGUgaWQgPSA5XG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Iiwic291cmNlUm9vdCI6IiJ9");
+var _debounce2 = _interopRequireDefault(_debounce);
 
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
+var _isUndefined = __webpack_require__(/*! lodash/isUndefined */ "./node_modules/lodash/isUndefined.js");
 
-	eval("/**\n * Checks if `value` is `undefined`.\n *\n * @static\n * @since 0.1.0\n * @memberOf _\n * @category Lang\n * @param {*} value The value to check.\n * @returns {boolean} Returns `true` if `value` is `undefined`, else `false`.\n * @example\n *\n * _.isUndefined(void 0);\n * // => true\n *\n * _.isUndefined(null);\n * // => false\n */\nfunction isUndefined(value) {\n  return value === undefined;\n}\n\nmodule.exports = isUndefined;\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTAuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L2xvZGFzaC9pc1VuZGVmaW5lZC5qcz82ZWM5Il0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQ2hlY2tzIGlmIGB2YWx1ZWAgaXMgYHVuZGVmaW5lZGAuXG4gKlxuICogQHN0YXRpY1xuICogQHNpbmNlIDAuMS4wXG4gKiBAbWVtYmVyT2YgX1xuICogQGNhdGVnb3J5IExhbmdcbiAqIEBwYXJhbSB7Kn0gdmFsdWUgVGhlIHZhbHVlIHRvIGNoZWNrLlxuICogQHJldHVybnMge2Jvb2xlYW59IFJldHVybnMgYHRydWVgIGlmIGB2YWx1ZWAgaXMgYHVuZGVmaW5lZGAsIGVsc2UgYGZhbHNlYC5cbiAqIEBleGFtcGxlXG4gKlxuICogXy5pc1VuZGVmaW5lZCh2b2lkIDApO1xuICogLy8gPT4gdHJ1ZVxuICpcbiAqIF8uaXNVbmRlZmluZWQobnVsbCk7XG4gKiAvLyA9PiBmYWxzZVxuICovXG5mdW5jdGlvbiBpc1VuZGVmaW5lZCh2YWx1ZSkge1xuICByZXR1cm4gdmFsdWUgPT09IHVuZGVmaW5lZDtcbn1cblxubW9kdWxlLmV4cG9ydHMgPSBpc1VuZGVmaW5lZDtcblxuXG5cbi8qKioqKioqKioqKioqKioqKlxuICoqIFdFQlBBQ0sgRk9PVEVSXG4gKiogLi9+L2xvZGFzaC9pc1VuZGVmaW5lZC5qc1xuICoqIG1vZHVsZSBpZCA9IDEwXG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==");
+var _isUndefined2 = _interopRequireDefault(_isUndefined);
 
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
+var _propTypes = __webpack_require__(/*! prop-types */ "prop-types");
 
-	eval("module.exports = undefined;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTEuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vZXh0ZXJuYWwge1wiYW1kXCI6XCJyZWFjdFwiLFwiY29tbW9uanNcIjpcInJlYWN0XCIsXCJjb21tb25qczJcIjpcInJlYWN0XCIsXCJyb290XCI6XCJSZWFjdFwifT9lYmEwIl0sInNvdXJjZXNDb250ZW50IjpbIm1vZHVsZS5leHBvcnRzID0gdW5kZWZpbmVkO1xuXG5cbi8qKioqKioqKioqKioqKioqKlxuICoqIFdFQlBBQ0sgRk9PVEVSXG4gKiogZXh0ZXJuYWwge1wiYW1kXCI6XCJyZWFjdFwiLFwiY29tbW9uanNcIjpcInJlYWN0XCIsXCJjb21tb25qczJcIjpcInJlYWN0XCIsXCJyb290XCI6XCJSZWFjdFwifVxuICoqIG1vZHVsZSBpZCA9IDExXG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBIiwic291cmNlUm9vdCI6IiJ9");
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
+var _react = __webpack_require__(/*! react */ "react");
 
-	eval("module.exports = undefined;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTIuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vZXh0ZXJuYWwge1wiYW1kXCI6XCJyZWFjdC1kb21cIixcImNvbW1vbmpzXCI6XCJyZWFjdC1kb21cIixcImNvbW1vbmpzMlwiOlwicmVhY3QtZG9tXCIsXCJyb290XCI6XCJSZWFjdERPTVwifT8wMmVkIl0sInNvdXJjZXNDb250ZW50IjpbIm1vZHVsZS5leHBvcnRzID0gdW5kZWZpbmVkO1xuXG5cbi8qKioqKioqKioqKioqKioqKlxuICoqIFdFQlBBQ0sgRk9PVEVSXG4gKiogZXh0ZXJuYWwge1wiYW1kXCI6XCJyZWFjdC1kb21cIixcImNvbW1vbmpzXCI6XCJyZWFjdC1kb21cIixcImNvbW1vbmpzMlwiOlwicmVhY3QtZG9tXCIsXCJyb290XCI6XCJSZWFjdERPTVwifVxuICoqIG1vZHVsZSBpZCA9IDEyXG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBIiwic291cmNlUm9vdCI6IiJ9");
+var _react2 = _interopRequireDefault(_react);
 
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
+var _reactDom = __webpack_require__(/*! react-dom */ "react-dom");
 
-	eval("module.exports = undefined;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vZXh0ZXJuYWwge1wiYW1kXCI6XCJyZWNvbXBvc2VcIixcImNvbW1vbmpzXCI6XCJyZWNvbXBvc2VcIixcImNvbW1vbmpzMlwiOlwicmVjb21wb3NlXCIsXCJyb290XCI6XCJSZWNvbXBvc2VcIn0/MWEyNSJdLCJzb3VyY2VzQ29udGVudCI6WyJtb2R1bGUuZXhwb3J0cyA9IHVuZGVmaW5lZDtcblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIGV4dGVybmFsIHtcImFtZFwiOlwicmVjb21wb3NlXCIsXCJjb21tb25qc1wiOlwicmVjb21wb3NlXCIsXCJjb21tb25qczJcIjpcInJlY29tcG9zZVwiLFwicm9vdFwiOlwiUmVjb21wb3NlXCJ9XG4gKiogbW9kdWxlIGlkID0gMTNcbiAqKiBtb2R1bGUgY2h1bmtzID0gMFxuICoqLyJdLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VSb290IjoiIn0=");
+var _recompose = __webpack_require__(/*! recompose */ "recompose");
 
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
+var _shallowEqual = __webpack_require__(/*! recompose/shallowEqual */ "./node_modules/recompose/shallowEqual.js");
 
-	eval("'use strict';\n\nexports.__esModule = true;\n\nvar _shallowEqual = __webpack_require__(15);\n\nvar _shallowEqual2 = _interopRequireDefault(_shallowEqual);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = _shallowEqual2.default;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTQuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3JlY29tcG9zZS9zaGFsbG93RXF1YWwuanM/ZGFiYiJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHN0cmljdCc7XG5cbmV4cG9ydHMuX19lc01vZHVsZSA9IHRydWU7XG5cbnZhciBfc2hhbGxvd0VxdWFsID0gcmVxdWlyZSgnZmJqcy9saWIvc2hhbGxvd0VxdWFsJyk7XG5cbnZhciBfc2hhbGxvd0VxdWFsMiA9IF9pbnRlcm9wUmVxdWlyZURlZmF1bHQoX3NoYWxsb3dFcXVhbCk7XG5cbmZ1bmN0aW9uIF9pbnRlcm9wUmVxdWlyZURlZmF1bHQob2JqKSB7IHJldHVybiBvYmogJiYgb2JqLl9fZXNNb2R1bGUgPyBvYmogOiB7IGRlZmF1bHQ6IG9iaiB9OyB9XG5cbmV4cG9ydHMuZGVmYXVsdCA9IF9zaGFsbG93RXF1YWwyLmRlZmF1bHQ7XG5cblxuLyoqKioqKioqKioqKioqKioqXG4gKiogV0VCUEFDSyBGT09URVJcbiAqKiAuL34vcmVjb21wb3NlL3NoYWxsb3dFcXVhbC5qc1xuICoqIG1vZHVsZSBpZCA9IDE0XG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=");
+var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-/***/ },
-/* 15 */
-/***/ function(module, exports) {
+var _vidz = __webpack_require__(/*! vidz */ "vidz");
 
-	eval("/**\n * Copyright (c) 2013-present, Facebook, Inc.\n * All rights reserved.\n *\n * This source code is licensed under the BSD-style license found in the\n * LICENSE file in the root directory of this source tree. An additional grant\n * of patent rights can be found in the PATENTS file in the same directory.\n *\n * @typechecks\n * \n */\n\n/*eslint-disable no-self-compare */\n\n'use strict';\n\nvar hasOwnProperty = Object.prototype.hasOwnProperty;\n\n/**\n * inlined Object.is polyfill to avoid requiring consumers ship their own\n * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is\n */\nfunction is(x, y) {\n  // SameValue algorithm\n  if (x === y) {\n    // Steps 1-5, 7-10\n    // Steps 6.b-6.e: +0 != -0\n    return x !== 0 || 1 / x === 1 / y;\n  } else {\n    // Step 6.a: NaN == NaN\n    return x !== x && y !== y;\n  }\n}\n\n/**\n * Performs equality by iterating through keys on an object and returning false\n * when any key has values which are not strictly equal between the arguments.\n * Returns true when the values of all keys are strictly equal.\n */\nfunction shallowEqual(objA, objB) {\n  if (is(objA, objB)) {\n    return true;\n  }\n\n  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {\n    return false;\n  }\n\n  var keysA = Object.keys(objA);\n  var keysB = Object.keys(objB);\n\n  if (keysA.length !== keysB.length) {\n    return false;\n  }\n\n  // Test for A's keys different from B.\n  for (var i = 0; i < keysA.length; i++) {\n    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {\n      return false;\n    }\n  }\n\n  return true;\n}\n\nmodule.exports = shallowEqual;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTUuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L2ZianMvbGliL3NoYWxsb3dFcXVhbC5qcz9lZTFkIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQ29weXJpZ2h0IChjKSAyMDEzLXByZXNlbnQsIEZhY2Vib29rLCBJbmMuXG4gKiBBbGwgcmlnaHRzIHJlc2VydmVkLlxuICpcbiAqIFRoaXMgc291cmNlIGNvZGUgaXMgbGljZW5zZWQgdW5kZXIgdGhlIEJTRC1zdHlsZSBsaWNlbnNlIGZvdW5kIGluIHRoZVxuICogTElDRU5TRSBmaWxlIGluIHRoZSByb290IGRpcmVjdG9yeSBvZiB0aGlzIHNvdXJjZSB0cmVlLiBBbiBhZGRpdGlvbmFsIGdyYW50XG4gKiBvZiBwYXRlbnQgcmlnaHRzIGNhbiBiZSBmb3VuZCBpbiB0aGUgUEFURU5UUyBmaWxlIGluIHRoZSBzYW1lIGRpcmVjdG9yeS5cbiAqXG4gKiBAdHlwZWNoZWNrc1xuICogXG4gKi9cblxuLyplc2xpbnQtZGlzYWJsZSBuby1zZWxmLWNvbXBhcmUgKi9cblxuJ3VzZSBzdHJpY3QnO1xuXG52YXIgaGFzT3duUHJvcGVydHkgPSBPYmplY3QucHJvdG90eXBlLmhhc093blByb3BlcnR5O1xuXG4vKipcbiAqIGlubGluZWQgT2JqZWN0LmlzIHBvbHlmaWxsIHRvIGF2b2lkIHJlcXVpcmluZyBjb25zdW1lcnMgc2hpcCB0aGVpciBvd25cbiAqIGh0dHBzOi8vZGV2ZWxvcGVyLm1vemlsbGEub3JnL2VuLVVTL2RvY3MvV2ViL0phdmFTY3JpcHQvUmVmZXJlbmNlL0dsb2JhbF9PYmplY3RzL09iamVjdC9pc1xuICovXG5mdW5jdGlvbiBpcyh4LCB5KSB7XG4gIC8vIFNhbWVWYWx1ZSBhbGdvcml0aG1cbiAgaWYgKHggPT09IHkpIHtcbiAgICAvLyBTdGVwcyAxLTUsIDctMTBcbiAgICAvLyBTdGVwcyA2LmItNi5lOiArMCAhPSAtMFxuICAgIHJldHVybiB4ICE9PSAwIHx8IDEgLyB4ID09PSAxIC8geTtcbiAgfSBlbHNlIHtcbiAgICAvLyBTdGVwIDYuYTogTmFOID09IE5hTlxuICAgIHJldHVybiB4ICE9PSB4ICYmIHkgIT09IHk7XG4gIH1cbn1cblxuLyoqXG4gKiBQZXJmb3JtcyBlcXVhbGl0eSBieSBpdGVyYXRpbmcgdGhyb3VnaCBrZXlzIG9uIGFuIG9iamVjdCBhbmQgcmV0dXJuaW5nIGZhbHNlXG4gKiB3aGVuIGFueSBrZXkgaGFzIHZhbHVlcyB3aGljaCBhcmUgbm90IHN0cmljdGx5IGVxdWFsIGJldHdlZW4gdGhlIGFyZ3VtZW50cy5cbiAqIFJldHVybnMgdHJ1ZSB3aGVuIHRoZSB2YWx1ZXMgb2YgYWxsIGtleXMgYXJlIHN0cmljdGx5IGVxdWFsLlxuICovXG5mdW5jdGlvbiBzaGFsbG93RXF1YWwob2JqQSwgb2JqQikge1xuICBpZiAoaXMob2JqQSwgb2JqQikpIHtcbiAgICByZXR1cm4gdHJ1ZTtcbiAgfVxuXG4gIGlmICh0eXBlb2Ygb2JqQSAhPT0gJ29iamVjdCcgfHwgb2JqQSA9PT0gbnVsbCB8fCB0eXBlb2Ygb2JqQiAhPT0gJ29iamVjdCcgfHwgb2JqQiA9PT0gbnVsbCkge1xuICAgIHJldHVybiBmYWxzZTtcbiAgfVxuXG4gIHZhciBrZXlzQSA9IE9iamVjdC5rZXlzKG9iakEpO1xuICB2YXIga2V5c0IgPSBPYmplY3Qua2V5cyhvYmpCKTtcblxuICBpZiAoa2V5c0EubGVuZ3RoICE9PSBrZXlzQi5sZW5ndGgpIHtcbiAgICByZXR1cm4gZmFsc2U7XG4gIH1cblxuICAvLyBUZXN0IGZvciBBJ3Mga2V5cyBkaWZmZXJlbnQgZnJvbSBCLlxuICBmb3IgKHZhciBpID0gMDsgaSA8IGtleXNBLmxlbmd0aDsgaSsrKSB7XG4gICAgaWYgKCFoYXNPd25Qcm9wZXJ0eS5jYWxsKG9iakIsIGtleXNBW2ldKSB8fCAhaXMob2JqQVtrZXlzQVtpXV0sIG9iakJba2V5c0FbaV1dKSkge1xuICAgICAgcmV0dXJuIGZhbHNlO1xuICAgIH1cbiAgfVxuXG4gIHJldHVybiB0cnVlO1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IHNoYWxsb3dFcXVhbDtcblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIC4vfi9mYmpzL2xpYi9zaGFsbG93RXF1YWwuanNcbiAqKiBtb2R1bGUgaWQgPSAxNVxuICoqIG1vZHVsZSBjaHVua3MgPSAwXG4gKiovIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=");
+var _vidz2 = _interopRequireDefault(_vidz);
 
-/***/ },
-/* 16 */
-/***/ function(module, exports) {
+var _Button = __webpack_require__(/*! ./components/Button */ "./src/components/Button.js");
 
-	eval("module.exports = undefined;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTYuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vZXh0ZXJuYWwge1wiYW1kXCI6XCJ2aWR6XCIsXCJjb21tb25qc1wiOlwidmlkelwiLFwiY29tbW9uanMyXCI6XCJ2aWR6XCIsXCJyb290XCI6XCJ2aWR6XCJ9PzJjMWUiXSwic291cmNlc0NvbnRlbnQiOlsibW9kdWxlLmV4cG9ydHMgPSB1bmRlZmluZWQ7XG5cblxuLyoqKioqKioqKioqKioqKioqXG4gKiogV0VCUEFDSyBGT09URVJcbiAqKiBleHRlcm5hbCB7XCJhbWRcIjpcInZpZHpcIixcImNvbW1vbmpzXCI6XCJ2aWR6XCIsXCJjb21tb25qczJcIjpcInZpZHpcIixcInJvb3RcIjpcInZpZHpcIn1cbiAqKiBtb2R1bGUgaWQgPSAxNlxuICoqIG1vZHVsZSBjaHVua3MgPSAwXG4gKiovIl0sIm1hcHBpbmdzIjoiQUFBQSIsInNvdXJjZVJvb3QiOiIifQ==");
+var _Button2 = _interopRequireDefault(_Button);
 
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
+var _Display = __webpack_require__(/*! ./components/Display */ "./src/components/Display.js");
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _react = __webpack_require__(11);\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _recompose = __webpack_require__(13);\n\nvar _icons = __webpack_require__(18);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar ICON_STYLE = {\n  fontSize: 20\n};\n\n// icons\n// external dependencies\n\n\nvar Button = (0, _recompose.pure)(function (_ref) {\n  var children = _ref.children;\n  var icon = _ref.icon;\n  var label = _ref.label;\n  var onClick = _ref.onClick;\n  var _ref$style = _ref.style;\n  var style = _ref$style === undefined ? {} : _ref$style;\n\n  var Icon = _icons.icons[icon];\n\n  return _react2.default.createElement(\n    'div',\n    {\n      'aria-label': label,\n      onClick: onClick,\n      role: 'button',\n      style: style\n    },\n    _react2.default.createElement(Icon, { style: ICON_STYLE }),\n    children\n  );\n});\n\nButton.propTypes = {\n  children: _react.PropTypes.node,\n  icon: _react.PropTypes.string,\n  onClick: _react.PropTypes.func,\n  style: _react.PropTypes.object\n};\n\nexports.default = Button;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2NvbXBvbmVudHMvQnV0dG9uLmpzPzczNGYiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gZXh0ZXJuYWwgZGVwZW5kZW5jaWVzXG5pbXBvcnQgUmVhY3QsIHtcbiAgUHJvcFR5cGVzXG59IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7XG4gIHB1cmVcbn0gZnJvbSAncmVjb21wb3NlJztcblxuLy8gaWNvbnNcbmltcG9ydCB7XG4gIGljb25zXG59IGZyb20gJy4uL2ljb25zJztcblxuY29uc3QgSUNPTl9TVFlMRSA9IHtcbiAgZm9udFNpemU6IDIwXG59O1xuXG5jb25zdCBCdXR0b24gPSBwdXJlKCh7Y2hpbGRyZW4sIGljb24sIGxhYmVsLCBvbkNsaWNrLCBzdHlsZSA9IHt9fSkgPT4ge1xuICBjb25zdCBJY29uID0gaWNvbnNbaWNvbl07XG4gIFxuICByZXR1cm4gKFxuICAgIDxkaXZcbiAgICAgIGFyaWEtbGFiZWw9e2xhYmVsfVxuICAgICAgb25DbGljaz17b25DbGlja31cbiAgICAgIHJvbGU9XCJidXR0b25cIlxuICAgICAgc3R5bGU9e3N0eWxlfVxuICAgID5cbiAgICAgIDxJY29uIHN0eWxlPXtJQ09OX1NUWUxFfS8+XG5cbiAgICAgIHtjaGlsZHJlbn1cbiAgICA8L2Rpdj5cbiAgKTsgXG59KTtcblxuQnV0dG9uLnByb3BUeXBlcyA9IHtcbiAgY2hpbGRyZW46IFByb3BUeXBlcy5ub2RlLFxuICBpY29uOiBQcm9wVHlwZXMuc3RyaW5nLFxuICBvbkNsaWNrOiBQcm9wVHlwZXMuZnVuYyxcbiAgc3R5bGU6IFByb3BUeXBlcy5vYmplY3Rcbn07XG5cbmV4cG9ydCBkZWZhdWx0IEJ1dHRvbjtcblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9jb21wb25lbnRzL0J1dHRvbi5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0E7QUFDQTs7O0FBRUE7QUFDQTtBQUlBO0FBQ0E7OztBQUdBO0FBQ0E7QUFEQTtBQUNBOzs7OztBQUdBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFKQTtBQU1BO0FBRUE7QUFSQTtBQVdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBSkE7QUFDQTtBQU1BOyIsInNvdXJjZVJvb3QiOiIifQ==");
+var _Display2 = _interopRequireDefault(_Display);
 
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
+var _InformationBar = __webpack_require__(/*! ./components/InformationBar */ "./src/components/InformationBar.js");
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.icons = exports.availableIcons = undefined;\n\nvar _arrowExpand = __webpack_require__(19);\n\nvar _arrowExpand2 = _interopRequireDefault(_arrowExpand);\n\nvar _iosFastforward = __webpack_require__(21);\n\nvar _iosFastforward2 = _interopRequireDefault(_iosFastforward);\n\nvar _pause = __webpack_require__(22);\n\nvar _pause2 = _interopRequireDefault(_pause);\n\nvar _play = __webpack_require__(23);\n\nvar _play2 = _interopRequireDefault(_play);\n\nvar _arrowShrink = __webpack_require__(24);\n\nvar _arrowShrink2 = _interopRequireDefault(_arrowShrink);\n\nvar _volumeHigh = __webpack_require__(25);\n\nvar _volumeHigh2 = _interopRequireDefault(_volumeHigh);\n\nvar _volumeLow = __webpack_require__(26);\n\nvar _volumeLow2 = _interopRequireDefault(_volumeLow);\n\nvar _volumeMedium = __webpack_require__(27);\n\nvar _volumeMedium2 = _interopRequireDefault(_volumeMedium);\n\nvar _volumeMute = __webpack_require__(28);\n\nvar _volumeMute2 = _interopRequireDefault(_volumeMute);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar AVAILABLE_ICONS = {\n  EXPAND: 'EXPAND',\n  FAST_FORWARD: 'FAST_FORWARD',\n  PAUSE: 'PAUSE',\n  PLAY: 'PLAY',\n  SHRINK: 'SHRINK',\n  VOLUME_HIGH: 'VOLUME_HIGH',\n  VOLUME_LOW: 'VOLUME_LOW',\n  VOLUME_MEDIUM: 'VOLUME_MEDIUM',\n  VOLUME_MUTE: 'VOLUME_MUTE'\n}; // external dependencies\n\n\nvar ICON_MAP = {\n  EXPAND: _arrowExpand2.default,\n  FAST_FORWARD: _iosFastforward2.default,\n  PAUSE: _pause2.default,\n  PLAY: _play2.default,\n  SHRINK: _arrowShrink2.default,\n  VOLUME_HIGH: _volumeHigh2.default,\n  VOLUME_LOW: _volumeLow2.default,\n  VOLUME_MEDIUM: _volumeMedium2.default,\n  VOLUME_MUTE: _volumeMute2.default\n};\n\nexports.availableIcons = AVAILABLE_ICONS;\nexports.icons = ICON_MAP;\nexports.default = {\n  availableIcons: AVAILABLE_ICONS,\n  icons: ICON_MAP\n};\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTguanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2ljb25zLmpzP2MxMWUiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gZXh0ZXJuYWwgZGVwZW5kZW5jaWVzXG5pbXBvcnQgSW9FeHBhbmQgZnJvbSAncmVhY3QtaWNvbnMvbGliL2lvL2Fycm93LWV4cGFuZCc7XG5pbXBvcnQgSW9GYXN0Rm9yd2FyZCBmcm9tICdyZWFjdC1pY29ucy9saWIvaW8vaW9zLWZhc3Rmb3J3YXJkJztcbmltcG9ydCBJb1BhdXNlIGZyb20gJ3JlYWN0LWljb25zL2xpYi9pby9wYXVzZSc7XG5pbXBvcnQgSW9QbGF5IGZyb20gJ3JlYWN0LWljb25zL2xpYi9pby9wbGF5JztcbmltcG9ydCBJb1NocmluayBmcm9tICdyZWFjdC1pY29ucy9saWIvaW8vYXJyb3ctc2hyaW5rJztcbmltcG9ydCBJb1ZvbHVtZUhpZ2ggZnJvbSAncmVhY3QtaWNvbnMvbGliL2lvL3ZvbHVtZS1oaWdoJztcbmltcG9ydCBJb1ZvbHVtZUxvdyBmcm9tICdyZWFjdC1pY29ucy9saWIvaW8vdm9sdW1lLWxvdyc7XG5pbXBvcnQgSW9Wb2x1bWVNZWRpdW0gZnJvbSAncmVhY3QtaWNvbnMvbGliL2lvL3ZvbHVtZS1tZWRpdW0nO1xuaW1wb3J0IElvVm9sdW1lTXV0ZSBmcm9tICdyZWFjdC1pY29ucy9saWIvaW8vdm9sdW1lLW11dGUnO1xuXG5jb25zdCBBVkFJTEFCTEVfSUNPTlMgPSB7XG4gIEVYUEFORDogJ0VYUEFORCcsXG4gIEZBU1RfRk9SV0FSRDogJ0ZBU1RfRk9SV0FSRCcsXG4gIFBBVVNFOiAnUEFVU0UnLFxuICBQTEFZOiAnUExBWScsXG4gIFNIUklOSzogJ1NIUklOSycsXG4gIFZPTFVNRV9ISUdIOiAnVk9MVU1FX0hJR0gnLFxuICBWT0xVTUVfTE9XOiAnVk9MVU1FX0xPVycsXG4gIFZPTFVNRV9NRURJVU06ICdWT0xVTUVfTUVESVVNJyxcbiAgVk9MVU1FX01VVEU6ICdWT0xVTUVfTVVURSdcbn07XG5cbmNvbnN0IElDT05fTUFQID0ge1xuICBFWFBBTkQ6IElvRXhwYW5kLFxuICBGQVNUX0ZPUldBUkQ6IElvRmFzdEZvcndhcmQsXG4gIFBBVVNFOiBJb1BhdXNlLFxuICBQTEFZOiBJb1BsYXksXG4gIFNIUklOSzogSW9TaHJpbmssXG4gIFZPTFVNRV9ISUdIOiBJb1ZvbHVtZUhpZ2gsXG4gIFZPTFVNRV9MT1c6IElvVm9sdW1lTG93LFxuICBWT0xVTUVfTUVESVVNOiBJb1ZvbHVtZU1lZGl1bSxcbiAgVk9MVU1FX01VVEU6IElvVm9sdW1lTXV0ZVxufTtcblxuZXhwb3J0IHtBVkFJTEFCTEVfSUNPTlMgYXMgYXZhaWxhYmxlSWNvbnN9O1xuZXhwb3J0IHtJQ09OX01BUCBhcyBpY29uc307XG5cbmV4cG9ydCBkZWZhdWx0IHtcbiAgYXZhaWxhYmxlSWNvbnM6IEFWQUlMQUJMRV9JQ09OUyxcbiAgaWNvbnM6IElDT05fTUFQXG59O1xuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2ljb25zLmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBQ0E7QUFDQTs7O0FBQUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBQUE7QUFDQTs7O0FBQUE7QUFDQTs7Ozs7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQVRBO0FBQ0E7QUFDQTtBQVVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBVEE7QUFDQTtBQVdBO0FBQ0E7QUFFQTtBQUNBO0FBQ0E7QUFGQSIsInNvdXJjZVJvb3QiOiIifQ==");
+var _InformationBar2 = _interopRequireDefault(_InformationBar);
 
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
+var _Track = __webpack_require__(/*! ./components/Track */ "./src/components/Track.js");
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar React = __webpack_require__(11);\nvar IconBase = __webpack_require__(20);\n\nvar IoArrowExpand = function (_React$Component) {\n    _inherits(IoArrowExpand, _React$Component);\n\n    function IoArrowExpand() {\n        _classCallCheck(this, IoArrowExpand);\n\n        return _possibleConstructorReturn(this, Object.getPrototypeOf(IoArrowExpand).apply(this, arguments));\n    }\n\n    _createClass(IoArrowExpand, [{\n        key: 'render',\n        value: function render() {\n            return React.createElement(\n                IconBase,\n                _extends({ viewBox: '0 0 40 40' }, this.props),\n                React.createElement(\n                    'g',\n                    null,\n                    React.createElement('path', { d: 'm21.4 16.4l5-5-3.9-3.9h10v10l-3.9-3.9-5 5z m0 7.2l2.2-2.2 5 5 3.9-3.9v10h-10l3.9-3.9z m-2.8 0l-5 5 3.9 3.9h-10v-10l3.9 3.9 5-5z m0-7.2l-2.2 2.2-5-5-3.9 3.9v-10h10l-3.9 3.9z' })\n                )\n            );\n        }\n    }]);\n\n    return IoArrowExpand;\n}(React.Component);\n\nexports.default = IoArrowExpand;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTkuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3JlYWN0LWljb25zL2xpYi9pby9hcnJvdy1leHBhbmQuanM/NjViNSJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHN0cmljdCc7XG5cbk9iamVjdC5kZWZpbmVQcm9wZXJ0eShleHBvcnRzLCBcIl9fZXNNb2R1bGVcIiwge1xuICAgIHZhbHVlOiB0cnVlXG59KTtcblxudmFyIF9leHRlbmRzID0gT2JqZWN0LmFzc2lnbiB8fCBmdW5jdGlvbiAodGFyZ2V0KSB7IGZvciAodmFyIGkgPSAxOyBpIDwgYXJndW1lbnRzLmxlbmd0aDsgaSsrKSB7IHZhciBzb3VyY2UgPSBhcmd1bWVudHNbaV07IGZvciAodmFyIGtleSBpbiBzb3VyY2UpIHsgaWYgKE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHkuY2FsbChzb3VyY2UsIGtleSkpIHsgdGFyZ2V0W2tleV0gPSBzb3VyY2Vba2V5XTsgfSB9IH0gcmV0dXJuIHRhcmdldDsgfTtcblxudmFyIF9jcmVhdGVDbGFzcyA9IGZ1bmN0aW9uICgpIHsgZnVuY3Rpb24gZGVmaW5lUHJvcGVydGllcyh0YXJnZXQsIHByb3BzKSB7IGZvciAodmFyIGkgPSAwOyBpIDwgcHJvcHMubGVuZ3RoOyBpKyspIHsgdmFyIGRlc2NyaXB0b3IgPSBwcm9wc1tpXTsgZGVzY3JpcHRvci5lbnVtZXJhYmxlID0gZGVzY3JpcHRvci5lbnVtZXJhYmxlIHx8IGZhbHNlOyBkZXNjcmlwdG9yLmNvbmZpZ3VyYWJsZSA9IHRydWU7IGlmIChcInZhbHVlXCIgaW4gZGVzY3JpcHRvcikgZGVzY3JpcHRvci53cml0YWJsZSA9IHRydWU7IE9iamVjdC5kZWZpbmVQcm9wZXJ0eSh0YXJnZXQsIGRlc2NyaXB0b3Iua2V5LCBkZXNjcmlwdG9yKTsgfSB9IHJldHVybiBmdW5jdGlvbiAoQ29uc3RydWN0b3IsIHByb3RvUHJvcHMsIHN0YXRpY1Byb3BzKSB7IGlmIChwcm90b1Byb3BzKSBkZWZpbmVQcm9wZXJ0aWVzKENvbnN0cnVjdG9yLnByb3RvdHlwZSwgcHJvdG9Qcm9wcyk7IGlmIChzdGF0aWNQcm9wcykgZGVmaW5lUHJvcGVydGllcyhDb25zdHJ1Y3Rvciwgc3RhdGljUHJvcHMpOyByZXR1cm4gQ29uc3RydWN0b3I7IH07IH0oKTtcblxuZnVuY3Rpb24gX2NsYXNzQ2FsbENoZWNrKGluc3RhbmNlLCBDb25zdHJ1Y3RvcikgeyBpZiAoIShpbnN0YW5jZSBpbnN0YW5jZW9mIENvbnN0cnVjdG9yKSkgeyB0aHJvdyBuZXcgVHlwZUVycm9yKFwiQ2Fubm90IGNhbGwgYSBjbGFzcyBhcyBhIGZ1bmN0aW9uXCIpOyB9IH1cblxuZnVuY3Rpb24gX3Bvc3NpYmxlQ29uc3RydWN0b3JSZXR1cm4oc2VsZiwgY2FsbCkgeyBpZiAoIXNlbGYpIHsgdGhyb3cgbmV3IFJlZmVyZW5jZUVycm9yKFwidGhpcyBoYXNuJ3QgYmVlbiBpbml0aWFsaXNlZCAtIHN1cGVyKCkgaGFzbid0IGJlZW4gY2FsbGVkXCIpOyB9IHJldHVybiBjYWxsICYmICh0eXBlb2YgY2FsbCA9PT0gXCJvYmplY3RcIiB8fCB0eXBlb2YgY2FsbCA9PT0gXCJmdW5jdGlvblwiKSA/IGNhbGwgOiBzZWxmOyB9XG5cbmZ1bmN0aW9uIF9pbmhlcml0cyhzdWJDbGFzcywgc3VwZXJDbGFzcykgeyBpZiAodHlwZW9mIHN1cGVyQ2xhc3MgIT09IFwiZnVuY3Rpb25cIiAmJiBzdXBlckNsYXNzICE9PSBudWxsKSB7IHRocm93IG5ldyBUeXBlRXJyb3IoXCJTdXBlciBleHByZXNzaW9uIG11c3QgZWl0aGVyIGJlIG51bGwgb3IgYSBmdW5jdGlvbiwgbm90IFwiICsgdHlwZW9mIHN1cGVyQ2xhc3MpOyB9IHN1YkNsYXNzLnByb3RvdHlwZSA9IE9iamVjdC5jcmVhdGUoc3VwZXJDbGFzcyAmJiBzdXBlckNsYXNzLnByb3RvdHlwZSwgeyBjb25zdHJ1Y3RvcjogeyB2YWx1ZTogc3ViQ2xhc3MsIGVudW1lcmFibGU6IGZhbHNlLCB3cml0YWJsZTogdHJ1ZSwgY29uZmlndXJhYmxlOiB0cnVlIH0gfSk7IGlmIChzdXBlckNsYXNzKSBPYmplY3Quc2V0UHJvdG90eXBlT2YgPyBPYmplY3Quc2V0UHJvdG90eXBlT2Yoc3ViQ2xhc3MsIHN1cGVyQ2xhc3MpIDogc3ViQ2xhc3MuX19wcm90b19fID0gc3VwZXJDbGFzczsgfVxuXG52YXIgUmVhY3QgPSByZXF1aXJlKCdyZWFjdCcpO1xudmFyIEljb25CYXNlID0gcmVxdWlyZSgncmVhY3QtaWNvbi1iYXNlJyk7XG5cbnZhciBJb0Fycm93RXhwYW5kID0gZnVuY3Rpb24gKF9SZWFjdCRDb21wb25lbnQpIHtcbiAgICBfaW5oZXJpdHMoSW9BcnJvd0V4cGFuZCwgX1JlYWN0JENvbXBvbmVudCk7XG5cbiAgICBmdW5jdGlvbiBJb0Fycm93RXhwYW5kKCkge1xuICAgICAgICBfY2xhc3NDYWxsQ2hlY2sodGhpcywgSW9BcnJvd0V4cGFuZCk7XG5cbiAgICAgICAgcmV0dXJuIF9wb3NzaWJsZUNvbnN0cnVjdG9yUmV0dXJuKHRoaXMsIE9iamVjdC5nZXRQcm90b3R5cGVPZihJb0Fycm93RXhwYW5kKS5hcHBseSh0aGlzLCBhcmd1bWVudHMpKTtcbiAgICB9XG5cbiAgICBfY3JlYXRlQ2xhc3MoSW9BcnJvd0V4cGFuZCwgW3tcbiAgICAgICAga2V5OiAncmVuZGVyJyxcbiAgICAgICAgdmFsdWU6IGZ1bmN0aW9uIHJlbmRlcigpIHtcbiAgICAgICAgICAgIHJldHVybiBSZWFjdC5jcmVhdGVFbGVtZW50KFxuICAgICAgICAgICAgICAgIEljb25CYXNlLFxuICAgICAgICAgICAgICAgIF9leHRlbmRzKHsgdmlld0JveDogJzAgMCA0MCA0MCcgfSwgdGhpcy5wcm9wcyksXG4gICAgICAgICAgICAgICAgUmVhY3QuY3JlYXRlRWxlbWVudChcbiAgICAgICAgICAgICAgICAgICAgJ2cnLFxuICAgICAgICAgICAgICAgICAgICBudWxsLFxuICAgICAgICAgICAgICAgICAgICBSZWFjdC5jcmVhdGVFbGVtZW50KCdwYXRoJywgeyBkOiAnbTIxLjQgMTYuNGw1LTUtMy45LTMuOWgxMHYxMGwtMy45LTMuOS01IDV6IG0wIDcuMmwyLjItMi4yIDUgNSAzLjktMy45djEwaC0xMGwzLjktMy45eiBtLTIuOCAwbC01IDUgMy45IDMuOWgtMTB2LTEwbDMuOSAzLjkgNS01eiBtMC03LjJsLTIuMiAyLjItNS01LTMuOSAzLjl2LTEwaDEwbC0zLjkgMy45eicgfSlcbiAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICApO1xuICAgICAgICB9XG4gICAgfV0pO1xuXG4gICAgcmV0dXJuIElvQXJyb3dFeHBhbmQ7XG59KFJlYWN0LkNvbXBvbmVudCk7XG5cbmV4cG9ydHMuZGVmYXVsdCA9IElvQXJyb3dFeHBhbmQ7XG5tb2R1bGUuZXhwb3J0cyA9IGV4cG9ydHNbJ2RlZmF1bHQnXTtcblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIC4vfi9yZWFjdC1pY29ucy9saWIvaW8vYXJyb3ctZXhwYW5kLmpzXG4gKiogbW9kdWxlIGlkID0gMTlcbiAqKiBtb2R1bGUgY2h1bmtzID0gMFxuICoqLyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBIiwic291cmNlUm9vdCI6IiJ9");
+var _Track2 = _interopRequireDefault(_Track);
 
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
+var _TrackButton = __webpack_require__(/*! ./components/TrackButton */ "./src/components/TrackButton.js");
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _react = __webpack_require__(11);\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }\n\nvar defaultSize = '1em';\n\nvar IconBase = function IconBase(_ref, _ref2) {\n    var children = _ref.children;\n    var size = _ref.size;\n    var style = _ref.style;\n\n    var props = _objectWithoutProperties(_ref, ['children', 'size', 'style']);\n\n    var reactIconBase = _ref2.reactIconBase;\n\n    var computedSize = size ? size : reactIconBase && reactIconBase.size || defaultSize;\n    var computedStyle = _extends({\n        verticalAlign: \"middle\"\n    }, reactIconBase && reactIconBase.style || {}, style);\n    return _react2.default.createElement(\n        'svg',\n        _extends({\n            fill: 'currentColor',\n            fit: true,\n            height: computedSize,\n            width: computedSize\n        }, props, reactIconBase, {\n            preserveAspectRatio: 'xMidYMid meet',\n            style: computedStyle\n        }),\n        children\n    );\n};\n\nIconBase.contextTypes = {\n    reactIconBase: _react.PropTypes.object\n};\n\nIconBase.propTypes = {\n    size: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),\n    style: _react.PropTypes.object\n};\n\nexports.default = IconBase;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjAuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3JlYWN0LWljb24tYmFzZS9saWIvaW5kZXguanM/NzIxZCJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHN0cmljdCc7XG5cbk9iamVjdC5kZWZpbmVQcm9wZXJ0eShleHBvcnRzLCBcIl9fZXNNb2R1bGVcIiwge1xuICAgIHZhbHVlOiB0cnVlXG59KTtcblxudmFyIF9leHRlbmRzID0gT2JqZWN0LmFzc2lnbiB8fCBmdW5jdGlvbiAodGFyZ2V0KSB7IGZvciAodmFyIGkgPSAxOyBpIDwgYXJndW1lbnRzLmxlbmd0aDsgaSsrKSB7IHZhciBzb3VyY2UgPSBhcmd1bWVudHNbaV07IGZvciAodmFyIGtleSBpbiBzb3VyY2UpIHsgaWYgKE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHkuY2FsbChzb3VyY2UsIGtleSkpIHsgdGFyZ2V0W2tleV0gPSBzb3VyY2Vba2V5XTsgfSB9IH0gcmV0dXJuIHRhcmdldDsgfTtcblxudmFyIF9yZWFjdCA9IHJlcXVpcmUoJ3JlYWN0Jyk7XG5cbnZhciBfcmVhY3QyID0gX2ludGVyb3BSZXF1aXJlRGVmYXVsdChfcmVhY3QpO1xuXG5mdW5jdGlvbiBfaW50ZXJvcFJlcXVpcmVEZWZhdWx0KG9iaikgeyByZXR1cm4gb2JqICYmIG9iai5fX2VzTW9kdWxlID8gb2JqIDogeyBkZWZhdWx0OiBvYmogfTsgfVxuXG5mdW5jdGlvbiBfb2JqZWN0V2l0aG91dFByb3BlcnRpZXMob2JqLCBrZXlzKSB7IHZhciB0YXJnZXQgPSB7fTsgZm9yICh2YXIgaSBpbiBvYmopIHsgaWYgKGtleXMuaW5kZXhPZihpKSA+PSAwKSBjb250aW51ZTsgaWYgKCFPYmplY3QucHJvdG90eXBlLmhhc093blByb3BlcnR5LmNhbGwob2JqLCBpKSkgY29udGludWU7IHRhcmdldFtpXSA9IG9ialtpXTsgfSByZXR1cm4gdGFyZ2V0OyB9XG5cbnZhciBkZWZhdWx0U2l6ZSA9ICcxZW0nO1xuXG52YXIgSWNvbkJhc2UgPSBmdW5jdGlvbiBJY29uQmFzZShfcmVmLCBfcmVmMikge1xuICAgIHZhciBjaGlsZHJlbiA9IF9yZWYuY2hpbGRyZW47XG4gICAgdmFyIHNpemUgPSBfcmVmLnNpemU7XG4gICAgdmFyIHN0eWxlID0gX3JlZi5zdHlsZTtcblxuICAgIHZhciBwcm9wcyA9IF9vYmplY3RXaXRob3V0UHJvcGVydGllcyhfcmVmLCBbJ2NoaWxkcmVuJywgJ3NpemUnLCAnc3R5bGUnXSk7XG5cbiAgICB2YXIgcmVhY3RJY29uQmFzZSA9IF9yZWYyLnJlYWN0SWNvbkJhc2U7XG5cbiAgICB2YXIgY29tcHV0ZWRTaXplID0gc2l6ZSA/IHNpemUgOiByZWFjdEljb25CYXNlICYmIHJlYWN0SWNvbkJhc2Uuc2l6ZSB8fCBkZWZhdWx0U2l6ZTtcbiAgICB2YXIgY29tcHV0ZWRTdHlsZSA9IF9leHRlbmRzKHtcbiAgICAgICAgdmVydGljYWxBbGlnbjogXCJtaWRkbGVcIlxuICAgIH0sIHJlYWN0SWNvbkJhc2UgJiYgcmVhY3RJY29uQmFzZS5zdHlsZSB8fCB7fSwgc3R5bGUpO1xuICAgIHJldHVybiBfcmVhY3QyLmRlZmF1bHQuY3JlYXRlRWxlbWVudChcbiAgICAgICAgJ3N2ZycsXG4gICAgICAgIF9leHRlbmRzKHtcbiAgICAgICAgICAgIGZpbGw6ICdjdXJyZW50Q29sb3InLFxuICAgICAgICAgICAgZml0OiB0cnVlLFxuICAgICAgICAgICAgaGVpZ2h0OiBjb21wdXRlZFNpemUsXG4gICAgICAgICAgICB3aWR0aDogY29tcHV0ZWRTaXplXG4gICAgICAgIH0sIHByb3BzLCByZWFjdEljb25CYXNlLCB7XG4gICAgICAgICAgICBwcmVzZXJ2ZUFzcGVjdFJhdGlvOiAneE1pZFlNaWQgbWVldCcsXG4gICAgICAgICAgICBzdHlsZTogY29tcHV0ZWRTdHlsZVxuICAgICAgICB9KSxcbiAgICAgICAgY2hpbGRyZW5cbiAgICApO1xufTtcblxuSWNvbkJhc2UuY29udGV4dFR5cGVzID0ge1xuICAgIHJlYWN0SWNvbkJhc2U6IF9yZWFjdC5Qcm9wVHlwZXMub2JqZWN0XG59O1xuXG5JY29uQmFzZS5wcm9wVHlwZXMgPSB7XG4gICAgc2l6ZTogX3JlYWN0LlByb3BUeXBlcy5vbmVPZlR5cGUoW19yZWFjdC5Qcm9wVHlwZXMuc3RyaW5nLCBfcmVhY3QuUHJvcFR5cGVzLm51bWJlcl0pLFxuICAgIHN0eWxlOiBfcmVhY3QuUHJvcFR5cGVzLm9iamVjdFxufTtcblxuZXhwb3J0cy5kZWZhdWx0ID0gSWNvbkJhc2U7XG5tb2R1bGUuZXhwb3J0cyA9IGV4cG9ydHNbJ2RlZmF1bHQnXTtcblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIC4vfi9yZWFjdC1pY29uLWJhc2UvbGliL2luZGV4LmpzXG4gKiogbW9kdWxlIGlkID0gMjBcbiAqKiBtb2R1bGUgY2h1bmtzID0gMFxuICoqLyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBIiwic291cmNlUm9vdCI6IiJ9");
+var _TrackButton2 = _interopRequireDefault(_TrackButton);
 
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
+var _VolumeContainer = __webpack_require__(/*! ./components/VolumeContainer */ "./src/components/VolumeContainer.js");
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar React = __webpack_require__(11);\nvar IconBase = __webpack_require__(20);\n\nvar IoIosFastforward = function (_React$Component) {\n    _inherits(IoIosFastforward, _React$Component);\n\n    function IoIosFastforward() {\n        _classCallCheck(this, IoIosFastforward);\n\n        return _possibleConstructorReturn(this, Object.getPrototypeOf(IoIosFastforward).apply(this, arguments));\n    }\n\n    _createClass(IoIosFastforward, [{\n        key: 'render',\n        value: function render() {\n            return React.createElement(\n                IconBase,\n                _extends({ viewBox: '0 0 40 40' }, this.props),\n                React.createElement(\n                    'g',\n                    null,\n                    React.createElement('path', { d: 'm17.5 10l17.5 10-17.5 10v-9.6l-17.5 9.6v-20l17.5 9.6v-9.6z' })\n                )\n            );\n        }\n    }]);\n\n    return IoIosFastforward;\n}(React.Component);\n\nexports.default = IoIosFastforward;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjEuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3JlYWN0LWljb25zL2xpYi9pby9pb3MtZmFzdGZvcndhcmQuanM/ZTk5NCJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHN0cmljdCc7XG5cbk9iamVjdC5kZWZpbmVQcm9wZXJ0eShleHBvcnRzLCBcIl9fZXNNb2R1bGVcIiwge1xuICAgIHZhbHVlOiB0cnVlXG59KTtcblxudmFyIF9leHRlbmRzID0gT2JqZWN0LmFzc2lnbiB8fCBmdW5jdGlvbiAodGFyZ2V0KSB7IGZvciAodmFyIGkgPSAxOyBpIDwgYXJndW1lbnRzLmxlbmd0aDsgaSsrKSB7IHZhciBzb3VyY2UgPSBhcmd1bWVudHNbaV07IGZvciAodmFyIGtleSBpbiBzb3VyY2UpIHsgaWYgKE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHkuY2FsbChzb3VyY2UsIGtleSkpIHsgdGFyZ2V0W2tleV0gPSBzb3VyY2Vba2V5XTsgfSB9IH0gcmV0dXJuIHRhcmdldDsgfTtcblxudmFyIF9jcmVhdGVDbGFzcyA9IGZ1bmN0aW9uICgpIHsgZnVuY3Rpb24gZGVmaW5lUHJvcGVydGllcyh0YXJnZXQsIHByb3BzKSB7IGZvciAodmFyIGkgPSAwOyBpIDwgcHJvcHMubGVuZ3RoOyBpKyspIHsgdmFyIGRlc2NyaXB0b3IgPSBwcm9wc1tpXTsgZGVzY3JpcHRvci5lbnVtZXJhYmxlID0gZGVzY3JpcHRvci5lbnVtZXJhYmxlIHx8IGZhbHNlOyBkZXNjcmlwdG9yLmNvbmZpZ3VyYWJsZSA9IHRydWU7IGlmIChcInZhbHVlXCIgaW4gZGVzY3JpcHRvcikgZGVzY3JpcHRvci53cml0YWJsZSA9IHRydWU7IE9iamVjdC5kZWZpbmVQcm9wZXJ0eSh0YXJnZXQsIGRlc2NyaXB0b3Iua2V5LCBkZXNjcmlwdG9yKTsgfSB9IHJldHVybiBmdW5jdGlvbiAoQ29uc3RydWN0b3IsIHByb3RvUHJvcHMsIHN0YXRpY1Byb3BzKSB7IGlmIChwcm90b1Byb3BzKSBkZWZpbmVQcm9wZXJ0aWVzKENvbnN0cnVjdG9yLnByb3RvdHlwZSwgcHJvdG9Qcm9wcyk7IGlmIChzdGF0aWNQcm9wcykgZGVmaW5lUHJvcGVydGllcyhDb25zdHJ1Y3Rvciwgc3RhdGljUHJvcHMpOyByZXR1cm4gQ29uc3RydWN0b3I7IH07IH0oKTtcblxuZnVuY3Rpb24gX2NsYXNzQ2FsbENoZWNrKGluc3RhbmNlLCBDb25zdHJ1Y3RvcikgeyBpZiAoIShpbnN0YW5jZSBpbnN0YW5jZW9mIENvbnN0cnVjdG9yKSkgeyB0aHJvdyBuZXcgVHlwZUVycm9yKFwiQ2Fubm90IGNhbGwgYSBjbGFzcyBhcyBhIGZ1bmN0aW9uXCIpOyB9IH1cblxuZnVuY3Rpb24gX3Bvc3NpYmxlQ29uc3RydWN0b3JSZXR1cm4oc2VsZiwgY2FsbCkgeyBpZiAoIXNlbGYpIHsgdGhyb3cgbmV3IFJlZmVyZW5jZUVycm9yKFwidGhpcyBoYXNuJ3QgYmVlbiBpbml0aWFsaXNlZCAtIHN1cGVyKCkgaGFzbid0IGJlZW4gY2FsbGVkXCIpOyB9IHJldHVybiBjYWxsICYmICh0eXBlb2YgY2FsbCA9PT0gXCJvYmplY3RcIiB8fCB0eXBlb2YgY2FsbCA9PT0gXCJmdW5jdGlvblwiKSA/IGNhbGwgOiBzZWxmOyB9XG5cbmZ1bmN0aW9uIF9pbmhlcml0cyhzdWJDbGFzcywgc3VwZXJDbGFzcykgeyBpZiAodHlwZW9mIHN1cGVyQ2xhc3MgIT09IFwiZnVuY3Rpb25cIiAmJiBzdXBlckNsYXNzICE9PSBudWxsKSB7IHRocm93IG5ldyBUeXBlRXJyb3IoXCJTdXBlciBleHByZXNzaW9uIG11c3QgZWl0aGVyIGJlIG51bGwgb3IgYSBmdW5jdGlvbiwgbm90IFwiICsgdHlwZW9mIHN1cGVyQ2xhc3MpOyB9IHN1YkNsYXNzLnByb3RvdHlwZSA9IE9iamVjdC5jcmVhdGUoc3VwZXJDbGFzcyAmJiBzdXBlckNsYXNzLnByb3RvdHlwZSwgeyBjb25zdHJ1Y3RvcjogeyB2YWx1ZTogc3ViQ2xhc3MsIGVudW1lcmFibGU6IGZhbHNlLCB3cml0YWJsZTogdHJ1ZSwgY29uZmlndXJhYmxlOiB0cnVlIH0gfSk7IGlmIChzdXBlckNsYXNzKSBPYmplY3Quc2V0UHJvdG90eXBlT2YgPyBPYmplY3Quc2V0UHJvdG90eXBlT2Yoc3ViQ2xhc3MsIHN1cGVyQ2xhc3MpIDogc3ViQ2xhc3MuX19wcm90b19fID0gc3VwZXJDbGFzczsgfVxuXG52YXIgUmVhY3QgPSByZXF1aXJlKCdyZWFjdCcpO1xudmFyIEljb25CYXNlID0gcmVxdWlyZSgncmVhY3QtaWNvbi1iYXNlJyk7XG5cbnZhciBJb0lvc0Zhc3Rmb3J3YXJkID0gZnVuY3Rpb24gKF9SZWFjdCRDb21wb25lbnQpIHtcbiAgICBfaW5oZXJpdHMoSW9Jb3NGYXN0Zm9yd2FyZCwgX1JlYWN0JENvbXBvbmVudCk7XG5cbiAgICBmdW5jdGlvbiBJb0lvc0Zhc3Rmb3J3YXJkKCkge1xuICAgICAgICBfY2xhc3NDYWxsQ2hlY2sodGhpcywgSW9Jb3NGYXN0Zm9yd2FyZCk7XG5cbiAgICAgICAgcmV0dXJuIF9wb3NzaWJsZUNvbnN0cnVjdG9yUmV0dXJuKHRoaXMsIE9iamVjdC5nZXRQcm90b3R5cGVPZihJb0lvc0Zhc3Rmb3J3YXJkKS5hcHBseSh0aGlzLCBhcmd1bWVudHMpKTtcbiAgICB9XG5cbiAgICBfY3JlYXRlQ2xhc3MoSW9Jb3NGYXN0Zm9yd2FyZCwgW3tcbiAgICAgICAga2V5OiAncmVuZGVyJyxcbiAgICAgICAgdmFsdWU6IGZ1bmN0aW9uIHJlbmRlcigpIHtcbiAgICAgICAgICAgIHJldHVybiBSZWFjdC5jcmVhdGVFbGVtZW50KFxuICAgICAgICAgICAgICAgIEljb25CYXNlLFxuICAgICAgICAgICAgICAgIF9leHRlbmRzKHsgdmlld0JveDogJzAgMCA0MCA0MCcgfSwgdGhpcy5wcm9wcyksXG4gICAgICAgICAgICAgICAgUmVhY3QuY3JlYXRlRWxlbWVudChcbiAgICAgICAgICAgICAgICAgICAgJ2cnLFxuICAgICAgICAgICAgICAgICAgICBudWxsLFxuICAgICAgICAgICAgICAgICAgICBSZWFjdC5jcmVhdGVFbGVtZW50KCdwYXRoJywgeyBkOiAnbTE3LjUgMTBsMTcuNSAxMC0xNy41IDEwdi05LjZsLTE3LjUgOS42di0yMGwxNy41IDkuNnYtOS42eicgfSlcbiAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICApO1xuICAgICAgICB9XG4gICAgfV0pO1xuXG4gICAgcmV0dXJuIElvSW9zRmFzdGZvcndhcmQ7XG59KFJlYWN0LkNvbXBvbmVudCk7XG5cbmV4cG9ydHMuZGVmYXVsdCA9IElvSW9zRmFzdGZvcndhcmQ7XG5tb2R1bGUuZXhwb3J0cyA9IGV4cG9ydHNbJ2RlZmF1bHQnXTtcblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIC4vfi9yZWFjdC1pY29ucy9saWIvaW8vaW9zLWZhc3Rmb3J3YXJkLmpzXG4gKiogbW9kdWxlIGlkID0gMjFcbiAqKiBtb2R1bGUgY2h1bmtzID0gMFxuICoqLyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBIiwic291cmNlUm9vdCI6IiJ9");
+var _VolumeContainer2 = _interopRequireDefault(_VolumeContainer);
 
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
+var _icons = __webpack_require__(/*! ./icons */ "./src/icons.js");
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar React = __webpack_require__(11);\nvar IconBase = __webpack_require__(20);\n\nvar IoPause = function (_React$Component) {\n    _inherits(IoPause, _React$Component);\n\n    function IoPause() {\n        _classCallCheck(this, IoPause);\n\n        return _possibleConstructorReturn(this, Object.getPrototypeOf(IoPause).apply(this, arguments));\n    }\n\n    _createClass(IoPause, [{\n        key: 'render',\n        value: function render() {\n            return React.createElement(\n                IconBase,\n                _extends({ viewBox: '0 0 40 40' }, this.props),\n                React.createElement(\n                    'g',\n                    null,\n                    React.createElement('path', { d: 'm17.5 34.1c0 0.5-0.4 0.9-0.9 0.9h-5.7c-0.5 0-0.9-0.4-0.9-0.9v-28.2c0-0.5 0.4-0.9 0.9-0.9h5.7c0.5 0 0.9 0.4 0.9 0.9v28.2z m11.6-29.1c0.5 0 0.9 0.4 0.9 0.9v28.2c0 0.5-0.4 0.9-0.9 0.9h-5.7c-0.5 0-0.9-0.4-0.9-0.9v-28.2c0-0.5 0.4-0.9 0.9-0.9h5.7z' })\n                )\n            );\n        }\n    }]);\n\n    return IoPause;\n}(React.Component);\n\nexports.default = IoPause;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjIuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3JlYWN0LWljb25zL2xpYi9pby9wYXVzZS5qcz9mODI1Il0sInNvdXJjZXNDb250ZW50IjpbIid1c2Ugc3RyaWN0JztcblxuT2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsIFwiX19lc01vZHVsZVwiLCB7XG4gICAgdmFsdWU6IHRydWVcbn0pO1xuXG52YXIgX2V4dGVuZHMgPSBPYmplY3QuYXNzaWduIHx8IGZ1bmN0aW9uICh0YXJnZXQpIHsgZm9yICh2YXIgaSA9IDE7IGkgPCBhcmd1bWVudHMubGVuZ3RoOyBpKyspIHsgdmFyIHNvdXJjZSA9IGFyZ3VtZW50c1tpXTsgZm9yICh2YXIga2V5IGluIHNvdXJjZSkgeyBpZiAoT2JqZWN0LnByb3RvdHlwZS5oYXNPd25Qcm9wZXJ0eS5jYWxsKHNvdXJjZSwga2V5KSkgeyB0YXJnZXRba2V5XSA9IHNvdXJjZVtrZXldOyB9IH0gfSByZXR1cm4gdGFyZ2V0OyB9O1xuXG52YXIgX2NyZWF0ZUNsYXNzID0gZnVuY3Rpb24gKCkgeyBmdW5jdGlvbiBkZWZpbmVQcm9wZXJ0aWVzKHRhcmdldCwgcHJvcHMpIHsgZm9yICh2YXIgaSA9IDA7IGkgPCBwcm9wcy5sZW5ndGg7IGkrKykgeyB2YXIgZGVzY3JpcHRvciA9IHByb3BzW2ldOyBkZXNjcmlwdG9yLmVudW1lcmFibGUgPSBkZXNjcmlwdG9yLmVudW1lcmFibGUgfHwgZmFsc2U7IGRlc2NyaXB0b3IuY29uZmlndXJhYmxlID0gdHJ1ZTsgaWYgKFwidmFsdWVcIiBpbiBkZXNjcmlwdG9yKSBkZXNjcmlwdG9yLndyaXRhYmxlID0gdHJ1ZTsgT2JqZWN0LmRlZmluZVByb3BlcnR5KHRhcmdldCwgZGVzY3JpcHRvci5rZXksIGRlc2NyaXB0b3IpOyB9IH0gcmV0dXJuIGZ1bmN0aW9uIChDb25zdHJ1Y3RvciwgcHJvdG9Qcm9wcywgc3RhdGljUHJvcHMpIHsgaWYgKHByb3RvUHJvcHMpIGRlZmluZVByb3BlcnRpZXMoQ29uc3RydWN0b3IucHJvdG90eXBlLCBwcm90b1Byb3BzKTsgaWYgKHN0YXRpY1Byb3BzKSBkZWZpbmVQcm9wZXJ0aWVzKENvbnN0cnVjdG9yLCBzdGF0aWNQcm9wcyk7IHJldHVybiBDb25zdHJ1Y3RvcjsgfTsgfSgpO1xuXG5mdW5jdGlvbiBfY2xhc3NDYWxsQ2hlY2soaW5zdGFuY2UsIENvbnN0cnVjdG9yKSB7IGlmICghKGluc3RhbmNlIGluc3RhbmNlb2YgQ29uc3RydWN0b3IpKSB7IHRocm93IG5ldyBUeXBlRXJyb3IoXCJDYW5ub3QgY2FsbCBhIGNsYXNzIGFzIGEgZnVuY3Rpb25cIik7IH0gfVxuXG5mdW5jdGlvbiBfcG9zc2libGVDb25zdHJ1Y3RvclJldHVybihzZWxmLCBjYWxsKSB7IGlmICghc2VsZikgeyB0aHJvdyBuZXcgUmVmZXJlbmNlRXJyb3IoXCJ0aGlzIGhhc24ndCBiZWVuIGluaXRpYWxpc2VkIC0gc3VwZXIoKSBoYXNuJ3QgYmVlbiBjYWxsZWRcIik7IH0gcmV0dXJuIGNhbGwgJiYgKHR5cGVvZiBjYWxsID09PSBcIm9iamVjdFwiIHx8IHR5cGVvZiBjYWxsID09PSBcImZ1bmN0aW9uXCIpID8gY2FsbCA6IHNlbGY7IH1cblxuZnVuY3Rpb24gX2luaGVyaXRzKHN1YkNsYXNzLCBzdXBlckNsYXNzKSB7IGlmICh0eXBlb2Ygc3VwZXJDbGFzcyAhPT0gXCJmdW5jdGlvblwiICYmIHN1cGVyQ2xhc3MgIT09IG51bGwpIHsgdGhyb3cgbmV3IFR5cGVFcnJvcihcIlN1cGVyIGV4cHJlc3Npb24gbXVzdCBlaXRoZXIgYmUgbnVsbCBvciBhIGZ1bmN0aW9uLCBub3QgXCIgKyB0eXBlb2Ygc3VwZXJDbGFzcyk7IH0gc3ViQ2xhc3MucHJvdG90eXBlID0gT2JqZWN0LmNyZWF0ZShzdXBlckNsYXNzICYmIHN1cGVyQ2xhc3MucHJvdG90eXBlLCB7IGNvbnN0cnVjdG9yOiB7IHZhbHVlOiBzdWJDbGFzcywgZW51bWVyYWJsZTogZmFsc2UsIHdyaXRhYmxlOiB0cnVlLCBjb25maWd1cmFibGU6IHRydWUgfSB9KTsgaWYgKHN1cGVyQ2xhc3MpIE9iamVjdC5zZXRQcm90b3R5cGVPZiA/IE9iamVjdC5zZXRQcm90b3R5cGVPZihzdWJDbGFzcywgc3VwZXJDbGFzcykgOiBzdWJDbGFzcy5fX3Byb3RvX18gPSBzdXBlckNsYXNzOyB9XG5cbnZhciBSZWFjdCA9IHJlcXVpcmUoJ3JlYWN0Jyk7XG52YXIgSWNvbkJhc2UgPSByZXF1aXJlKCdyZWFjdC1pY29uLWJhc2UnKTtcblxudmFyIElvUGF1c2UgPSBmdW5jdGlvbiAoX1JlYWN0JENvbXBvbmVudCkge1xuICAgIF9pbmhlcml0cyhJb1BhdXNlLCBfUmVhY3QkQ29tcG9uZW50KTtcblxuICAgIGZ1bmN0aW9uIElvUGF1c2UoKSB7XG4gICAgICAgIF9jbGFzc0NhbGxDaGVjayh0aGlzLCBJb1BhdXNlKTtcblxuICAgICAgICByZXR1cm4gX3Bvc3NpYmxlQ29uc3RydWN0b3JSZXR1cm4odGhpcywgT2JqZWN0LmdldFByb3RvdHlwZU9mKElvUGF1c2UpLmFwcGx5KHRoaXMsIGFyZ3VtZW50cykpO1xuICAgIH1cblxuICAgIF9jcmVhdGVDbGFzcyhJb1BhdXNlLCBbe1xuICAgICAgICBrZXk6ICdyZW5kZXInLFxuICAgICAgICB2YWx1ZTogZnVuY3Rpb24gcmVuZGVyKCkge1xuICAgICAgICAgICAgcmV0dXJuIFJlYWN0LmNyZWF0ZUVsZW1lbnQoXG4gICAgICAgICAgICAgICAgSWNvbkJhc2UsXG4gICAgICAgICAgICAgICAgX2V4dGVuZHMoeyB2aWV3Qm94OiAnMCAwIDQwIDQwJyB9LCB0aGlzLnByb3BzKSxcbiAgICAgICAgICAgICAgICBSZWFjdC5jcmVhdGVFbGVtZW50KFxuICAgICAgICAgICAgICAgICAgICAnZycsXG4gICAgICAgICAgICAgICAgICAgIG51bGwsXG4gICAgICAgICAgICAgICAgICAgIFJlYWN0LmNyZWF0ZUVsZW1lbnQoJ3BhdGgnLCB7IGQ6ICdtMTcuNSAzNC4xYzAgMC41LTAuNCAwLjktMC45IDAuOWgtNS43Yy0wLjUgMC0wLjktMC40LTAuOS0wLjl2LTI4LjJjMC0wLjUgMC40LTAuOSAwLjktMC45aDUuN2MwLjUgMCAwLjkgMC40IDAuOSAwLjl2MjguMnogbTExLjYtMjkuMWMwLjUgMCAwLjkgMC40IDAuOSAwLjl2MjguMmMwIDAuNS0wLjQgMC45LTAuOSAwLjloLTUuN2MtMC41IDAtMC45LTAuNC0wLjktMC45di0yOC4yYzAtMC41IDAuNC0wLjkgMC45LTAuOWg1Ljd6JyB9KVxuICAgICAgICAgICAgICAgIClcbiAgICAgICAgICAgICk7XG4gICAgICAgIH1cbiAgICB9XSk7XG5cbiAgICByZXR1cm4gSW9QYXVzZTtcbn0oUmVhY3QuQ29tcG9uZW50KTtcblxuZXhwb3J0cy5kZWZhdWx0ID0gSW9QYXVzZTtcbm1vZHVsZS5leHBvcnRzID0gZXhwb3J0c1snZGVmYXVsdCddO1xuXG5cbi8qKioqKioqKioqKioqKioqKlxuICoqIFdFQlBBQ0sgRk9PVEVSXG4gKiogLi9+L3JlYWN0LWljb25zL2xpYi9pby9wYXVzZS5qc1xuICoqIG1vZHVsZSBpZCA9IDIyXG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsInNvdXJjZVJvb3QiOiIifQ==");
+var _utils = __webpack_require__(/*! ./utils */ "./src/utils.js");
 
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
+var _styles = __webpack_require__(/*! ./styles */ "./src/styles.js");
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar React = __webpack_require__(11);\nvar IconBase = __webpack_require__(20);\n\nvar IoPlay = function (_React$Component) {\n    _inherits(IoPlay, _React$Component);\n\n    function IoPlay() {\n        _classCallCheck(this, IoPlay);\n\n        return _possibleConstructorReturn(this, Object.getPrototypeOf(IoPlay).apply(this, arguments));\n    }\n\n    _createClass(IoPlay, [{\n        key: 'render',\n        value: function render() {\n            return React.createElement(\n                IconBase,\n                _extends({ viewBox: '0 0 40 40' }, this.props),\n                React.createElement(\n                    'g',\n                    null,\n                    React.createElement('path', { d: 'm31.6 18.2c0.6 0.5 0.9 1.1 0.9 1.8s-0.3 1.3-0.9 1.8l-21.7 13c-0.3 0.1-0.5 0.2-0.8 0.2-0.9 0-1.6-0.7-1.6-1.6v-26.8c0-0.9 0.7-1.6 1.6-1.6 0.3 0 0.6 0.1 0.8 0.2z' })\n                )\n            );\n        }\n    }]);\n\n    return IoPlay;\n}(React.Component);\n\nexports.default = IoPlay;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3JlYWN0LWljb25zL2xpYi9pby9wbGF5LmpzPzdmN2UiXSwic291cmNlc0NvbnRlbnQiOlsiJ3VzZSBzdHJpY3QnO1xuXG5PYmplY3QuZGVmaW5lUHJvcGVydHkoZXhwb3J0cywgXCJfX2VzTW9kdWxlXCIsIHtcbiAgICB2YWx1ZTogdHJ1ZVxufSk7XG5cbnZhciBfZXh0ZW5kcyA9IE9iamVjdC5hc3NpZ24gfHwgZnVuY3Rpb24gKHRhcmdldCkgeyBmb3IgKHZhciBpID0gMTsgaSA8IGFyZ3VtZW50cy5sZW5ndGg7IGkrKykgeyB2YXIgc291cmNlID0gYXJndW1lbnRzW2ldOyBmb3IgKHZhciBrZXkgaW4gc291cmNlKSB7IGlmIChPYmplY3QucHJvdG90eXBlLmhhc093blByb3BlcnR5LmNhbGwoc291cmNlLCBrZXkpKSB7IHRhcmdldFtrZXldID0gc291cmNlW2tleV07IH0gfSB9IHJldHVybiB0YXJnZXQ7IH07XG5cbnZhciBfY3JlYXRlQ2xhc3MgPSBmdW5jdGlvbiAoKSB7IGZ1bmN0aW9uIGRlZmluZVByb3BlcnRpZXModGFyZ2V0LCBwcm9wcykgeyBmb3IgKHZhciBpID0gMDsgaSA8IHByb3BzLmxlbmd0aDsgaSsrKSB7IHZhciBkZXNjcmlwdG9yID0gcHJvcHNbaV07IGRlc2NyaXB0b3IuZW51bWVyYWJsZSA9IGRlc2NyaXB0b3IuZW51bWVyYWJsZSB8fCBmYWxzZTsgZGVzY3JpcHRvci5jb25maWd1cmFibGUgPSB0cnVlOyBpZiAoXCJ2YWx1ZVwiIGluIGRlc2NyaXB0b3IpIGRlc2NyaXB0b3Iud3JpdGFibGUgPSB0cnVlOyBPYmplY3QuZGVmaW5lUHJvcGVydHkodGFyZ2V0LCBkZXNjcmlwdG9yLmtleSwgZGVzY3JpcHRvcik7IH0gfSByZXR1cm4gZnVuY3Rpb24gKENvbnN0cnVjdG9yLCBwcm90b1Byb3BzLCBzdGF0aWNQcm9wcykgeyBpZiAocHJvdG9Qcm9wcykgZGVmaW5lUHJvcGVydGllcyhDb25zdHJ1Y3Rvci5wcm90b3R5cGUsIHByb3RvUHJvcHMpOyBpZiAoc3RhdGljUHJvcHMpIGRlZmluZVByb3BlcnRpZXMoQ29uc3RydWN0b3IsIHN0YXRpY1Byb3BzKTsgcmV0dXJuIENvbnN0cnVjdG9yOyB9OyB9KCk7XG5cbmZ1bmN0aW9uIF9jbGFzc0NhbGxDaGVjayhpbnN0YW5jZSwgQ29uc3RydWN0b3IpIHsgaWYgKCEoaW5zdGFuY2UgaW5zdGFuY2VvZiBDb25zdHJ1Y3RvcikpIHsgdGhyb3cgbmV3IFR5cGVFcnJvcihcIkNhbm5vdCBjYWxsIGEgY2xhc3MgYXMgYSBmdW5jdGlvblwiKTsgfSB9XG5cbmZ1bmN0aW9uIF9wb3NzaWJsZUNvbnN0cnVjdG9yUmV0dXJuKHNlbGYsIGNhbGwpIHsgaWYgKCFzZWxmKSB7IHRocm93IG5ldyBSZWZlcmVuY2VFcnJvcihcInRoaXMgaGFzbid0IGJlZW4gaW5pdGlhbGlzZWQgLSBzdXBlcigpIGhhc24ndCBiZWVuIGNhbGxlZFwiKTsgfSByZXR1cm4gY2FsbCAmJiAodHlwZW9mIGNhbGwgPT09IFwib2JqZWN0XCIgfHwgdHlwZW9mIGNhbGwgPT09IFwiZnVuY3Rpb25cIikgPyBjYWxsIDogc2VsZjsgfVxuXG5mdW5jdGlvbiBfaW5oZXJpdHMoc3ViQ2xhc3MsIHN1cGVyQ2xhc3MpIHsgaWYgKHR5cGVvZiBzdXBlckNsYXNzICE9PSBcImZ1bmN0aW9uXCIgJiYgc3VwZXJDbGFzcyAhPT0gbnVsbCkgeyB0aHJvdyBuZXcgVHlwZUVycm9yKFwiU3VwZXIgZXhwcmVzc2lvbiBtdXN0IGVpdGhlciBiZSBudWxsIG9yIGEgZnVuY3Rpb24sIG5vdCBcIiArIHR5cGVvZiBzdXBlckNsYXNzKTsgfSBzdWJDbGFzcy5wcm90b3R5cGUgPSBPYmplY3QuY3JlYXRlKHN1cGVyQ2xhc3MgJiYgc3VwZXJDbGFzcy5wcm90b3R5cGUsIHsgY29uc3RydWN0b3I6IHsgdmFsdWU6IHN1YkNsYXNzLCBlbnVtZXJhYmxlOiBmYWxzZSwgd3JpdGFibGU6IHRydWUsIGNvbmZpZ3VyYWJsZTogdHJ1ZSB9IH0pOyBpZiAoc3VwZXJDbGFzcykgT2JqZWN0LnNldFByb3RvdHlwZU9mID8gT2JqZWN0LnNldFByb3RvdHlwZU9mKHN1YkNsYXNzLCBzdXBlckNsYXNzKSA6IHN1YkNsYXNzLl9fcHJvdG9fXyA9IHN1cGVyQ2xhc3M7IH1cblxudmFyIFJlYWN0ID0gcmVxdWlyZSgncmVhY3QnKTtcbnZhciBJY29uQmFzZSA9IHJlcXVpcmUoJ3JlYWN0LWljb24tYmFzZScpO1xuXG52YXIgSW9QbGF5ID0gZnVuY3Rpb24gKF9SZWFjdCRDb21wb25lbnQpIHtcbiAgICBfaW5oZXJpdHMoSW9QbGF5LCBfUmVhY3QkQ29tcG9uZW50KTtcblxuICAgIGZ1bmN0aW9uIElvUGxheSgpIHtcbiAgICAgICAgX2NsYXNzQ2FsbENoZWNrKHRoaXMsIElvUGxheSk7XG5cbiAgICAgICAgcmV0dXJuIF9wb3NzaWJsZUNvbnN0cnVjdG9yUmV0dXJuKHRoaXMsIE9iamVjdC5nZXRQcm90b3R5cGVPZihJb1BsYXkpLmFwcGx5KHRoaXMsIGFyZ3VtZW50cykpO1xuICAgIH1cblxuICAgIF9jcmVhdGVDbGFzcyhJb1BsYXksIFt7XG4gICAgICAgIGtleTogJ3JlbmRlcicsXG4gICAgICAgIHZhbHVlOiBmdW5jdGlvbiByZW5kZXIoKSB7XG4gICAgICAgICAgICByZXR1cm4gUmVhY3QuY3JlYXRlRWxlbWVudChcbiAgICAgICAgICAgICAgICBJY29uQmFzZSxcbiAgICAgICAgICAgICAgICBfZXh0ZW5kcyh7IHZpZXdCb3g6ICcwIDAgNDAgNDAnIH0sIHRoaXMucHJvcHMpLFxuICAgICAgICAgICAgICAgIFJlYWN0LmNyZWF0ZUVsZW1lbnQoXG4gICAgICAgICAgICAgICAgICAgICdnJyxcbiAgICAgICAgICAgICAgICAgICAgbnVsbCxcbiAgICAgICAgICAgICAgICAgICAgUmVhY3QuY3JlYXRlRWxlbWVudCgncGF0aCcsIHsgZDogJ20zMS42IDE4LjJjMC42IDAuNSAwLjkgMS4xIDAuOSAxLjhzLTAuMyAxLjMtMC45IDEuOGwtMjEuNyAxM2MtMC4zIDAuMS0wLjUgMC4yLTAuOCAwLjItMC45IDAtMS42LTAuNy0xLjYtMS42di0yNi44YzAtMC45IDAuNy0xLjYgMS42LTEuNiAwLjMgMCAwLjYgMC4xIDAuOCAwLjJ6JyB9KVxuICAgICAgICAgICAgICAgIClcbiAgICAgICAgICAgICk7XG4gICAgICAgIH1cbiAgICB9XSk7XG5cbiAgICByZXR1cm4gSW9QbGF5O1xufShSZWFjdC5Db21wb25lbnQpO1xuXG5leHBvcnRzLmRlZmF1bHQgPSBJb1BsYXk7XG5tb2R1bGUuZXhwb3J0cyA9IGV4cG9ydHNbJ2RlZmF1bHQnXTtcblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIC4vfi9yZWFjdC1pY29ucy9saWIvaW8vcGxheS5qc1xuICoqIG1vZHVsZSBpZCA9IDIzXG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsInNvdXJjZVJvb3QiOiIifQ==");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar React = __webpack_require__(11);\nvar IconBase = __webpack_require__(20);\n\nvar IoArrowShrink = function (_React$Component) {\n    _inherits(IoArrowShrink, _React$Component);\n\n    function IoArrowShrink() {\n        _classCallCheck(this, IoArrowShrink);\n\n        return _possibleConstructorReturn(this, Object.getPrototypeOf(IoArrowShrink).apply(this, arguments));\n    }\n\n    _createClass(IoArrowShrink, [{\n        key: 'render',\n        value: function render() {\n            return React.createElement(\n                IconBase,\n                _extends({ viewBox: '0 0 40 40' }, this.props),\n                React.createElement(\n                    'g',\n                    null,\n                    React.createElement('path', { d: 'm35 7.2l-6.4 6.4 3.9 3.9h-10v-10l3.9 3.9 6.4-6.4z m0 25.6l-2.2 2.2-6.4-6.4-3.9 3.9v-10h10l-3.9 3.9z m-30 0l6.4-6.4-3.9-3.9h10v10l-3.9-3.9-6.4 6.4z m0-25.6l2.2-2.2 6.4 6.4 3.9-3.9v10h-10l3.9-3.9z' })\n                )\n            );\n        }\n    }]);\n\n    return IoArrowShrink;\n}(React.Component);\n\nexports.default = IoArrowShrink;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjQuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3JlYWN0LWljb25zL2xpYi9pby9hcnJvdy1zaHJpbmsuanM/NTM3ZCJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHN0cmljdCc7XG5cbk9iamVjdC5kZWZpbmVQcm9wZXJ0eShleHBvcnRzLCBcIl9fZXNNb2R1bGVcIiwge1xuICAgIHZhbHVlOiB0cnVlXG59KTtcblxudmFyIF9leHRlbmRzID0gT2JqZWN0LmFzc2lnbiB8fCBmdW5jdGlvbiAodGFyZ2V0KSB7IGZvciAodmFyIGkgPSAxOyBpIDwgYXJndW1lbnRzLmxlbmd0aDsgaSsrKSB7IHZhciBzb3VyY2UgPSBhcmd1bWVudHNbaV07IGZvciAodmFyIGtleSBpbiBzb3VyY2UpIHsgaWYgKE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHkuY2FsbChzb3VyY2UsIGtleSkpIHsgdGFyZ2V0W2tleV0gPSBzb3VyY2Vba2V5XTsgfSB9IH0gcmV0dXJuIHRhcmdldDsgfTtcblxudmFyIF9jcmVhdGVDbGFzcyA9IGZ1bmN0aW9uICgpIHsgZnVuY3Rpb24gZGVmaW5lUHJvcGVydGllcyh0YXJnZXQsIHByb3BzKSB7IGZvciAodmFyIGkgPSAwOyBpIDwgcHJvcHMubGVuZ3RoOyBpKyspIHsgdmFyIGRlc2NyaXB0b3IgPSBwcm9wc1tpXTsgZGVzY3JpcHRvci5lbnVtZXJhYmxlID0gZGVzY3JpcHRvci5lbnVtZXJhYmxlIHx8IGZhbHNlOyBkZXNjcmlwdG9yLmNvbmZpZ3VyYWJsZSA9IHRydWU7IGlmIChcInZhbHVlXCIgaW4gZGVzY3JpcHRvcikgZGVzY3JpcHRvci53cml0YWJsZSA9IHRydWU7IE9iamVjdC5kZWZpbmVQcm9wZXJ0eSh0YXJnZXQsIGRlc2NyaXB0b3Iua2V5LCBkZXNjcmlwdG9yKTsgfSB9IHJldHVybiBmdW5jdGlvbiAoQ29uc3RydWN0b3IsIHByb3RvUHJvcHMsIHN0YXRpY1Byb3BzKSB7IGlmIChwcm90b1Byb3BzKSBkZWZpbmVQcm9wZXJ0aWVzKENvbnN0cnVjdG9yLnByb3RvdHlwZSwgcHJvdG9Qcm9wcyk7IGlmIChzdGF0aWNQcm9wcykgZGVmaW5lUHJvcGVydGllcyhDb25zdHJ1Y3Rvciwgc3RhdGljUHJvcHMpOyByZXR1cm4gQ29uc3RydWN0b3I7IH07IH0oKTtcblxuZnVuY3Rpb24gX2NsYXNzQ2FsbENoZWNrKGluc3RhbmNlLCBDb25zdHJ1Y3RvcikgeyBpZiAoIShpbnN0YW5jZSBpbnN0YW5jZW9mIENvbnN0cnVjdG9yKSkgeyB0aHJvdyBuZXcgVHlwZUVycm9yKFwiQ2Fubm90IGNhbGwgYSBjbGFzcyBhcyBhIGZ1bmN0aW9uXCIpOyB9IH1cblxuZnVuY3Rpb24gX3Bvc3NpYmxlQ29uc3RydWN0b3JSZXR1cm4oc2VsZiwgY2FsbCkgeyBpZiAoIXNlbGYpIHsgdGhyb3cgbmV3IFJlZmVyZW5jZUVycm9yKFwidGhpcyBoYXNuJ3QgYmVlbiBpbml0aWFsaXNlZCAtIHN1cGVyKCkgaGFzbid0IGJlZW4gY2FsbGVkXCIpOyB9IHJldHVybiBjYWxsICYmICh0eXBlb2YgY2FsbCA9PT0gXCJvYmplY3RcIiB8fCB0eXBlb2YgY2FsbCA9PT0gXCJmdW5jdGlvblwiKSA/IGNhbGwgOiBzZWxmOyB9XG5cbmZ1bmN0aW9uIF9pbmhlcml0cyhzdWJDbGFzcywgc3VwZXJDbGFzcykgeyBpZiAodHlwZW9mIHN1cGVyQ2xhc3MgIT09IFwiZnVuY3Rpb25cIiAmJiBzdXBlckNsYXNzICE9PSBudWxsKSB7IHRocm93IG5ldyBUeXBlRXJyb3IoXCJTdXBlciBleHByZXNzaW9uIG11c3QgZWl0aGVyIGJlIG51bGwgb3IgYSBmdW5jdGlvbiwgbm90IFwiICsgdHlwZW9mIHN1cGVyQ2xhc3MpOyB9IHN1YkNsYXNzLnByb3RvdHlwZSA9IE9iamVjdC5jcmVhdGUoc3VwZXJDbGFzcyAmJiBzdXBlckNsYXNzLnByb3RvdHlwZSwgeyBjb25zdHJ1Y3RvcjogeyB2YWx1ZTogc3ViQ2xhc3MsIGVudW1lcmFibGU6IGZhbHNlLCB3cml0YWJsZTogdHJ1ZSwgY29uZmlndXJhYmxlOiB0cnVlIH0gfSk7IGlmIChzdXBlckNsYXNzKSBPYmplY3Quc2V0UHJvdG90eXBlT2YgPyBPYmplY3Quc2V0UHJvdG90eXBlT2Yoc3ViQ2xhc3MsIHN1cGVyQ2xhc3MpIDogc3ViQ2xhc3MuX19wcm90b19fID0gc3VwZXJDbGFzczsgfVxuXG52YXIgUmVhY3QgPSByZXF1aXJlKCdyZWFjdCcpO1xudmFyIEljb25CYXNlID0gcmVxdWlyZSgncmVhY3QtaWNvbi1iYXNlJyk7XG5cbnZhciBJb0Fycm93U2hyaW5rID0gZnVuY3Rpb24gKF9SZWFjdCRDb21wb25lbnQpIHtcbiAgICBfaW5oZXJpdHMoSW9BcnJvd1NocmluaywgX1JlYWN0JENvbXBvbmVudCk7XG5cbiAgICBmdW5jdGlvbiBJb0Fycm93U2hyaW5rKCkge1xuICAgICAgICBfY2xhc3NDYWxsQ2hlY2sodGhpcywgSW9BcnJvd1Nocmluayk7XG5cbiAgICAgICAgcmV0dXJuIF9wb3NzaWJsZUNvbnN0cnVjdG9yUmV0dXJuKHRoaXMsIE9iamVjdC5nZXRQcm90b3R5cGVPZihJb0Fycm93U2hyaW5rKS5hcHBseSh0aGlzLCBhcmd1bWVudHMpKTtcbiAgICB9XG5cbiAgICBfY3JlYXRlQ2xhc3MoSW9BcnJvd1NocmluaywgW3tcbiAgICAgICAga2V5OiAncmVuZGVyJyxcbiAgICAgICAgdmFsdWU6IGZ1bmN0aW9uIHJlbmRlcigpIHtcbiAgICAgICAgICAgIHJldHVybiBSZWFjdC5jcmVhdGVFbGVtZW50KFxuICAgICAgICAgICAgICAgIEljb25CYXNlLFxuICAgICAgICAgICAgICAgIF9leHRlbmRzKHsgdmlld0JveDogJzAgMCA0MCA0MCcgfSwgdGhpcy5wcm9wcyksXG4gICAgICAgICAgICAgICAgUmVhY3QuY3JlYXRlRWxlbWVudChcbiAgICAgICAgICAgICAgICAgICAgJ2cnLFxuICAgICAgICAgICAgICAgICAgICBudWxsLFxuICAgICAgICAgICAgICAgICAgICBSZWFjdC5jcmVhdGVFbGVtZW50KCdwYXRoJywgeyBkOiAnbTM1IDcuMmwtNi40IDYuNCAzLjkgMy45aC0xMHYtMTBsMy45IDMuOSA2LjQtNi40eiBtMCAyNS42bC0yLjIgMi4yLTYuNC02LjQtMy45IDMuOXYtMTBoMTBsLTMuOSAzLjl6IG0tMzAgMGw2LjQtNi40LTMuOS0zLjloMTB2MTBsLTMuOS0zLjktNi40IDYuNHogbTAtMjUuNmwyLjItMi4yIDYuNCA2LjQgMy45LTMuOXYxMGgtMTBsMy45LTMuOXonIH0pXG4gICAgICAgICAgICAgICAgKVxuICAgICAgICAgICAgKTtcbiAgICAgICAgfVxuICAgIH1dKTtcblxuICAgIHJldHVybiBJb0Fycm93U2hyaW5rO1xufShSZWFjdC5Db21wb25lbnQpO1xuXG5leHBvcnRzLmRlZmF1bHQgPSBJb0Fycm93U2hyaW5rO1xubW9kdWxlLmV4cG9ydHMgPSBleHBvcnRzWydkZWZhdWx0J107XG5cblxuLyoqKioqKioqKioqKioqKioqXG4gKiogV0VCUEFDSyBGT09URVJcbiAqKiAuL34vcmVhY3QtaWNvbnMvbGliL2lvL2Fycm93LXNocmluay5qc1xuICoqIG1vZHVsZSBpZCA9IDI0XG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsInNvdXJjZVJvb3QiOiIifQ==");
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-/***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar React = __webpack_require__(11);\nvar IconBase = __webpack_require__(20);\n\nvar IoVolumeHigh = function (_React$Component) {\n    _inherits(IoVolumeHigh, _React$Component);\n\n    function IoVolumeHigh() {\n        _classCallCheck(this, IoVolumeHigh);\n\n        return _possibleConstructorReturn(this, Object.getPrototypeOf(IoVolumeHigh).apply(this, arguments));\n    }\n\n    _createClass(IoVolumeHigh, [{\n        key: 'render',\n        value: function render() {\n            return React.createElement(\n                IconBase,\n                _extends({ viewBox: '0 0 40 40' }, this.props),\n                React.createElement(\n                    'g',\n                    null,\n                    React.createElement('path', { d: 'm15.5 31.9l-7.4-6.9h-8.1v-10h8.1l7.4-6.9v23.8z m4.4-4.1l-1.5-1.2c1.3-1.9 2.1-4.1 2.1-6.6s-0.8-4.7-2.1-6.6l1.5-1.2c1.6 2.2 2.6 4.9 2.6 7.8s-1 5.6-2.6 7.8z m5.3 3.6l-1.7-1.2c2.1-2.9 3.4-6.4 3.4-10.2s-1.3-7.3-3.4-10.2l1.7-1.2c2.3 3.2 3.7 7.1 3.7 11.4s-1.4 8.2-3.7 11.4z m3.3-25.2l1.6-1.2c3 4.2 4.9 9.4 4.9 15s-1.9 10.8-4.9 15l-1.6-1.2c2.8-3.8 4.5-8.6 4.5-13.8s-1.7-10-4.5-13.8z' })\n                )\n            );\n        }\n    }]);\n\n    return IoVolumeHigh;\n}(React.Component);\n\nexports.default = IoVolumeHigh;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjUuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3JlYWN0LWljb25zL2xpYi9pby92b2x1bWUtaGlnaC5qcz8yOTJhIl0sInNvdXJjZXNDb250ZW50IjpbIid1c2Ugc3RyaWN0JztcblxuT2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsIFwiX19lc01vZHVsZVwiLCB7XG4gICAgdmFsdWU6IHRydWVcbn0pO1xuXG52YXIgX2V4dGVuZHMgPSBPYmplY3QuYXNzaWduIHx8IGZ1bmN0aW9uICh0YXJnZXQpIHsgZm9yICh2YXIgaSA9IDE7IGkgPCBhcmd1bWVudHMubGVuZ3RoOyBpKyspIHsgdmFyIHNvdXJjZSA9IGFyZ3VtZW50c1tpXTsgZm9yICh2YXIga2V5IGluIHNvdXJjZSkgeyBpZiAoT2JqZWN0LnByb3RvdHlwZS5oYXNPd25Qcm9wZXJ0eS5jYWxsKHNvdXJjZSwga2V5KSkgeyB0YXJnZXRba2V5XSA9IHNvdXJjZVtrZXldOyB9IH0gfSByZXR1cm4gdGFyZ2V0OyB9O1xuXG52YXIgX2NyZWF0ZUNsYXNzID0gZnVuY3Rpb24gKCkgeyBmdW5jdGlvbiBkZWZpbmVQcm9wZXJ0aWVzKHRhcmdldCwgcHJvcHMpIHsgZm9yICh2YXIgaSA9IDA7IGkgPCBwcm9wcy5sZW5ndGg7IGkrKykgeyB2YXIgZGVzY3JpcHRvciA9IHByb3BzW2ldOyBkZXNjcmlwdG9yLmVudW1lcmFibGUgPSBkZXNjcmlwdG9yLmVudW1lcmFibGUgfHwgZmFsc2U7IGRlc2NyaXB0b3IuY29uZmlndXJhYmxlID0gdHJ1ZTsgaWYgKFwidmFsdWVcIiBpbiBkZXNjcmlwdG9yKSBkZXNjcmlwdG9yLndyaXRhYmxlID0gdHJ1ZTsgT2JqZWN0LmRlZmluZVByb3BlcnR5KHRhcmdldCwgZGVzY3JpcHRvci5rZXksIGRlc2NyaXB0b3IpOyB9IH0gcmV0dXJuIGZ1bmN0aW9uIChDb25zdHJ1Y3RvciwgcHJvdG9Qcm9wcywgc3RhdGljUHJvcHMpIHsgaWYgKHByb3RvUHJvcHMpIGRlZmluZVByb3BlcnRpZXMoQ29uc3RydWN0b3IucHJvdG90eXBlLCBwcm90b1Byb3BzKTsgaWYgKHN0YXRpY1Byb3BzKSBkZWZpbmVQcm9wZXJ0aWVzKENvbnN0cnVjdG9yLCBzdGF0aWNQcm9wcyk7IHJldHVybiBDb25zdHJ1Y3RvcjsgfTsgfSgpO1xuXG5mdW5jdGlvbiBfY2xhc3NDYWxsQ2hlY2soaW5zdGFuY2UsIENvbnN0cnVjdG9yKSB7IGlmICghKGluc3RhbmNlIGluc3RhbmNlb2YgQ29uc3RydWN0b3IpKSB7IHRocm93IG5ldyBUeXBlRXJyb3IoXCJDYW5ub3QgY2FsbCBhIGNsYXNzIGFzIGEgZnVuY3Rpb25cIik7IH0gfVxuXG5mdW5jdGlvbiBfcG9zc2libGVDb25zdHJ1Y3RvclJldHVybihzZWxmLCBjYWxsKSB7IGlmICghc2VsZikgeyB0aHJvdyBuZXcgUmVmZXJlbmNlRXJyb3IoXCJ0aGlzIGhhc24ndCBiZWVuIGluaXRpYWxpc2VkIC0gc3VwZXIoKSBoYXNuJ3QgYmVlbiBjYWxsZWRcIik7IH0gcmV0dXJuIGNhbGwgJiYgKHR5cGVvZiBjYWxsID09PSBcIm9iamVjdFwiIHx8IHR5cGVvZiBjYWxsID09PSBcImZ1bmN0aW9uXCIpID8gY2FsbCA6IHNlbGY7IH1cblxuZnVuY3Rpb24gX2luaGVyaXRzKHN1YkNsYXNzLCBzdXBlckNsYXNzKSB7IGlmICh0eXBlb2Ygc3VwZXJDbGFzcyAhPT0gXCJmdW5jdGlvblwiICYmIHN1cGVyQ2xhc3MgIT09IG51bGwpIHsgdGhyb3cgbmV3IFR5cGVFcnJvcihcIlN1cGVyIGV4cHJlc3Npb24gbXVzdCBlaXRoZXIgYmUgbnVsbCBvciBhIGZ1bmN0aW9uLCBub3QgXCIgKyB0eXBlb2Ygc3VwZXJDbGFzcyk7IH0gc3ViQ2xhc3MucHJvdG90eXBlID0gT2JqZWN0LmNyZWF0ZShzdXBlckNsYXNzICYmIHN1cGVyQ2xhc3MucHJvdG90eXBlLCB7IGNvbnN0cnVjdG9yOiB7IHZhbHVlOiBzdWJDbGFzcywgZW51bWVyYWJsZTogZmFsc2UsIHdyaXRhYmxlOiB0cnVlLCBjb25maWd1cmFibGU6IHRydWUgfSB9KTsgaWYgKHN1cGVyQ2xhc3MpIE9iamVjdC5zZXRQcm90b3R5cGVPZiA/IE9iamVjdC5zZXRQcm90b3R5cGVPZihzdWJDbGFzcywgc3VwZXJDbGFzcykgOiBzdWJDbGFzcy5fX3Byb3RvX18gPSBzdXBlckNsYXNzOyB9XG5cbnZhciBSZWFjdCA9IHJlcXVpcmUoJ3JlYWN0Jyk7XG52YXIgSWNvbkJhc2UgPSByZXF1aXJlKCdyZWFjdC1pY29uLWJhc2UnKTtcblxudmFyIElvVm9sdW1lSGlnaCA9IGZ1bmN0aW9uIChfUmVhY3QkQ29tcG9uZW50KSB7XG4gICAgX2luaGVyaXRzKElvVm9sdW1lSGlnaCwgX1JlYWN0JENvbXBvbmVudCk7XG5cbiAgICBmdW5jdGlvbiBJb1ZvbHVtZUhpZ2goKSB7XG4gICAgICAgIF9jbGFzc0NhbGxDaGVjayh0aGlzLCBJb1ZvbHVtZUhpZ2gpO1xuXG4gICAgICAgIHJldHVybiBfcG9zc2libGVDb25zdHJ1Y3RvclJldHVybih0aGlzLCBPYmplY3QuZ2V0UHJvdG90eXBlT2YoSW9Wb2x1bWVIaWdoKS5hcHBseSh0aGlzLCBhcmd1bWVudHMpKTtcbiAgICB9XG5cbiAgICBfY3JlYXRlQ2xhc3MoSW9Wb2x1bWVIaWdoLCBbe1xuICAgICAgICBrZXk6ICdyZW5kZXInLFxuICAgICAgICB2YWx1ZTogZnVuY3Rpb24gcmVuZGVyKCkge1xuICAgICAgICAgICAgcmV0dXJuIFJlYWN0LmNyZWF0ZUVsZW1lbnQoXG4gICAgICAgICAgICAgICAgSWNvbkJhc2UsXG4gICAgICAgICAgICAgICAgX2V4dGVuZHMoeyB2aWV3Qm94OiAnMCAwIDQwIDQwJyB9LCB0aGlzLnByb3BzKSxcbiAgICAgICAgICAgICAgICBSZWFjdC5jcmVhdGVFbGVtZW50KFxuICAgICAgICAgICAgICAgICAgICAnZycsXG4gICAgICAgICAgICAgICAgICAgIG51bGwsXG4gICAgICAgICAgICAgICAgICAgIFJlYWN0LmNyZWF0ZUVsZW1lbnQoJ3BhdGgnLCB7IGQ6ICdtMTUuNSAzMS45bC03LjQtNi45aC04LjF2LTEwaDguMWw3LjQtNi45djIzLjh6IG00LjQtNC4xbC0xLjUtMS4yYzEuMy0xLjkgMi4xLTQuMSAyLjEtNi42cy0wLjgtNC43LTIuMS02LjZsMS41LTEuMmMxLjYgMi4yIDIuNiA0LjkgMi42IDcuOHMtMSA1LjYtMi42IDcuOHogbTUuMyAzLjZsLTEuNy0xLjJjMi4xLTIuOSAzLjQtNi40IDMuNC0xMC4ycy0xLjMtNy4zLTMuNC0xMC4ybDEuNy0xLjJjMi4zIDMuMiAzLjcgNy4xIDMuNyAxMS40cy0xLjQgOC4yLTMuNyAxMS40eiBtMy4zLTI1LjJsMS42LTEuMmMzIDQuMiA0LjkgOS40IDQuOSAxNXMtMS45IDEwLjgtNC45IDE1bC0xLjYtMS4yYzIuOC0zLjggNC41LTguNiA0LjUtMTMuOHMtMS43LTEwLTQuNS0xMy44eicgfSlcbiAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICApO1xuICAgICAgICB9XG4gICAgfV0pO1xuXG4gICAgcmV0dXJuIElvVm9sdW1lSGlnaDtcbn0oUmVhY3QuQ29tcG9uZW50KTtcblxuZXhwb3J0cy5kZWZhdWx0ID0gSW9Wb2x1bWVIaWdoO1xubW9kdWxlLmV4cG9ydHMgPSBleHBvcnRzWydkZWZhdWx0J107XG5cblxuLyoqKioqKioqKioqKioqKioqXG4gKiogV0VCUEFDSyBGT09URVJcbiAqKiAuL34vcmVhY3QtaWNvbnMvbGliL2lvL3ZvbHVtZS1oaWdoLmpzXG4gKiogbW9kdWxlIGlkID0gMjVcbiAqKiBtb2R1bGUgY2h1bmtzID0gMFxuICoqLyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBIiwic291cmNlUm9vdCI6IiJ9");
+var THEMES = ['dark', 'light'];
 
-/***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
+var PLAYBACK_SPEEDS = [1, 2, 4, 8, 16];
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar React = __webpack_require__(11);\nvar IconBase = __webpack_require__(20);\n\nvar IoVolumeLow = function (_React$Component) {\n    _inherits(IoVolumeLow, _React$Component);\n\n    function IoVolumeLow() {\n        _classCallCheck(this, IoVolumeLow);\n\n        return _possibleConstructorReturn(this, Object.getPrototypeOf(IoVolumeLow).apply(this, arguments));\n    }\n\n    _createClass(IoVolumeLow, [{\n        key: 'render',\n        value: function render() {\n            return React.createElement(\n                IconBase,\n                _extends({ viewBox: '0 0 40 40' }, this.props),\n                React.createElement(\n                    'g',\n                    null,\n                    React.createElement('path', { d: 'm24 31.9l-7.4-6.9h-8.1v-10h8.1l7.4-6.9v23.8z m4.4-4.1l-1.5-1.2c1.3-1.9 2.1-4.1 2.1-6.6s-0.8-4.7-2.1-6.6l1.5-1.2c1.6 2.2 2.6 4.9 2.6 7.8s-1 5.6-2.6 7.8z' })\n                )\n            );\n        }\n    }]);\n\n    return IoVolumeLow;\n}(React.Component);\n\nexports.default = IoVolumeLow;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjYuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3JlYWN0LWljb25zL2xpYi9pby92b2x1bWUtbG93LmpzPzQ2NzgiXSwic291cmNlc0NvbnRlbnQiOlsiJ3VzZSBzdHJpY3QnO1xuXG5PYmplY3QuZGVmaW5lUHJvcGVydHkoZXhwb3J0cywgXCJfX2VzTW9kdWxlXCIsIHtcbiAgICB2YWx1ZTogdHJ1ZVxufSk7XG5cbnZhciBfZXh0ZW5kcyA9IE9iamVjdC5hc3NpZ24gfHwgZnVuY3Rpb24gKHRhcmdldCkgeyBmb3IgKHZhciBpID0gMTsgaSA8IGFyZ3VtZW50cy5sZW5ndGg7IGkrKykgeyB2YXIgc291cmNlID0gYXJndW1lbnRzW2ldOyBmb3IgKHZhciBrZXkgaW4gc291cmNlKSB7IGlmIChPYmplY3QucHJvdG90eXBlLmhhc093blByb3BlcnR5LmNhbGwoc291cmNlLCBrZXkpKSB7IHRhcmdldFtrZXldID0gc291cmNlW2tleV07IH0gfSB9IHJldHVybiB0YXJnZXQ7IH07XG5cbnZhciBfY3JlYXRlQ2xhc3MgPSBmdW5jdGlvbiAoKSB7IGZ1bmN0aW9uIGRlZmluZVByb3BlcnRpZXModGFyZ2V0LCBwcm9wcykgeyBmb3IgKHZhciBpID0gMDsgaSA8IHByb3BzLmxlbmd0aDsgaSsrKSB7IHZhciBkZXNjcmlwdG9yID0gcHJvcHNbaV07IGRlc2NyaXB0b3IuZW51bWVyYWJsZSA9IGRlc2NyaXB0b3IuZW51bWVyYWJsZSB8fCBmYWxzZTsgZGVzY3JpcHRvci5jb25maWd1cmFibGUgPSB0cnVlOyBpZiAoXCJ2YWx1ZVwiIGluIGRlc2NyaXB0b3IpIGRlc2NyaXB0b3Iud3JpdGFibGUgPSB0cnVlOyBPYmplY3QuZGVmaW5lUHJvcGVydHkodGFyZ2V0LCBkZXNjcmlwdG9yLmtleSwgZGVzY3JpcHRvcik7IH0gfSByZXR1cm4gZnVuY3Rpb24gKENvbnN0cnVjdG9yLCBwcm90b1Byb3BzLCBzdGF0aWNQcm9wcykgeyBpZiAocHJvdG9Qcm9wcykgZGVmaW5lUHJvcGVydGllcyhDb25zdHJ1Y3Rvci5wcm90b3R5cGUsIHByb3RvUHJvcHMpOyBpZiAoc3RhdGljUHJvcHMpIGRlZmluZVByb3BlcnRpZXMoQ29uc3RydWN0b3IsIHN0YXRpY1Byb3BzKTsgcmV0dXJuIENvbnN0cnVjdG9yOyB9OyB9KCk7XG5cbmZ1bmN0aW9uIF9jbGFzc0NhbGxDaGVjayhpbnN0YW5jZSwgQ29uc3RydWN0b3IpIHsgaWYgKCEoaW5zdGFuY2UgaW5zdGFuY2VvZiBDb25zdHJ1Y3RvcikpIHsgdGhyb3cgbmV3IFR5cGVFcnJvcihcIkNhbm5vdCBjYWxsIGEgY2xhc3MgYXMgYSBmdW5jdGlvblwiKTsgfSB9XG5cbmZ1bmN0aW9uIF9wb3NzaWJsZUNvbnN0cnVjdG9yUmV0dXJuKHNlbGYsIGNhbGwpIHsgaWYgKCFzZWxmKSB7IHRocm93IG5ldyBSZWZlcmVuY2VFcnJvcihcInRoaXMgaGFzbid0IGJlZW4gaW5pdGlhbGlzZWQgLSBzdXBlcigpIGhhc24ndCBiZWVuIGNhbGxlZFwiKTsgfSByZXR1cm4gY2FsbCAmJiAodHlwZW9mIGNhbGwgPT09IFwib2JqZWN0XCIgfHwgdHlwZW9mIGNhbGwgPT09IFwiZnVuY3Rpb25cIikgPyBjYWxsIDogc2VsZjsgfVxuXG5mdW5jdGlvbiBfaW5oZXJpdHMoc3ViQ2xhc3MsIHN1cGVyQ2xhc3MpIHsgaWYgKHR5cGVvZiBzdXBlckNsYXNzICE9PSBcImZ1bmN0aW9uXCIgJiYgc3VwZXJDbGFzcyAhPT0gbnVsbCkgeyB0aHJvdyBuZXcgVHlwZUVycm9yKFwiU3VwZXIgZXhwcmVzc2lvbiBtdXN0IGVpdGhlciBiZSBudWxsIG9yIGEgZnVuY3Rpb24sIG5vdCBcIiArIHR5cGVvZiBzdXBlckNsYXNzKTsgfSBzdWJDbGFzcy5wcm90b3R5cGUgPSBPYmplY3QuY3JlYXRlKHN1cGVyQ2xhc3MgJiYgc3VwZXJDbGFzcy5wcm90b3R5cGUsIHsgY29uc3RydWN0b3I6IHsgdmFsdWU6IHN1YkNsYXNzLCBlbnVtZXJhYmxlOiBmYWxzZSwgd3JpdGFibGU6IHRydWUsIGNvbmZpZ3VyYWJsZTogdHJ1ZSB9IH0pOyBpZiAoc3VwZXJDbGFzcykgT2JqZWN0LnNldFByb3RvdHlwZU9mID8gT2JqZWN0LnNldFByb3RvdHlwZU9mKHN1YkNsYXNzLCBzdXBlckNsYXNzKSA6IHN1YkNsYXNzLl9fcHJvdG9fXyA9IHN1cGVyQ2xhc3M7IH1cblxudmFyIFJlYWN0ID0gcmVxdWlyZSgncmVhY3QnKTtcbnZhciBJY29uQmFzZSA9IHJlcXVpcmUoJ3JlYWN0LWljb24tYmFzZScpO1xuXG52YXIgSW9Wb2x1bWVMb3cgPSBmdW5jdGlvbiAoX1JlYWN0JENvbXBvbmVudCkge1xuICAgIF9pbmhlcml0cyhJb1ZvbHVtZUxvdywgX1JlYWN0JENvbXBvbmVudCk7XG5cbiAgICBmdW5jdGlvbiBJb1ZvbHVtZUxvdygpIHtcbiAgICAgICAgX2NsYXNzQ2FsbENoZWNrKHRoaXMsIElvVm9sdW1lTG93KTtcblxuICAgICAgICByZXR1cm4gX3Bvc3NpYmxlQ29uc3RydWN0b3JSZXR1cm4odGhpcywgT2JqZWN0LmdldFByb3RvdHlwZU9mKElvVm9sdW1lTG93KS5hcHBseSh0aGlzLCBhcmd1bWVudHMpKTtcbiAgICB9XG5cbiAgICBfY3JlYXRlQ2xhc3MoSW9Wb2x1bWVMb3csIFt7XG4gICAgICAgIGtleTogJ3JlbmRlcicsXG4gICAgICAgIHZhbHVlOiBmdW5jdGlvbiByZW5kZXIoKSB7XG4gICAgICAgICAgICByZXR1cm4gUmVhY3QuY3JlYXRlRWxlbWVudChcbiAgICAgICAgICAgICAgICBJY29uQmFzZSxcbiAgICAgICAgICAgICAgICBfZXh0ZW5kcyh7IHZpZXdCb3g6ICcwIDAgNDAgNDAnIH0sIHRoaXMucHJvcHMpLFxuICAgICAgICAgICAgICAgIFJlYWN0LmNyZWF0ZUVsZW1lbnQoXG4gICAgICAgICAgICAgICAgICAgICdnJyxcbiAgICAgICAgICAgICAgICAgICAgbnVsbCxcbiAgICAgICAgICAgICAgICAgICAgUmVhY3QuY3JlYXRlRWxlbWVudCgncGF0aCcsIHsgZDogJ20yNCAzMS45bC03LjQtNi45aC04LjF2LTEwaDguMWw3LjQtNi45djIzLjh6IG00LjQtNC4xbC0xLjUtMS4yYzEuMy0xLjkgMi4xLTQuMSAyLjEtNi42cy0wLjgtNC43LTIuMS02LjZsMS41LTEuMmMxLjYgMi4yIDIuNiA0LjkgMi42IDcuOHMtMSA1LjYtMi42IDcuOHonIH0pXG4gICAgICAgICAgICAgICAgKVxuICAgICAgICAgICAgKTtcbiAgICAgICAgfVxuICAgIH1dKTtcblxuICAgIHJldHVybiBJb1ZvbHVtZUxvdztcbn0oUmVhY3QuQ29tcG9uZW50KTtcblxuZXhwb3J0cy5kZWZhdWx0ID0gSW9Wb2x1bWVMb3c7XG5tb2R1bGUuZXhwb3J0cyA9IGV4cG9ydHNbJ2RlZmF1bHQnXTtcblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIC4vfi9yZWFjdC1pY29ucy9saWIvaW8vdm9sdW1lLWxvdy5qc1xuICoqIG1vZHVsZSBpZCA9IDI2XG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsInNvdXJjZVJvb3QiOiIifQ==");
+var _getFullscreenPropert = (0, _utils.getFullscreenProperties)(),
+    exitFullscreen = _getFullscreenPropert.exitFullscreen,
+    fullscreen = _getFullscreenPropert.fullscreen,
+    fullscreenchange = _getFullscreenPropert.fullscreenchange,
+    fullscreenEnabled = _getFullscreenPropert.fullscreenEnabled,
+    requestFullscreen = _getFullscreenPropert.requestFullscreen;
 
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
+var transformProperty = (0, _utils.getTransformProperty)();
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar React = __webpack_require__(11);\nvar IconBase = __webpack_require__(20);\n\nvar IoVolumeMedium = function (_React$Component) {\n    _inherits(IoVolumeMedium, _React$Component);\n\n    function IoVolumeMedium() {\n        _classCallCheck(this, IoVolumeMedium);\n\n        return _possibleConstructorReturn(this, Object.getPrototypeOf(IoVolumeMedium).apply(this, arguments));\n    }\n\n    _createClass(IoVolumeMedium, [{\n        key: 'render',\n        value: function render() {\n            return React.createElement(\n                IconBase,\n                _extends({ viewBox: '0 0 40 40' }, this.props),\n                React.createElement(\n                    'g',\n                    null,\n                    React.createElement('path', { d: 'm21 31.9l-7.4-6.9h-8.1v-10h8.1l7.4-6.9v23.8z m4.4-4.1l-1.5-1.2c1.3-1.9 2.1-4.1 2.1-6.6s-0.8-4.7-2.1-6.6l1.5-1.2c1.6 2.2 2.6 4.9 2.6 7.8s-1 5.6-2.6 7.8z m5.3 3.6l-1.7-1.2c2.1-2.9 3.4-6.4 3.4-10.2s-1.3-7.3-3.4-10.2l1.7-1.2c2.3 3.2 3.7 7.1 3.7 11.4s-1.4 8.2-3.7 11.4z' })\n                )\n            );\n        }\n    }]);\n\n    return IoVolumeMedium;\n}(React.Component);\n\nexports.default = IoVolumeMedium;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3JlYWN0LWljb25zL2xpYi9pby92b2x1bWUtbWVkaXVtLmpzPzU5MDQiXSwic291cmNlc0NvbnRlbnQiOlsiJ3VzZSBzdHJpY3QnO1xuXG5PYmplY3QuZGVmaW5lUHJvcGVydHkoZXhwb3J0cywgXCJfX2VzTW9kdWxlXCIsIHtcbiAgICB2YWx1ZTogdHJ1ZVxufSk7XG5cbnZhciBfZXh0ZW5kcyA9IE9iamVjdC5hc3NpZ24gfHwgZnVuY3Rpb24gKHRhcmdldCkgeyBmb3IgKHZhciBpID0gMTsgaSA8IGFyZ3VtZW50cy5sZW5ndGg7IGkrKykgeyB2YXIgc291cmNlID0gYXJndW1lbnRzW2ldOyBmb3IgKHZhciBrZXkgaW4gc291cmNlKSB7IGlmIChPYmplY3QucHJvdG90eXBlLmhhc093blByb3BlcnR5LmNhbGwoc291cmNlLCBrZXkpKSB7IHRhcmdldFtrZXldID0gc291cmNlW2tleV07IH0gfSB9IHJldHVybiB0YXJnZXQ7IH07XG5cbnZhciBfY3JlYXRlQ2xhc3MgPSBmdW5jdGlvbiAoKSB7IGZ1bmN0aW9uIGRlZmluZVByb3BlcnRpZXModGFyZ2V0LCBwcm9wcykgeyBmb3IgKHZhciBpID0gMDsgaSA8IHByb3BzLmxlbmd0aDsgaSsrKSB7IHZhciBkZXNjcmlwdG9yID0gcHJvcHNbaV07IGRlc2NyaXB0b3IuZW51bWVyYWJsZSA9IGRlc2NyaXB0b3IuZW51bWVyYWJsZSB8fCBmYWxzZTsgZGVzY3JpcHRvci5jb25maWd1cmFibGUgPSB0cnVlOyBpZiAoXCJ2YWx1ZVwiIGluIGRlc2NyaXB0b3IpIGRlc2NyaXB0b3Iud3JpdGFibGUgPSB0cnVlOyBPYmplY3QuZGVmaW5lUHJvcGVydHkodGFyZ2V0LCBkZXNjcmlwdG9yLmtleSwgZGVzY3JpcHRvcik7IH0gfSByZXR1cm4gZnVuY3Rpb24gKENvbnN0cnVjdG9yLCBwcm90b1Byb3BzLCBzdGF0aWNQcm9wcykgeyBpZiAocHJvdG9Qcm9wcykgZGVmaW5lUHJvcGVydGllcyhDb25zdHJ1Y3Rvci5wcm90b3R5cGUsIHByb3RvUHJvcHMpOyBpZiAoc3RhdGljUHJvcHMpIGRlZmluZVByb3BlcnRpZXMoQ29uc3RydWN0b3IsIHN0YXRpY1Byb3BzKTsgcmV0dXJuIENvbnN0cnVjdG9yOyB9OyB9KCk7XG5cbmZ1bmN0aW9uIF9jbGFzc0NhbGxDaGVjayhpbnN0YW5jZSwgQ29uc3RydWN0b3IpIHsgaWYgKCEoaW5zdGFuY2UgaW5zdGFuY2VvZiBDb25zdHJ1Y3RvcikpIHsgdGhyb3cgbmV3IFR5cGVFcnJvcihcIkNhbm5vdCBjYWxsIGEgY2xhc3MgYXMgYSBmdW5jdGlvblwiKTsgfSB9XG5cbmZ1bmN0aW9uIF9wb3NzaWJsZUNvbnN0cnVjdG9yUmV0dXJuKHNlbGYsIGNhbGwpIHsgaWYgKCFzZWxmKSB7IHRocm93IG5ldyBSZWZlcmVuY2VFcnJvcihcInRoaXMgaGFzbid0IGJlZW4gaW5pdGlhbGlzZWQgLSBzdXBlcigpIGhhc24ndCBiZWVuIGNhbGxlZFwiKTsgfSByZXR1cm4gY2FsbCAmJiAodHlwZW9mIGNhbGwgPT09IFwib2JqZWN0XCIgfHwgdHlwZW9mIGNhbGwgPT09IFwiZnVuY3Rpb25cIikgPyBjYWxsIDogc2VsZjsgfVxuXG5mdW5jdGlvbiBfaW5oZXJpdHMoc3ViQ2xhc3MsIHN1cGVyQ2xhc3MpIHsgaWYgKHR5cGVvZiBzdXBlckNsYXNzICE9PSBcImZ1bmN0aW9uXCIgJiYgc3VwZXJDbGFzcyAhPT0gbnVsbCkgeyB0aHJvdyBuZXcgVHlwZUVycm9yKFwiU3VwZXIgZXhwcmVzc2lvbiBtdXN0IGVpdGhlciBiZSBudWxsIG9yIGEgZnVuY3Rpb24sIG5vdCBcIiArIHR5cGVvZiBzdXBlckNsYXNzKTsgfSBzdWJDbGFzcy5wcm90b3R5cGUgPSBPYmplY3QuY3JlYXRlKHN1cGVyQ2xhc3MgJiYgc3VwZXJDbGFzcy5wcm90b3R5cGUsIHsgY29uc3RydWN0b3I6IHsgdmFsdWU6IHN1YkNsYXNzLCBlbnVtZXJhYmxlOiBmYWxzZSwgd3JpdGFibGU6IHRydWUsIGNvbmZpZ3VyYWJsZTogdHJ1ZSB9IH0pOyBpZiAoc3VwZXJDbGFzcykgT2JqZWN0LnNldFByb3RvdHlwZU9mID8gT2JqZWN0LnNldFByb3RvdHlwZU9mKHN1YkNsYXNzLCBzdXBlckNsYXNzKSA6IHN1YkNsYXNzLl9fcHJvdG9fXyA9IHN1cGVyQ2xhc3M7IH1cblxudmFyIFJlYWN0ID0gcmVxdWlyZSgncmVhY3QnKTtcbnZhciBJY29uQmFzZSA9IHJlcXVpcmUoJ3JlYWN0LWljb24tYmFzZScpO1xuXG52YXIgSW9Wb2x1bWVNZWRpdW0gPSBmdW5jdGlvbiAoX1JlYWN0JENvbXBvbmVudCkge1xuICAgIF9pbmhlcml0cyhJb1ZvbHVtZU1lZGl1bSwgX1JlYWN0JENvbXBvbmVudCk7XG5cbiAgICBmdW5jdGlvbiBJb1ZvbHVtZU1lZGl1bSgpIHtcbiAgICAgICAgX2NsYXNzQ2FsbENoZWNrKHRoaXMsIElvVm9sdW1lTWVkaXVtKTtcblxuICAgICAgICByZXR1cm4gX3Bvc3NpYmxlQ29uc3RydWN0b3JSZXR1cm4odGhpcywgT2JqZWN0LmdldFByb3RvdHlwZU9mKElvVm9sdW1lTWVkaXVtKS5hcHBseSh0aGlzLCBhcmd1bWVudHMpKTtcbiAgICB9XG5cbiAgICBfY3JlYXRlQ2xhc3MoSW9Wb2x1bWVNZWRpdW0sIFt7XG4gICAgICAgIGtleTogJ3JlbmRlcicsXG4gICAgICAgIHZhbHVlOiBmdW5jdGlvbiByZW5kZXIoKSB7XG4gICAgICAgICAgICByZXR1cm4gUmVhY3QuY3JlYXRlRWxlbWVudChcbiAgICAgICAgICAgICAgICBJY29uQmFzZSxcbiAgICAgICAgICAgICAgICBfZXh0ZW5kcyh7IHZpZXdCb3g6ICcwIDAgNDAgNDAnIH0sIHRoaXMucHJvcHMpLFxuICAgICAgICAgICAgICAgIFJlYWN0LmNyZWF0ZUVsZW1lbnQoXG4gICAgICAgICAgICAgICAgICAgICdnJyxcbiAgICAgICAgICAgICAgICAgICAgbnVsbCxcbiAgICAgICAgICAgICAgICAgICAgUmVhY3QuY3JlYXRlRWxlbWVudCgncGF0aCcsIHsgZDogJ20yMSAzMS45bC03LjQtNi45aC04LjF2LTEwaDguMWw3LjQtNi45djIzLjh6IG00LjQtNC4xbC0xLjUtMS4yYzEuMy0xLjkgMi4xLTQuMSAyLjEtNi42cy0wLjgtNC43LTIuMS02LjZsMS41LTEuMmMxLjYgMi4yIDIuNiA0LjkgMi42IDcuOHMtMSA1LjYtMi42IDcuOHogbTUuMyAzLjZsLTEuNy0xLjJjMi4xLTIuOSAzLjQtNi40IDMuNC0xMC4ycy0xLjMtNy4zLTMuNC0xMC4ybDEuNy0xLjJjMi4zIDMuMiAzLjcgNy4xIDMuNyAxMS40cy0xLjQgOC4yLTMuNyAxMS40eicgfSlcbiAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICApO1xuICAgICAgICB9XG4gICAgfV0pO1xuXG4gICAgcmV0dXJuIElvVm9sdW1lTWVkaXVtO1xufShSZWFjdC5Db21wb25lbnQpO1xuXG5leHBvcnRzLmRlZmF1bHQgPSBJb1ZvbHVtZU1lZGl1bTtcbm1vZHVsZS5leHBvcnRzID0gZXhwb3J0c1snZGVmYXVsdCddO1xuXG5cbi8qKioqKioqKioqKioqKioqKlxuICoqIFdFQlBBQ0sgRk9PVEVSXG4gKiogLi9+L3JlYWN0LWljb25zL2xpYi9pby92b2x1bWUtbWVkaXVtLmpzXG4gKiogbW9kdWxlIGlkID0gMjdcbiAqKiBtb2R1bGUgY2h1bmtzID0gMFxuICoqLyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBIiwic291cmNlUm9vdCI6IiJ9");
+var VidzPlayer = (_temp2 = _class = function (_Component) {
+  _inherits(VidzPlayer, _Component);
 
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
+  function VidzPlayer() {
+    var _ref;
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar React = __webpack_require__(11);\nvar IconBase = __webpack_require__(20);\n\nvar IoVolumeMute = function (_React$Component) {\n    _inherits(IoVolumeMute, _React$Component);\n\n    function IoVolumeMute() {\n        _classCallCheck(this, IoVolumeMute);\n\n        return _possibleConstructorReturn(this, Object.getPrototypeOf(IoVolumeMute).apply(this, arguments));\n    }\n\n    _createClass(IoVolumeMute, [{\n        key: 'render',\n        value: function render() {\n            return React.createElement(\n                IconBase,\n                _extends({ viewBox: '0 0 40 40' }, this.props),\n                React.createElement(\n                    'g',\n                    null,\n                    React.createElement('path', { d: 'm17.5 17l3.7-4v14l-3.7-4h-5.1v-6h5.1z m8.4-12.3c5.4 3 9.1 8.7 9.1 15.3 0 9.7-7.8 17.5-17.5 17.5-3 0-5.9-0.8-8.4-2.1l-0.1-0.1c-5.4-3-9-8.7-9-15.3 0-9.7 7.8-17.5 17.5-17.5 3 0 5.9 0.8 8.4 2.2h0z m2.4 23c1.5-2.2 2.6-4.8 2.6-7.7 0-5.2-3-9.6-7.2-11.8-0.5-0.2-0.9-0.5-1.4-0.6-1.4-0.6-3.1-0.9-4.8-0.9-2.9 0-5.5 1-7.7 2.5l5.7 5.8h-6l-2.8-2.7c-1.5 2.2-2.5 4.8-2.5 7.7 0 5.1 2.8 9.5 7 11.7 0.5 0.3 1.1 0.6 1.5 0.7 1.5 0.6 3.1 0.9 4.8 0.9 2.9 0 5.6-1 7.8-2.5l-1.6-1.6v-6z' })\n                )\n            );\n        }\n    }]);\n\n    return IoVolumeMute;\n}(React.Component);\n\nexports.default = IoVolumeMute;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjguanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3JlYWN0LWljb25zL2xpYi9pby92b2x1bWUtbXV0ZS5qcz82ZDczIl0sInNvdXJjZXNDb250ZW50IjpbIid1c2Ugc3RyaWN0JztcblxuT2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsIFwiX19lc01vZHVsZVwiLCB7XG4gICAgdmFsdWU6IHRydWVcbn0pO1xuXG52YXIgX2V4dGVuZHMgPSBPYmplY3QuYXNzaWduIHx8IGZ1bmN0aW9uICh0YXJnZXQpIHsgZm9yICh2YXIgaSA9IDE7IGkgPCBhcmd1bWVudHMubGVuZ3RoOyBpKyspIHsgdmFyIHNvdXJjZSA9IGFyZ3VtZW50c1tpXTsgZm9yICh2YXIga2V5IGluIHNvdXJjZSkgeyBpZiAoT2JqZWN0LnByb3RvdHlwZS5oYXNPd25Qcm9wZXJ0eS5jYWxsKHNvdXJjZSwga2V5KSkgeyB0YXJnZXRba2V5XSA9IHNvdXJjZVtrZXldOyB9IH0gfSByZXR1cm4gdGFyZ2V0OyB9O1xuXG52YXIgX2NyZWF0ZUNsYXNzID0gZnVuY3Rpb24gKCkgeyBmdW5jdGlvbiBkZWZpbmVQcm9wZXJ0aWVzKHRhcmdldCwgcHJvcHMpIHsgZm9yICh2YXIgaSA9IDA7IGkgPCBwcm9wcy5sZW5ndGg7IGkrKykgeyB2YXIgZGVzY3JpcHRvciA9IHByb3BzW2ldOyBkZXNjcmlwdG9yLmVudW1lcmFibGUgPSBkZXNjcmlwdG9yLmVudW1lcmFibGUgfHwgZmFsc2U7IGRlc2NyaXB0b3IuY29uZmlndXJhYmxlID0gdHJ1ZTsgaWYgKFwidmFsdWVcIiBpbiBkZXNjcmlwdG9yKSBkZXNjcmlwdG9yLndyaXRhYmxlID0gdHJ1ZTsgT2JqZWN0LmRlZmluZVByb3BlcnR5KHRhcmdldCwgZGVzY3JpcHRvci5rZXksIGRlc2NyaXB0b3IpOyB9IH0gcmV0dXJuIGZ1bmN0aW9uIChDb25zdHJ1Y3RvciwgcHJvdG9Qcm9wcywgc3RhdGljUHJvcHMpIHsgaWYgKHByb3RvUHJvcHMpIGRlZmluZVByb3BlcnRpZXMoQ29uc3RydWN0b3IucHJvdG90eXBlLCBwcm90b1Byb3BzKTsgaWYgKHN0YXRpY1Byb3BzKSBkZWZpbmVQcm9wZXJ0aWVzKENvbnN0cnVjdG9yLCBzdGF0aWNQcm9wcyk7IHJldHVybiBDb25zdHJ1Y3RvcjsgfTsgfSgpO1xuXG5mdW5jdGlvbiBfY2xhc3NDYWxsQ2hlY2soaW5zdGFuY2UsIENvbnN0cnVjdG9yKSB7IGlmICghKGluc3RhbmNlIGluc3RhbmNlb2YgQ29uc3RydWN0b3IpKSB7IHRocm93IG5ldyBUeXBlRXJyb3IoXCJDYW5ub3QgY2FsbCBhIGNsYXNzIGFzIGEgZnVuY3Rpb25cIik7IH0gfVxuXG5mdW5jdGlvbiBfcG9zc2libGVDb25zdHJ1Y3RvclJldHVybihzZWxmLCBjYWxsKSB7IGlmICghc2VsZikgeyB0aHJvdyBuZXcgUmVmZXJlbmNlRXJyb3IoXCJ0aGlzIGhhc24ndCBiZWVuIGluaXRpYWxpc2VkIC0gc3VwZXIoKSBoYXNuJ3QgYmVlbiBjYWxsZWRcIik7IH0gcmV0dXJuIGNhbGwgJiYgKHR5cGVvZiBjYWxsID09PSBcIm9iamVjdFwiIHx8IHR5cGVvZiBjYWxsID09PSBcImZ1bmN0aW9uXCIpID8gY2FsbCA6IHNlbGY7IH1cblxuZnVuY3Rpb24gX2luaGVyaXRzKHN1YkNsYXNzLCBzdXBlckNsYXNzKSB7IGlmICh0eXBlb2Ygc3VwZXJDbGFzcyAhPT0gXCJmdW5jdGlvblwiICYmIHN1cGVyQ2xhc3MgIT09IG51bGwpIHsgdGhyb3cgbmV3IFR5cGVFcnJvcihcIlN1cGVyIGV4cHJlc3Npb24gbXVzdCBlaXRoZXIgYmUgbnVsbCBvciBhIGZ1bmN0aW9uLCBub3QgXCIgKyB0eXBlb2Ygc3VwZXJDbGFzcyk7IH0gc3ViQ2xhc3MucHJvdG90eXBlID0gT2JqZWN0LmNyZWF0ZShzdXBlckNsYXNzICYmIHN1cGVyQ2xhc3MucHJvdG90eXBlLCB7IGNvbnN0cnVjdG9yOiB7IHZhbHVlOiBzdWJDbGFzcywgZW51bWVyYWJsZTogZmFsc2UsIHdyaXRhYmxlOiB0cnVlLCBjb25maWd1cmFibGU6IHRydWUgfSB9KTsgaWYgKHN1cGVyQ2xhc3MpIE9iamVjdC5zZXRQcm90b3R5cGVPZiA/IE9iamVjdC5zZXRQcm90b3R5cGVPZihzdWJDbGFzcywgc3VwZXJDbGFzcykgOiBzdWJDbGFzcy5fX3Byb3RvX18gPSBzdXBlckNsYXNzOyB9XG5cbnZhciBSZWFjdCA9IHJlcXVpcmUoJ3JlYWN0Jyk7XG52YXIgSWNvbkJhc2UgPSByZXF1aXJlKCdyZWFjdC1pY29uLWJhc2UnKTtcblxudmFyIElvVm9sdW1lTXV0ZSA9IGZ1bmN0aW9uIChfUmVhY3QkQ29tcG9uZW50KSB7XG4gICAgX2luaGVyaXRzKElvVm9sdW1lTXV0ZSwgX1JlYWN0JENvbXBvbmVudCk7XG5cbiAgICBmdW5jdGlvbiBJb1ZvbHVtZU11dGUoKSB7XG4gICAgICAgIF9jbGFzc0NhbGxDaGVjayh0aGlzLCBJb1ZvbHVtZU11dGUpO1xuXG4gICAgICAgIHJldHVybiBfcG9zc2libGVDb25zdHJ1Y3RvclJldHVybih0aGlzLCBPYmplY3QuZ2V0UHJvdG90eXBlT2YoSW9Wb2x1bWVNdXRlKS5hcHBseSh0aGlzLCBhcmd1bWVudHMpKTtcbiAgICB9XG5cbiAgICBfY3JlYXRlQ2xhc3MoSW9Wb2x1bWVNdXRlLCBbe1xuICAgICAgICBrZXk6ICdyZW5kZXInLFxuICAgICAgICB2YWx1ZTogZnVuY3Rpb24gcmVuZGVyKCkge1xuICAgICAgICAgICAgcmV0dXJuIFJlYWN0LmNyZWF0ZUVsZW1lbnQoXG4gICAgICAgICAgICAgICAgSWNvbkJhc2UsXG4gICAgICAgICAgICAgICAgX2V4dGVuZHMoeyB2aWV3Qm94OiAnMCAwIDQwIDQwJyB9LCB0aGlzLnByb3BzKSxcbiAgICAgICAgICAgICAgICBSZWFjdC5jcmVhdGVFbGVtZW50KFxuICAgICAgICAgICAgICAgICAgICAnZycsXG4gICAgICAgICAgICAgICAgICAgIG51bGwsXG4gICAgICAgICAgICAgICAgICAgIFJlYWN0LmNyZWF0ZUVsZW1lbnQoJ3BhdGgnLCB7IGQ6ICdtMTcuNSAxN2wzLjctNHYxNGwtMy43LTRoLTUuMXYtNmg1LjF6IG04LjQtMTIuM2M1LjQgMyA5LjEgOC43IDkuMSAxNS4zIDAgOS43LTcuOCAxNy41LTE3LjUgMTcuNS0zIDAtNS45LTAuOC04LjQtMi4xbC0wLjEtMC4xYy01LjQtMy05LTguNy05LTE1LjMgMC05LjcgNy44LTE3LjUgMTcuNS0xNy41IDMgMCA1LjkgMC44IDguNCAyLjJoMHogbTIuNCAyM2MxLjUtMi4yIDIuNi00LjggMi42LTcuNyAwLTUuMi0zLTkuNi03LjItMTEuOC0wLjUtMC4yLTAuOS0wLjUtMS40LTAuNi0xLjQtMC42LTMuMS0wLjktNC44LTAuOS0yLjkgMC01LjUgMS03LjcgMi41bDUuNyA1LjhoLTZsLTIuOC0yLjdjLTEuNSAyLjItMi41IDQuOC0yLjUgNy43IDAgNS4xIDIuOCA5LjUgNyAxMS43IDAuNSAwLjMgMS4xIDAuNiAxLjUgMC43IDEuNSAwLjYgMy4xIDAuOSA0LjggMC45IDIuOSAwIDUuNi0xIDcuOC0yLjVsLTEuNi0xLjZ2LTZ6JyB9KVxuICAgICAgICAgICAgICAgIClcbiAgICAgICAgICAgICk7XG4gICAgICAgIH1cbiAgICB9XSk7XG5cbiAgICByZXR1cm4gSW9Wb2x1bWVNdXRlO1xufShSZWFjdC5Db21wb25lbnQpO1xuXG5leHBvcnRzLmRlZmF1bHQgPSBJb1ZvbHVtZU11dGU7XG5tb2R1bGUuZXhwb3J0cyA9IGV4cG9ydHNbJ2RlZmF1bHQnXTtcblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIC4vfi9yZWFjdC1pY29ucy9saWIvaW8vdm9sdW1lLW11dGUuanNcbiAqKiBtb2R1bGUgaWQgPSAyOFxuICoqIG1vZHVsZSBjaHVua3MgPSAwXG4gKiovIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=");
+    var _temp, _this, _ret;
 
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
+    _classCallCheck(this, VidzPlayer);
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _react = __webpack_require__(11);\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _recompose = __webpack_require__(13);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n// external dependencies\n\n\nvar Display = (0, _recompose.pure)(function (_ref) {\n  var children = _ref.children;\n  var onClick = _ref.onClick;\n  var _ref$style = _ref.style;\n  var style = _ref$style === undefined ? {} : _ref$style;\n\n  return _react2.default.createElement(\n    'div',\n    {\n      onClick: onClick,\n      style: style\n    },\n    children\n  );\n});\n\nDisplay.propTypes = {\n  children: _react.PropTypes.node,\n  onClick: _react.PropTypes.func,\n  style: _react.PropTypes.object\n};\n\nexports.default = Display;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjkuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2NvbXBvbmVudHMvRGlzcGxheS5qcz8wMTY0Il0sInNvdXJjZXNDb250ZW50IjpbIi8vIGV4dGVybmFsIGRlcGVuZGVuY2llc1xuaW1wb3J0IFJlYWN0LCB7XG4gIFByb3BUeXBlc1xufSBmcm9tICdyZWFjdCc7XG5pbXBvcnQge1xuICBwdXJlXG59IGZyb20gJ3JlY29tcG9zZSc7XG5cbmNvbnN0IERpc3BsYXkgPSBwdXJlKCh7Y2hpbGRyZW4sIG9uQ2xpY2ssIHN0eWxlID0ge319KSA9PiB7XG4gIHJldHVybiAoXG4gICAgPGRpdlxuICAgICAgb25DbGljaz17b25DbGlja31cbiAgICAgIHN0eWxlPXtzdHlsZX1cbiAgICA+XG4gICAgICB7Y2hpbGRyZW59XG4gICAgPC9kaXY+XG4gICk7XG59KTtcblxuRGlzcGxheS5wcm9wVHlwZXMgPSB7XG4gIGNoaWxkcmVuOiBQcm9wVHlwZXMubm9kZSxcbiAgb25DbGljazogUHJvcFR5cGVzLmZ1bmMsXG4gIHN0eWxlOiBQcm9wVHlwZXMub2JqZWN0XG59O1xuXG5leHBvcnQgZGVmYXVsdCBEaXNwbGF5O1xuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2NvbXBvbmVudHMvRGlzcGxheS5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0E7QUFDQTs7O0FBRUE7QUFDQTs7Ozs7O0FBR0E7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQUE7QUFDQTtBQUFBO0FBQ0E7QUFDQTtBQUZBO0FBSUE7QUFKQTtBQU9BO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUhBO0FBQ0E7QUFLQTsiLCJzb3VyY2VSb290IjoiIn0=");
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = VidzPlayer.__proto__ || Object.getPrototypeOf(VidzPlayer)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      autoHideTimeout: null,
+      canUseFullscreen: document[fullscreenEnabled],
+      controlsVisible: true,
+      currentTime: 0,
+      duration: 0,
+      isDraggingDurationTrackButton: false,
+      isDraggingVolumeTrackButton: false,
+      isFullscreen: false,
+      isLoaded: false,
+      isMuted: false,
+      isPlaying: false,
+      isVolumeChangeActive: false,
+      playbackRateIndex: 0,
+      queuedOnVolumeSet: [],
+      volume: 1
+    }, _this.duration = null, _this.durationTrack = null, _this.durationTrackButton = null, _this.vidzInstance = null, _this.volume = null, _this.volumeTrack = null, _this.volumeTrackButton = null, _this.debounceSetPlayerDimensionsOnResize = (0, _debounce2.default)(function () {
+      var isFullscreen = _this.state.isFullscreen;
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _react = __webpack_require__(11);\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _recompose = __webpack_require__(13);\n\nvar _utils = __webpack_require__(31);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar InformationBar = (0, _recompose.pure)(function (_ref) {\n  var currentTime = _ref.currentTime;\n  var duration = _ref.duration;\n  var style = _ref.style;\n\n  var currentTimeDisplay = (0, _utils.getTimeFormatFromCurrentTime)(currentTime);\n  var durationDisplay = (0, _utils.getTimeFormatFromCurrentTime)(duration);\n\n  return _react2.default.createElement(\n    'div',\n    {\n      'aria-label': currentTimeDisplay + ' out of ' + duration + ' has passed',\n      style: style\n    },\n    currentTimeDisplay,\n    ' / ',\n    durationDisplay\n  );\n});\n\n// utils\n// external dependencies\n\n\nInformationBar.propTypes = {\n  currentTime: _react.PropTypes.number,\n  duration: _react.PropTypes.number\n};\n\nexports.default = InformationBar;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzAuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2NvbXBvbmVudHMvSW5mb3JtYXRpb25CYXIuanM/NGY0MCJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBleHRlcm5hbCBkZXBlbmRlbmNpZXNcbmltcG9ydCBSZWFjdCwge1xuICBQcm9wVHlwZXNcbn0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHtcbiAgcHVyZVxufSBmcm9tICdyZWNvbXBvc2UnO1xuXG4vLyB1dGlsc1xuaW1wb3J0IHtcbiAgZ2V0VGltZUZvcm1hdEZyb21DdXJyZW50VGltZVxufSBmcm9tICcuLi91dGlscyc7XG5cbmNvbnN0IEluZm9ybWF0aW9uQmFyID0gcHVyZSgoe2N1cnJlbnRUaW1lLCBkdXJhdGlvbiwgc3R5bGV9KSA9PiB7XG4gIGNvbnN0IGN1cnJlbnRUaW1lRGlzcGxheSA9IGdldFRpbWVGb3JtYXRGcm9tQ3VycmVudFRpbWUoY3VycmVudFRpbWUpO1xuICBjb25zdCBkdXJhdGlvbkRpc3BsYXkgPSBnZXRUaW1lRm9ybWF0RnJvbUN1cnJlbnRUaW1lKGR1cmF0aW9uKTtcbiAgXG4gIHJldHVybiAoXG4gICAgPGRpdiBcbiAgICAgIGFyaWEtbGFiZWw9e2Ake2N1cnJlbnRUaW1lRGlzcGxheX0gb3V0IG9mICR7ZHVyYXRpb259IGhhcyBwYXNzZWRgfVxuICAgICAgc3R5bGU9e3N0eWxlfVxuICAgID5cbiAgICAgIHtjdXJyZW50VGltZURpc3BsYXl9IC8ge2R1cmF0aW9uRGlzcGxheX1cbiAgICA8L2Rpdj5cbiAgKTtcbn0pO1xuXG5JbmZvcm1hdGlvbkJhci5wcm9wVHlwZXMgPSB7XG4gIGN1cnJlbnRUaW1lOiBQcm9wVHlwZXMubnVtYmVyLFxuICBkdXJhdGlvbjogUHJvcFR5cGVzLm51bWJlclxufTtcblxuZXhwb3J0IGRlZmF1bHQgSW5mb3JtYXRpb25CYXI7XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvY29tcG9uZW50cy9JbmZvcm1hdGlvbkJhci5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0E7QUFDQTs7O0FBRUE7QUFDQTtBQUlBO0FBQ0E7OztBQUdBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQUE7QUFDQTtBQUNBO0FBRkE7QUFJQTtBQUpBO0FBSUE7QUFKQTtBQU9BO0FBQ0E7Ozs7O0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFDQTtBQUlBOyIsInNvdXJjZVJvb3QiOiIifQ==");
 
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
+      if (isFullscreen) {
+        _this.debounceSetPlayerDimensions();
+      }
+    }, 50), _this.debounceSetPlayerDimensions = (0, _debounce2.default)(function () {
+      var dimensions = _this.getHeightAndWidth();
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.getVolumeIcon = exports.getVolumeChangeStyle = exports.getTransformProperty = exports.getPercentPlayed = exports.getTimeFormatFromCurrentTime = exports.getFullscreenProperties = exports.getControlStyle = exports.getControlsContainerStyle = undefined;\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; // icons\n\n\nvar _icons = __webpack_require__(18);\n\nvar TEST_DIV = document.createElement('div');\n\n/**\n * get the style for the controls container based on isControlsVisible\n *\n * @param {object} defaultControlsStyle\n * @param {boolean} isControlsVisible\n * @return {object}\n */\nvar getControlsContainerStyle = function getControlsContainerStyle(defaultControlsStyle, isControlsVisible) {\n  if (isControlsVisible) {\n    return defaultControlsStyle;\n  }\n\n  return _extends({}, defaultControlsStyle, {\n    opacity: 0,\n    visibility: 'hidden'\n  });\n};\n\n/**\n * get the style for the control based on backgroundColor and fontColor\n *\n * @param {object} defaultStyle\n * @param {string} backgroundColor\n * @param {string} fontColor\n * @return {object}\n */\nvar getControlStyle = function getControlStyle(defaultStyle, backgroundColor, fontColor) {\n  if (!backgroundColor && !fontColor) {\n    return defaultStyle;\n  }\n\n  var mergedStyle = {};\n\n  if (backgroundColor) {\n    mergedStyle.backgroundColor = backgroundColor;\n  }\n\n  if (fontColor) {\n    mergedStyle.color = fontColor;\n  }\n\n  return _extends({}, defaultStyle, mergedStyle);\n};\n\n/**\n * get the vendor-prefixed properties associated with fullscreen activities\n *\n * @return {object}\n */\nvar getFullscreenProperties = function getFullscreenProperties() {\n  if ('requestFullscreen' in TEST_DIV) {\n    var fullscreen = 'webkitIsFullscreen' in TEST_DIV ? 'webkitIsFullScreen' : 'fullscreen';\n\n    return {\n      exitFullscreen: 'exitFullscreen',\n      fullscreen: fullscreen,\n      fullscreenchange: 'fullscreenchange',\n      fullscreenEnabled: 'fullscreenEnabled',\n      requestFullscreen: 'requestFullscreen'\n    };\n  }\n\n  if ('webkitRequestFullscreen' in TEST_DIV) {\n    return {\n      exitFullscreen: 'webkitExitFullscreen',\n      fullscreen: 'webkitIsFullScreen',\n      fullscreenchange: 'webkitfullscreenchange',\n      fullscreenEnabled: 'webkitFullscreenEnabled',\n      requestFullscreen: 'webkitRequestFullscreen'\n    };\n  }\n\n  if ('mozRequestFullScreen' in TEST_DIV) {\n    return {\n      exitFullscreen: 'mozCancelFullScreen',\n      fullscreen: 'mozFullScreen',\n      fullscreenchange: 'mozfullscreenchange',\n      fullscreenEnabled: 'mozFullScreenEnabled',\n      requestFullscreen: 'mozRequestFullScreen'\n    };\n  }\n\n  return {\n    exitFullscreen: 'exitFullscreen',\n    fullscreen: 'fullscreen',\n    fullscreenchange: 'fullscreenchange',\n    fullscreenEnabled: 'fullscreenEnabled',\n    requestFullscreen: 'requestFullscreen'\n  };\n};\n\n/**\n * get the percentage played rounded to two decimal places\n *\n * @param {number} currentTime\n * @param {number} duration\n * @return {number}\n */\nvar getPercentPlayed = function getPercentPlayed(currentTime, duration) {\n  return Math.round(currentTime / duration * 10000) / 100;\n};\n\n/**\n * based on the currentTime, show the string format as either\n * HH:MM:SS or MM:SS, based on showHours\n *\n * @param {number} currentTime\n * @param {boolean} showHours=false\n * @return {string}\n */\nvar getTimeFormatFromCurrentTime = function getTimeFormatFromCurrentTime(currentTime) {\n  var showHours = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];\n\n  var integerValue = parseInt(currentTime, 10);\n  var hours = Math.floor(integerValue / 3600);\n  var minutes = Math.floor((integerValue - hours * 3600) / 60);\n  var seconds = integerValue - hours * 3600 - minutes * 60;\n  var hoursDisplay = hours < 10 ? '0' + hours : hours;\n  var minutesDisplay = minutes < 10 ? '0' + minutes : minutes;\n  var secondsDisplay = seconds < 10 ? '0' + seconds : seconds;\n\n  if (showHours) {\n    return hoursDisplay + ':' + minutesDisplay + ':' + secondsDisplay;\n  }\n\n  return minutesDisplay + ':' + secondsDisplay;\n};\n\n/**\n * get the vendor-prefixed CSS transform property\n *\n * @return {string}\n */\nvar getTransformProperty = function getTransformProperty() {\n  if ('transform' in TEST_DIV.style) {\n    return 'transform';\n  }\n\n  if ('WebkitTransform' in TEST_DIV.style) {\n    return 'WebkitTransform';\n  }\n\n  if ('MozTransform' in TEST_DIV.style) {\n    return 'MozTransform';\n  }\n\n  if ('OTransform' in TEST_DIV.style) {\n    return 'OTransform';\n  }\n\n  if ('msTransform' in TEST_DIV.style) {\n    return 'msTransform';\n  }\n\n  return 'transform';\n};\n\n/**\n * get the volume change style based on isVolumeChangeActive, the backgroundColor, and the fontColor\n *\n * @param {object} defaultVolumeChange\n * @param {object} volumeChangeActive\n * @param {boolean} isVolumeChangeActive\n * @param {string} backgroundColor\n * @param {string} fontColor\n * @return {object}\n */\nvar getVolumeChangeStyle = function getVolumeChangeStyle(defaultVolumeChange, volumeChangeActive, isVolumeChangeActive, backgroundColor, fontColor) {\n  if (!isVolumeChangeActive) {\n    return defaultVolumeChange;\n  }\n\n  if (backgroundColor || fontColor) {\n    var mergedStyle = {};\n\n    if (backgroundColor) {\n      mergedStyle.backgroundColor = backgroundColor;\n    }\n\n    if (fontColor) {\n      mergedStyle.color = fontColor;\n    }\n\n    return _extends({}, defaultVolumeChange, volumeChangeActive, mergedStyle);\n  }\n\n  return _extends({}, defaultVolumeChange, volumeChangeActive);\n};\n\n/**\n * get the volume icon based on the volume and isMuted\n *\n * @param {number} volume\n * @param {boolean} isMuted\n * @return {string}\n */\nvar getVolumeIcon = function getVolumeIcon(volume, isMuted) {\n  switch (true) {\n    case isMuted:\n      return _icons.availableIcons.VOLUME_MUTE;\n\n    case volume >= 0.67:\n      return _icons.availableIcons.VOLUME_HIGH;\n\n    case volume >= 0.33:\n      return _icons.availableIcons.VOLUME_MEDIUM;\n\n    default:\n      return _icons.availableIcons.VOLUME_LOW;\n  }\n};\n\nexports.getControlsContainerStyle = getControlsContainerStyle;\nexports.getControlStyle = getControlStyle;\nexports.getFullscreenProperties = getFullscreenProperties;\nexports.getTimeFormatFromCurrentTime = getTimeFormatFromCurrentTime;\nexports.getPercentPlayed = getPercentPlayed;\nexports.getTransformProperty = getTransformProperty;\nexports.getVolumeChangeStyle = getVolumeChangeStyle;\nexports.getVolumeIcon = getVolumeIcon;\nexports.default = {\n  getControlsContainerStyle: getControlsContainerStyle,\n  getControlStyle: getControlStyle,\n  getFullscreenProperties: getFullscreenProperties,\n  getTimeFormatFromCurrentTime: getTimeFormatFromCurrentTime,\n  getPercentPlayed: getPercentPlayed,\n  getTransformProperty: getTransformProperty,\n  getVolumeIcon: getVolumeIcon\n};\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzEuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL3V0aWxzLmpzPzJiNGMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gaWNvbnNcbmltcG9ydCB7XG4gIGF2YWlsYWJsZUljb25zXG59IGZyb20gJy4vaWNvbnMnO1xuXG5jb25zdCBURVNUX0RJViA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4vKipcbiAqIGdldCB0aGUgc3R5bGUgZm9yIHRoZSBjb250cm9scyBjb250YWluZXIgYmFzZWQgb24gaXNDb250cm9sc1Zpc2libGVcbiAqXG4gKiBAcGFyYW0ge29iamVjdH0gZGVmYXVsdENvbnRyb2xzU3R5bGVcbiAqIEBwYXJhbSB7Ym9vbGVhbn0gaXNDb250cm9sc1Zpc2libGVcbiAqIEByZXR1cm4ge29iamVjdH1cbiAqL1xuY29uc3QgZ2V0Q29udHJvbHNDb250YWluZXJTdHlsZSA9IChkZWZhdWx0Q29udHJvbHNTdHlsZSwgaXNDb250cm9sc1Zpc2libGUpID0+IHtcbiAgaWYgKGlzQ29udHJvbHNWaXNpYmxlKSB7XG4gICAgcmV0dXJuIGRlZmF1bHRDb250cm9sc1N0eWxlO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICAuLi5kZWZhdWx0Q29udHJvbHNTdHlsZSxcbiAgICBvcGFjaXR5OiAwLFxuICAgIHZpc2liaWxpdHk6ICdoaWRkZW4nXG4gIH07XG59O1xuXG4vKipcbiAqIGdldCB0aGUgc3R5bGUgZm9yIHRoZSBjb250cm9sIGJhc2VkIG9uIGJhY2tncm91bmRDb2xvciBhbmQgZm9udENvbG9yXG4gKlxuICogQHBhcmFtIHtvYmplY3R9IGRlZmF1bHRTdHlsZVxuICogQHBhcmFtIHtzdHJpbmd9IGJhY2tncm91bmRDb2xvclxuICogQHBhcmFtIHtzdHJpbmd9IGZvbnRDb2xvclxuICogQHJldHVybiB7b2JqZWN0fVxuICovXG5jb25zdCBnZXRDb250cm9sU3R5bGUgPSAoZGVmYXVsdFN0eWxlLCBiYWNrZ3JvdW5kQ29sb3IsIGZvbnRDb2xvcikgPT4ge1xuICBpZiAoIWJhY2tncm91bmRDb2xvciAmJiAhZm9udENvbG9yKSB7XG4gICAgcmV0dXJuIGRlZmF1bHRTdHlsZTtcbiAgfVxuXG4gIGxldCBtZXJnZWRTdHlsZSA9IHt9O1xuXG4gIGlmIChiYWNrZ3JvdW5kQ29sb3IpIHtcbiAgICBtZXJnZWRTdHlsZS5iYWNrZ3JvdW5kQ29sb3IgPSBiYWNrZ3JvdW5kQ29sb3I7XG4gIH1cblxuICBpZiAoZm9udENvbG9yKSB7XG4gICAgbWVyZ2VkU3R5bGUuY29sb3IgPSBmb250Q29sb3I7XG4gIH1cblxuICByZXR1cm4ge1xuICAgIC4uLmRlZmF1bHRTdHlsZSxcbiAgICAuLi5tZXJnZWRTdHlsZVxuICB9O1xufTtcblxuLyoqXG4gKiBnZXQgdGhlIHZlbmRvci1wcmVmaXhlZCBwcm9wZXJ0aWVzIGFzc29jaWF0ZWQgd2l0aCBmdWxsc2NyZWVuIGFjdGl2aXRpZXNcbiAqXG4gKiBAcmV0dXJuIHtvYmplY3R9XG4gKi9cbmNvbnN0IGdldEZ1bGxzY3JlZW5Qcm9wZXJ0aWVzID0gKCkgPT4ge1xuICBpZiAoJ3JlcXVlc3RGdWxsc2NyZWVuJyBpbiBURVNUX0RJVikge1xuICAgIGNvbnN0IGZ1bGxzY3JlZW4gPSAnd2Via2l0SXNGdWxsc2NyZWVuJyBpbiBURVNUX0RJViA/ICd3ZWJraXRJc0Z1bGxTY3JlZW4nIDogJ2Z1bGxzY3JlZW4nO1xuXG4gICAgcmV0dXJuIHtcbiAgICAgIGV4aXRGdWxsc2NyZWVuOiAnZXhpdEZ1bGxzY3JlZW4nLFxuICAgICAgZnVsbHNjcmVlbixcbiAgICAgIGZ1bGxzY3JlZW5jaGFuZ2U6ICdmdWxsc2NyZWVuY2hhbmdlJyxcbiAgICAgIGZ1bGxzY3JlZW5FbmFibGVkOiAnZnVsbHNjcmVlbkVuYWJsZWQnLFxuICAgICAgcmVxdWVzdEZ1bGxzY3JlZW46ICdyZXF1ZXN0RnVsbHNjcmVlbidcbiAgICB9O1xuICB9XG5cbiAgaWYgKCd3ZWJraXRSZXF1ZXN0RnVsbHNjcmVlbicgaW4gVEVTVF9ESVYpIHtcbiAgICByZXR1cm4ge1xuICAgICAgZXhpdEZ1bGxzY3JlZW46ICd3ZWJraXRFeGl0RnVsbHNjcmVlbicsXG4gICAgICBmdWxsc2NyZWVuOiAnd2Via2l0SXNGdWxsU2NyZWVuJyxcbiAgICAgIGZ1bGxzY3JlZW5jaGFuZ2U6ICd3ZWJraXRmdWxsc2NyZWVuY2hhbmdlJyxcbiAgICAgIGZ1bGxzY3JlZW5FbmFibGVkOiAnd2Via2l0RnVsbHNjcmVlbkVuYWJsZWQnLFxuICAgICAgcmVxdWVzdEZ1bGxzY3JlZW46ICd3ZWJraXRSZXF1ZXN0RnVsbHNjcmVlbidcbiAgICB9O1xuICB9XG5cbiAgaWYgKCdtb3pSZXF1ZXN0RnVsbFNjcmVlbicgaW4gVEVTVF9ESVYpIHtcbiAgICByZXR1cm4ge1xuICAgICAgZXhpdEZ1bGxzY3JlZW46ICdtb3pDYW5jZWxGdWxsU2NyZWVuJyxcbiAgICAgIGZ1bGxzY3JlZW46ICdtb3pGdWxsU2NyZWVuJyxcbiAgICAgIGZ1bGxzY3JlZW5jaGFuZ2U6ICdtb3pmdWxsc2NyZWVuY2hhbmdlJyxcbiAgICAgIGZ1bGxzY3JlZW5FbmFibGVkOiAnbW96RnVsbFNjcmVlbkVuYWJsZWQnLFxuICAgICAgcmVxdWVzdEZ1bGxzY3JlZW46ICdtb3pSZXF1ZXN0RnVsbFNjcmVlbidcbiAgICB9O1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBleGl0RnVsbHNjcmVlbjogJ2V4aXRGdWxsc2NyZWVuJyxcbiAgICBmdWxsc2NyZWVuOiAnZnVsbHNjcmVlbicsXG4gICAgZnVsbHNjcmVlbmNoYW5nZTogJ2Z1bGxzY3JlZW5jaGFuZ2UnLFxuICAgIGZ1bGxzY3JlZW5FbmFibGVkOiAnZnVsbHNjcmVlbkVuYWJsZWQnLFxuICAgIHJlcXVlc3RGdWxsc2NyZWVuOiAncmVxdWVzdEZ1bGxzY3JlZW4nXG4gIH07XG59O1xuXG4vKipcbiAqIGdldCB0aGUgcGVyY2VudGFnZSBwbGF5ZWQgcm91bmRlZCB0byB0d28gZGVjaW1hbCBwbGFjZXNcbiAqXG4gKiBAcGFyYW0ge251bWJlcn0gY3VycmVudFRpbWVcbiAqIEBwYXJhbSB7bnVtYmVyfSBkdXJhdGlvblxuICogQHJldHVybiB7bnVtYmVyfVxuICovXG5jb25zdCBnZXRQZXJjZW50UGxheWVkID0gKGN1cnJlbnRUaW1lLCBkdXJhdGlvbikgPT4ge1xuICByZXR1cm4gTWF0aC5yb3VuZCgoY3VycmVudFRpbWUgLyBkdXJhdGlvbikgKiAxMDAwMCkgLyAxMDA7XG59O1xuXG4vKipcbiAqIGJhc2VkIG9uIHRoZSBjdXJyZW50VGltZSwgc2hvdyB0aGUgc3RyaW5nIGZvcm1hdCBhcyBlaXRoZXJcbiAqIEhIOk1NOlNTIG9yIE1NOlNTLCBiYXNlZCBvbiBzaG93SG91cnNcbiAqXG4gKiBAcGFyYW0ge251bWJlcn0gY3VycmVudFRpbWVcbiAqIEBwYXJhbSB7Ym9vbGVhbn0gc2hvd0hvdXJzPWZhbHNlXG4gKiBAcmV0dXJuIHtzdHJpbmd9XG4gKi9cbmNvbnN0IGdldFRpbWVGb3JtYXRGcm9tQ3VycmVudFRpbWUgPSAoY3VycmVudFRpbWUsIHNob3dIb3VycyA9IGZhbHNlKSA9PiB7XG4gIGNvbnN0IGludGVnZXJWYWx1ZSA9IHBhcnNlSW50KGN1cnJlbnRUaW1lLCAxMCk7XG4gIGNvbnN0IGhvdXJzID0gTWF0aC5mbG9vcihpbnRlZ2VyVmFsdWUgLyAzNjAwKTtcbiAgY29uc3QgbWludXRlcyA9IE1hdGguZmxvb3IoKGludGVnZXJWYWx1ZSAtIChob3VycyAqIDM2MDApKSAvIDYwKTtcbiAgY29uc3Qgc2Vjb25kcyA9IGludGVnZXJWYWx1ZSAtIChob3VycyAqIDM2MDApIC0gKG1pbnV0ZXMgKiA2MCk7XG4gIGNvbnN0IGhvdXJzRGlzcGxheSA9IGhvdXJzIDwgMTAgPyBgMCR7aG91cnN9YCA6IGhvdXJzO1xuICBjb25zdCBtaW51dGVzRGlzcGxheSA9IG1pbnV0ZXMgPCAxMCA/IGAwJHttaW51dGVzfWAgOiBtaW51dGVzO1xuICBjb25zdCBzZWNvbmRzRGlzcGxheSA9IHNlY29uZHMgPCAxMCA/IGAwJHtzZWNvbmRzfWAgOiBzZWNvbmRzO1xuICBcbiAgaWYgKHNob3dIb3Vycykge1xuICAgIHJldHVybiBgJHtob3Vyc0Rpc3BsYXl9OiR7bWludXRlc0Rpc3BsYXl9OiR7c2Vjb25kc0Rpc3BsYXl9YDtcbiAgfVxuXG4gIHJldHVybiBgJHttaW51dGVzRGlzcGxheX06JHtzZWNvbmRzRGlzcGxheX1gO1xufTtcblxuLyoqXG4gKiBnZXQgdGhlIHZlbmRvci1wcmVmaXhlZCBDU1MgdHJhbnNmb3JtIHByb3BlcnR5XG4gKlxuICogQHJldHVybiB7c3RyaW5nfVxuICovXG5jb25zdCBnZXRUcmFuc2Zvcm1Qcm9wZXJ0eSA9ICgpID0+IHtcbiAgaWYgKCd0cmFuc2Zvcm0nIGluIFRFU1RfRElWLnN0eWxlKSB7XG4gICAgcmV0dXJuICd0cmFuc2Zvcm0nO1xuICB9XG5cbiAgaWYgKCdXZWJraXRUcmFuc2Zvcm0nIGluIFRFU1RfRElWLnN0eWxlKSB7XG4gICAgcmV0dXJuICdXZWJraXRUcmFuc2Zvcm0nO1xuICB9XG5cbiAgaWYgKCdNb3pUcmFuc2Zvcm0nIGluIFRFU1RfRElWLnN0eWxlKSB7XG4gICAgcmV0dXJuICdNb3pUcmFuc2Zvcm0nO1xuICB9XG5cbiAgaWYgKCdPVHJhbnNmb3JtJyBpbiBURVNUX0RJVi5zdHlsZSkge1xuICAgIHJldHVybiAnT1RyYW5zZm9ybSc7XG4gIH1cblxuICBpZiAoJ21zVHJhbnNmb3JtJyBpbiBURVNUX0RJVi5zdHlsZSkge1xuICAgIHJldHVybiAnbXNUcmFuc2Zvcm0nO1xuICB9XG5cbiAgcmV0dXJuICd0cmFuc2Zvcm0nO1xufTtcblxuLyoqXG4gKiBnZXQgdGhlIHZvbHVtZSBjaGFuZ2Ugc3R5bGUgYmFzZWQgb24gaXNWb2x1bWVDaGFuZ2VBY3RpdmUsIHRoZSBiYWNrZ3JvdW5kQ29sb3IsIGFuZCB0aGUgZm9udENvbG9yXG4gKlxuICogQHBhcmFtIHtvYmplY3R9IGRlZmF1bHRWb2x1bWVDaGFuZ2VcbiAqIEBwYXJhbSB7b2JqZWN0fSB2b2x1bWVDaGFuZ2VBY3RpdmVcbiAqIEBwYXJhbSB7Ym9vbGVhbn0gaXNWb2x1bWVDaGFuZ2VBY3RpdmVcbiAqIEBwYXJhbSB7c3RyaW5nfSBiYWNrZ3JvdW5kQ29sb3JcbiAqIEBwYXJhbSB7c3RyaW5nfSBmb250Q29sb3JcbiAqIEByZXR1cm4ge29iamVjdH1cbiAqL1xuY29uc3QgZ2V0Vm9sdW1lQ2hhbmdlU3R5bGUgPSAoZGVmYXVsdFZvbHVtZUNoYW5nZSwgdm9sdW1lQ2hhbmdlQWN0aXZlLCBpc1ZvbHVtZUNoYW5nZUFjdGl2ZSwgYmFja2dyb3VuZENvbG9yLCBmb250Q29sb3IpID0+IHtcbiAgaWYgKCFpc1ZvbHVtZUNoYW5nZUFjdGl2ZSkge1xuICAgIHJldHVybiBkZWZhdWx0Vm9sdW1lQ2hhbmdlO1xuICB9XG5cbiAgaWYgKGJhY2tncm91bmRDb2xvciB8fCBmb250Q29sb3IpIHtcbiAgICBsZXQgbWVyZ2VkU3R5bGUgPSB7fTtcblxuICAgIGlmIChiYWNrZ3JvdW5kQ29sb3IpIHtcbiAgICAgIG1lcmdlZFN0eWxlLmJhY2tncm91bmRDb2xvciA9IGJhY2tncm91bmRDb2xvcjtcbiAgICB9XG5cbiAgICBpZiAoZm9udENvbG9yKSB7XG4gICAgICBtZXJnZWRTdHlsZS5jb2xvciA9IGZvbnRDb2xvcjtcbiAgICB9XG5cbiAgICByZXR1cm4ge1xuICAgICAgLi4uZGVmYXVsdFZvbHVtZUNoYW5nZSxcbiAgICAgIC4uLnZvbHVtZUNoYW5nZUFjdGl2ZSxcbiAgICAgIC4uLm1lcmdlZFN0eWxlXG4gICAgfTtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgLi4uZGVmYXVsdFZvbHVtZUNoYW5nZSxcbiAgICAuLi52b2x1bWVDaGFuZ2VBY3RpdmVcbiAgfTtcbn07XG5cbi8qKlxuICogZ2V0IHRoZSB2b2x1bWUgaWNvbiBiYXNlZCBvbiB0aGUgdm9sdW1lIGFuZCBpc011dGVkXG4gKlxuICogQHBhcmFtIHtudW1iZXJ9IHZvbHVtZVxuICogQHBhcmFtIHtib29sZWFufSBpc011dGVkXG4gKiBAcmV0dXJuIHtzdHJpbmd9XG4gKi9cbmNvbnN0IGdldFZvbHVtZUljb24gPSAodm9sdW1lLCBpc011dGVkKSA9PiB7XG4gIHN3aXRjaCAodHJ1ZSkge1xuICAgIGNhc2UgaXNNdXRlZDpcbiAgICAgIHJldHVybiBhdmFpbGFibGVJY29ucy5WT0xVTUVfTVVURTtcblxuICAgIGNhc2Ugdm9sdW1lID49IDAuNjc6XG4gICAgICByZXR1cm4gYXZhaWxhYmxlSWNvbnMuVk9MVU1FX0hJR0g7XG5cbiAgICBjYXNlIHZvbHVtZSA+PSAwLjMzOlxuICAgICAgcmV0dXJuIGF2YWlsYWJsZUljb25zLlZPTFVNRV9NRURJVU07XG5cbiAgICBkZWZhdWx0OlxuICAgICAgcmV0dXJuIGF2YWlsYWJsZUljb25zLlZPTFVNRV9MT1c7XG4gIH1cbn07XG5cbmV4cG9ydCB7Z2V0Q29udHJvbHNDb250YWluZXJTdHlsZX07XG5leHBvcnQge2dldENvbnRyb2xTdHlsZX07XG5leHBvcnQge2dldEZ1bGxzY3JlZW5Qcm9wZXJ0aWVzfTtcbmV4cG9ydCB7Z2V0VGltZUZvcm1hdEZyb21DdXJyZW50VGltZX07XG5leHBvcnQge2dldFBlcmNlbnRQbGF5ZWR9O1xuZXhwb3J0IHtnZXRUcmFuc2Zvcm1Qcm9wZXJ0eX07XG5leHBvcnQge2dldFZvbHVtZUNoYW5nZVN0eWxlfTtcbmV4cG9ydCB7Z2V0Vm9sdW1lSWNvbn07XG5cbmV4cG9ydCBkZWZhdWx0IHtcbiAgZ2V0Q29udHJvbHNDb250YWluZXJTdHlsZSxcbiAgZ2V0Q29udHJvbFN0eWxlLFxuICBnZXRGdWxsc2NyZWVuUHJvcGVydGllcyxcbiAgZ2V0VGltZUZvcm1hdEZyb21DdXJyZW50VGltZSxcbiAgZ2V0UGVyY2VudFBsYXllZCxcbiAgZ2V0VHJhbnNmb3JtUHJvcGVydHksXG4gIGdldFZvbHVtZUljb25cbn07XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvdXRpbHMuanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7QUFDQTtBQUNBO0FBR0E7QUFDQTs7Ozs7Ozs7QUFRQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFFQTtBQUNBO0FBSEE7QUFLQTtBQUNBOzs7Ozs7Ozs7QUFTQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUlBO0FBQ0E7Ozs7OztBQU1BO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBTEE7QUFPQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFMQTtBQU9BO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUxBO0FBT0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUxBO0FBT0E7QUFDQTs7Ozs7Ozs7QUFRQTtBQUNBO0FBQ0E7QUFDQTs7Ozs7Ozs7O0FBU0E7QUFBQTtBQUNBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOzs7Ozs7QUFNQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Ozs7Ozs7Ozs7O0FBV0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUtBO0FBQ0E7QUFDQTtBQUlBO0FBQ0E7Ozs7Ozs7O0FBUUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFYQTtBQWFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQVBBIiwic291cmNlUm9vdCI6IiJ9");
+      _this.vidzInstance.setPlayerDimensions(dimensions);
+    }, 50), _this.setTime = (0, _debounce2.default)(function (percentage) {
+      _this.vidzInstance.setCurrentTime(percentage * _this.vidzInstance.duration);
+    }, 50), _this.setVolume = (0, _debounce2.default)(function (percentage) {
+      _this.vidzInstance.setVolume(percentage);
+    }, 50), _this.getHeightAndWidth = function () {
+      var _this$props = _this.props,
+          heightFromProps = _this$props.height,
+          widthFromProps = _this$props.width;
+      var isFullscreen = _this.state.isFullscreen;
 
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _react = __webpack_require__(11);\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _recompose = __webpack_require__(13);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n// external dependencies\n\n\nvar Track = (0, _recompose.pure)(function (_ref) {\n  var _ref$style = _ref.style;\n  var style = _ref$style === undefined ? {} : _ref$style;\n\n  return _react2.default.createElement('div', { style: style });\n});\n\nTrack.propTypes = {\n  style: _react.PropTypes.object\n};\n\nexports.default = Track;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzIuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2NvbXBvbmVudHMvVHJhY2suanM/ZWRiNiJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBleHRlcm5hbCBkZXBlbmRlbmNpZXNcbmltcG9ydCBSZWFjdCwge1xuICBQcm9wVHlwZXNcbn0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHtcbiAgcHVyZVxufSBmcm9tICdyZWNvbXBvc2UnO1xuXG5jb25zdCBUcmFjayA9IHB1cmUoKHtzdHlsZSA9IHt9fSkgPT4ge1xuICByZXR1cm4gKFxuICAgIDxkaXYgc3R5bGU9e3N0eWxlfS8+XG4gICk7XG59KTtcblxuVHJhY2sucHJvcFR5cGVzID0ge1xuICBzdHlsZTogUHJvcFR5cGVzLm9iamVjdFxufTtcblxuZXhwb3J0IGRlZmF1bHQgVHJhY2s7XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvY29tcG9uZW50cy9UcmFjay5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0E7QUFDQTs7O0FBRUE7QUFDQTs7Ozs7O0FBR0E7QUFBQTtBQUFBO0FBQ0E7QUFBQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBOyIsInNvdXJjZVJvb3QiOiIifQ==");
+      var width = widthFromProps;
 
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
+      if (isFullscreen) {
+        width = window.innerWidth;
+      } else if ((0, _isUndefined2.default)(width)) {
+        width = Math.round(_this.refs.container.clientWidth);
+      }
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _react = __webpack_require__(11);\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _recompose = __webpack_require__(13);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n// external dependencies\n\n\nvar TrackButton = (0, _recompose.pure)(function (_ref) {\n  var label = _ref.label;\n  var onMouseDown = _ref.onMouseDown;\n  var _ref$style = _ref.style;\n  var style = _ref$style === undefined ? {} : _ref$style;\n\n  return _react2.default.createElement('span', {\n    'aria-label': label,\n    onMouseDown: onMouseDown,\n    role: 'button',\n    style: style\n  });\n});\n\nTrackButton.propTypes = {\n  onMouseDown: _react.PropTypes.func,\n  style: _react.PropTypes.object\n};\n\nexports.default = TrackButton;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2NvbXBvbmVudHMvVHJhY2tCdXR0b24uanM/M2MwNSJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBleHRlcm5hbCBkZXBlbmRlbmNpZXNcbmltcG9ydCBSZWFjdCwge1xuICBQcm9wVHlwZXNcbn0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHtcbiAgcHVyZVxufSBmcm9tICdyZWNvbXBvc2UnO1xuXG5jb25zdCBUcmFja0J1dHRvbiA9IHB1cmUoKHtsYWJlbCwgb25Nb3VzZURvd24sIHN0eWxlID0ge319KSA9PiB7XG4gIHJldHVybiAoXG4gICAgPHNwYW5cbiAgICAgIGFyaWEtbGFiZWw9e2xhYmVsfVxuICAgICAgb25Nb3VzZURvd249e29uTW91c2VEb3dufVxuICAgICAgcm9sZT1cImJ1dHRvblwiXG4gICAgICBzdHlsZT17c3R5bGV9XG4gICAgLz5cbiAgKTtcbn0pO1xuXG5UcmFja0J1dHRvbi5wcm9wVHlwZXMgPSB7XG4gIG9uTW91c2VEb3duOiBQcm9wVHlwZXMuZnVuYyxcbiAgc3R5bGU6IFByb3BUeXBlcy5vYmplY3Rcbn07XG5cbmV4cG9ydCBkZWZhdWx0IFRyYWNrQnV0dG9uO1xuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2NvbXBvbmVudHMvVHJhY2tCdXR0b24uanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUNBO0FBQ0E7OztBQUVBO0FBQ0E7Ozs7OztBQUdBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUFBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFKQTtBQU9BO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQUNBO0FBSUE7Iiwic291cmNlUm9vdCI6IiJ9");
+      var height = heightFromProps;
 
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
+      if ((0, _isUndefined2.default)(height)) {
+        if (_this.vidzInstance) {
+          var naturalHeight = _this.vidzInstance.player.videoHeight;
+          var naturalWidth = _this.vidzInstance.player.videoWidth;
+          var multiplier = _this.vidzInstance.player.width / naturalWidth;
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _react = __webpack_require__(11);\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _recompose = __webpack_require__(13);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n// external dependencies\n\n\nvar VolumeContainer = (0, _recompose.pure)(function (_ref) {\n  var children = _ref.children;\n  var onMouseEnter = _ref.onMouseEnter;\n  var onMouseLeave = _ref.onMouseLeave;\n  var _ref$style = _ref.style;\n  var style = _ref$style === undefined ? {} : _ref$style;\n\n  return _react2.default.createElement(\n    'div',\n    {\n      className: '__vidz_volume_change__',\n      onMouseEnter: onMouseEnter,\n      onMouseLeave: onMouseLeave,\n      role: 'button',\n      style: style\n    },\n    children\n  );\n});\n\nVolumeContainer.propTypes = {\n  children: _react.PropTypes.node,\n  onMouseEnter: _react.PropTypes.func,\n  onMouseLeave: _react.PropTypes.func,\n  style: _react.PropTypes.object\n};\n\nexports.default = VolumeContainer;\nmodule.exports = exports['default'];\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzQuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2NvbXBvbmVudHMvVm9sdW1lQ29udGFpbmVyLmpzPzAzMjUiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gZXh0ZXJuYWwgZGVwZW5kZW5jaWVzXG5pbXBvcnQgUmVhY3QsIHtcbiAgUHJvcFR5cGVzXG59IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7XG4gIHB1cmVcbn0gZnJvbSAncmVjb21wb3NlJztcblxuY29uc3QgVm9sdW1lQ29udGFpbmVyID0gcHVyZSgoe2NoaWxkcmVuLCBvbk1vdXNlRW50ZXIsIG9uTW91c2VMZWF2ZSwgc3R5bGUgPSB7fX0pID0+IHtcbiAgcmV0dXJuIChcbiAgICA8ZGl2XG4gICAgICBjbGFzc05hbWU9XCJfX3ZpZHpfdm9sdW1lX2NoYW5nZV9fXCJcbiAgICAgIG9uTW91c2VFbnRlcj17b25Nb3VzZUVudGVyfVxuICAgICAgb25Nb3VzZUxlYXZlPXtvbk1vdXNlTGVhdmV9XG4gICAgICByb2xlPVwiYnV0dG9uXCJcbiAgICAgIHN0eWxlPXtzdHlsZX1cbiAgICA+XG4gICAgICB7Y2hpbGRyZW59XG4gICAgPC9kaXY+XG4gICk7XG59KTtcblxuVm9sdW1lQ29udGFpbmVyLnByb3BUeXBlcyA9IHtcbiAgY2hpbGRyZW46IFByb3BUeXBlcy5ub2RlLFxuICBvbk1vdXNlRW50ZXI6IFByb3BUeXBlcy5mdW5jLFxuICBvbk1vdXNlTGVhdmU6IFByb3BUeXBlcy5mdW5jLFxuICBzdHlsZTogUHJvcFR5cGVzLm9iamVjdFxufTtcblxuZXhwb3J0IGRlZmF1bHQgVm9sdW1lQ29udGFpbmVyO1xuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2NvbXBvbmVudHMvVm9sdW1lQ29udGFpbmVyLmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDQTtBQUNBOzs7QUFFQTtBQUNBOzs7Ozs7QUFHQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUFBO0FBQ0E7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFMQTtBQU9BO0FBUEE7QUFVQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBQ0E7QUFNQTsiLCJzb3VyY2VSb290IjoiIn0=");
+          height = Math.round(naturalHeight * multiplier);
+        } else {
+          height = Math.round(width * 0.6);
+        }
+      }
 
-/***/ },
-/* 35 */
-/***/ function(module, exports) {
+      if (isFullscreen) {
+        var maxHeight = window.innerHeight;
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nvar DARK_COLOR = 'rgb(63, 63, 63)';\nvar DARK_COLOR_BACKGROUND = 'rgba(63, 63, 63, 0.7)';\nvar LIGHT_COLOR = 'rgb(243, 243, 243)';\nvar LIGHT_COLOR_BACKGROUND = 'rgba(243, 243, 243, 0.7)';\nvar TRACK_BUTTON_SIZE = 12;\nvar BOX_SHADOW_SIZE = '0 0 3px';\n\nvar ALL_STYLES = {\n  actionsContainer: {\n    alignItems: 'stretch',\n    display: 'flex',\n    flexDirection: 'row',\n    flexWrap: 'nowrap'\n  },\n  button: {\n    alignItems: 'center',\n    cursor: 'pointer',\n    display: 'flex',\n    flexBasis: 'auto',\n    flexDirection: 'row',\n    flexGrow: 0,\n    flexShrink: 0,\n    flexWrap: 'nowrap',\n    fontSize: 16\n  },\n  container: {\n    position: 'relative'\n  },\n  control: {\n    height: 40,\n    lineHeight: '40px',\n    padding: '0 10px'\n  },\n  controlsContainer: {\n    bottom: 0,\n    left: 0,\n    opacity: 1,\n    position: 'absolute',\n    right: 0,\n    transition: 'opacity 150ms ease-in-out, visibility 150ms ease-in-out',\n    visibility: 'visible'\n  },\n  durationSlider: {\n    cursor: 'pointer',\n    position: 'relative'\n  },\n  durationTrack: {\n    height: 2,\n    marginTop: -1,\n    position: 'relative',\n    top: '50%',\n    width: 0\n  },\n  fullscreenButton: {\n    flexBasis: 'auto',\n    flexGrow: 0,\n    flexShrink: 0\n  },\n  informationContainer: {\n    fontFamily: '\"Helvetica Neue\", Helvetica, Arial, sans-serif',\n    fontSize: 12,\n    flexBasis: 0,\n    flexGrow: 1,\n    flexShrink: 0,\n    minWidth: 1\n  },\n  playPauseButton: {\n    flexBasis: 'auto',\n    flexGrow: 0,\n    flexShrink: 0\n  },\n  speedIdentifier: {\n    fontFamily: '\"Helvetica Neue\", Helvetica, Arial, sans-serif',\n    fontSize: 11\n  },\n  trackButton: {\n    borderRadius: '50%',\n    display: 'block',\n    height: TRACK_BUTTON_SIZE,\n    position: 'absolute',\n    width: TRACK_BUTTON_SIZE\n  },\n  video: {\n    objectFit: 'fill'\n  },\n  volumeButton: {\n    boxSizing: 'border-box',\n    textAlign: 'center',\n    width: 40\n  },\n  volumeChange: {\n    backgroundColor: 'inherit',\n    bottom: '100%',\n    boxSizing: 'border-box',\n    color: 'inherit',\n    cursor: 'pointer',\n    display: 'none',\n    height: 100,\n    left: 0,\n    padding: '10px 0',\n    position: 'absolute',\n    width: '100%'\n  },\n  volumeChangeActive: {\n    display: 'block'\n  },\n  volumnChangeContainer: {\n    backgroundColor: 'inherit',\n    color: 'inherit',\n    position: 'relative',\n    zIndex: 1000\n  },\n  volumeChangeTrack: {\n    height: '100%',\n    left: '50%',\n    marginLeft: -1,\n    position: 'relative',\n    width: 2\n  }\n};\n\nvar darkStyles = _extends({}, ALL_STYLES, {\n  control: _extends({}, ALL_STYLES.control, {\n    backgroundColor: DARK_COLOR_BACKGROUND,\n    color: LIGHT_COLOR\n  }),\n  durationSlider: _extends({}, ALL_STYLES.durationSlider),\n  durationTrack: _extends({}, ALL_STYLES.durationTrack, {\n    backgroundColor: LIGHT_COLOR\n  }),\n  durationTrackButton: _extends({}, ALL_STYLES.trackButton, {\n    backgroundColor: LIGHT_COLOR,\n    boxShadow: BOX_SHADOW_SIZE + ' ' + DARK_COLOR,\n    left: 0,\n    marginTop: -1 * (TRACK_BUTTON_SIZE / 2 + 1),\n    top: '50%'\n  }),\n  volumeChange: _extends({}, ALL_STYLES.volumeChange, {\n    backgroundColor: DARK_COLOR_BACKGROUND\n  }),\n  volumeChangeTrack: _extends({}, ALL_STYLES.volumeChangeTrack, {\n    backgroundColor: LIGHT_COLOR\n  }),\n  volumeTrackButton: _extends({}, ALL_STYLES.trackButton, {\n    backgroundColor: LIGHT_COLOR,\n    boxShadow: BOX_SHADOW_SIZE + ' ' + DARK_COLOR,\n    left: '50%',\n    marginLeft: -1 * (TRACK_BUTTON_SIZE / 2),\n    top: 6\n  })\n});\n\nexports.darkStyles = darkStyles = _extends({}, darkStyles, {\n  fastForwardButton: _extends({}, ALL_STYLES.button, darkStyles.control, ALL_STYLES.fastForwardButton),\n  fullscreenButton: _extends({}, ALL_STYLES.button, darkStyles.control, ALL_STYLES.fullscreenButton),\n  informationContainer: _extends({}, ALL_STYLES.informationContainer, darkStyles.control),\n  playPauseButton: _extends({}, ALL_STYLES.button, darkStyles.control, ALL_STYLES.playPauseButton),\n  volumeButton: _extends({}, ALL_STYLES.button, darkStyles.control, ALL_STYLES.volumeButton)\n});\n\nvar lightStyles = _extends({}, ALL_STYLES, {\n  control: _extends({}, ALL_STYLES.control, {\n    backgroundColor: LIGHT_COLOR_BACKGROUND,\n    color: DARK_COLOR\n  }),\n  durationSlider: _extends({}, ALL_STYLES.durationSlider),\n  durationTrack: _extends({}, ALL_STYLES.durationTrack, {\n    backgroundColor: DARK_COLOR\n  }),\n  durationTrackButton: _extends({}, ALL_STYLES.trackButton, {\n    backgroundColor: DARK_COLOR,\n    boxShadow: BOX_SHADOW_SIZE + ' ' + LIGHT_COLOR,\n    left: 0,\n    marginTop: -1 * (TRACK_BUTTON_SIZE / 2 + 1),\n    top: '50%'\n  }),\n  volumeChange: _extends({}, ALL_STYLES.volumeChange, {\n    backgroundColor: LIGHT_COLOR_BACKGROUND\n  }),\n  volumeChangeTrack: _extends({}, ALL_STYLES.volumeChangeTrack, {\n    backgroundColor: DARK_COLOR\n  }),\n  volumeTrackButton: _extends({}, ALL_STYLES.trackButton, {\n    backgroundColor: LIGHT_COLOR,\n    boxShadow: BOX_SHADOW_SIZE + ' ' + DARK_COLOR,\n    left: '50%',\n    marginLeft: -1 * (TRACK_BUTTON_SIZE / 2 + 1),\n    top: 0\n  })\n});\n\nexports.lightStyles = lightStyles = _extends({}, lightStyles, {\n  fastForwardButton: _extends({}, ALL_STYLES.button, lightStyles.control, ALL_STYLES.fastForwardButton),\n  fullscreenButton: _extends({}, ALL_STYLES.button, lightStyles.control, ALL_STYLES.fullscreenButton),\n  informationContainer: _extends({}, ALL_STYLES.informationContainer, lightStyles.control),\n  playPauseButton: _extends({}, ALL_STYLES.button, lightStyles.control, ALL_STYLES.playPauseButton),\n  volumeButton: _extends({}, ALL_STYLES.button, lightStyles.control, ALL_STYLES.volumeButton)\n});\n\nexports.allStyles = ALL_STYLES;\nexports.darkStyles = darkStyles;\nexports.lightStyles = lightStyles;\nexports.default = {\n  allStyles: ALL_STYLES,\n  darkStyles: darkStyles,\n  lightStyles: lightStyles\n};\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzUuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL3N0eWxlcy5qcz82NWMxIl0sInNvdXJjZXNDb250ZW50IjpbImNvbnN0IERBUktfQ09MT1IgPSAncmdiKDYzLCA2MywgNjMpJztcbmNvbnN0IERBUktfQ09MT1JfQkFDS0dST1VORCA9ICdyZ2JhKDYzLCA2MywgNjMsIDAuNyknO1xuY29uc3QgTElHSFRfQ09MT1IgPSAncmdiKDI0MywgMjQzLCAyNDMpJztcbmNvbnN0IExJR0hUX0NPTE9SX0JBQ0tHUk9VTkQgPSAncmdiYSgyNDMsIDI0MywgMjQzLCAwLjcpJztcbmNvbnN0IFRSQUNLX0JVVFRPTl9TSVpFID0gMTI7XG5jb25zdCBCT1hfU0hBRE9XX1NJWkUgPSAnMCAwIDNweCc7XG5cbmNvbnN0IEFMTF9TVFlMRVMgPSB7XG4gIGFjdGlvbnNDb250YWluZXI6IHtcbiAgICBhbGlnbkl0ZW1zOiAnc3RyZXRjaCcsXG4gICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgIGZsZXhEaXJlY3Rpb246ICdyb3cnLFxuICAgIGZsZXhXcmFwOiAnbm93cmFwJ1xuICB9LFxuICBidXR0b246IHtcbiAgICBhbGlnbkl0ZW1zOiAnY2VudGVyJyxcbiAgICBjdXJzb3I6ICdwb2ludGVyJyxcbiAgICBkaXNwbGF5OiAnZmxleCcsXG4gICAgZmxleEJhc2lzOiAnYXV0bycsXG4gICAgZmxleERpcmVjdGlvbjogJ3JvdycsXG4gICAgZmxleEdyb3c6IDAsXG4gICAgZmxleFNocmluazogMCxcbiAgICBmbGV4V3JhcDogJ25vd3JhcCcsXG4gICAgZm9udFNpemU6IDE2XG4gIH0sXG4gIGNvbnRhaW5lcjoge1xuICAgIHBvc2l0aW9uOiAncmVsYXRpdmUnXG4gIH0sXG4gIGNvbnRyb2w6IHtcbiAgICBoZWlnaHQ6IDQwLFxuICAgIGxpbmVIZWlnaHQ6ICc0MHB4JyxcbiAgICBwYWRkaW5nOiAnMCAxMHB4J1xuICB9LFxuICBjb250cm9sc0NvbnRhaW5lcjoge1xuICAgIGJvdHRvbTogMCxcbiAgICBsZWZ0OiAwLFxuICAgIG9wYWNpdHk6IDEsXG4gICAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gICAgcmlnaHQ6IDAsXG4gICAgdHJhbnNpdGlvbjogJ29wYWNpdHkgMTUwbXMgZWFzZS1pbi1vdXQsIHZpc2liaWxpdHkgMTUwbXMgZWFzZS1pbi1vdXQnLFxuICAgIHZpc2liaWxpdHk6ICd2aXNpYmxlJ1xuICB9LFxuICBkdXJhdGlvblNsaWRlcjoge1xuICAgIGN1cnNvcjogJ3BvaW50ZXInLFxuICAgIHBvc2l0aW9uOiAncmVsYXRpdmUnXG4gIH0sXG4gIGR1cmF0aW9uVHJhY2s6IHtcbiAgICBoZWlnaHQ6IDIsXG4gICAgbWFyZ2luVG9wOiAtMSxcbiAgICBwb3NpdGlvbjogJ3JlbGF0aXZlJyxcbiAgICB0b3A6ICc1MCUnLFxuICAgIHdpZHRoOiAwXG4gIH0sXG4gIGZ1bGxzY3JlZW5CdXR0b246IHtcbiAgICBmbGV4QmFzaXM6ICdhdXRvJyxcbiAgICBmbGV4R3JvdzogMCxcbiAgICBmbGV4U2hyaW5rOiAwXG4gIH0sXG4gIGluZm9ybWF0aW9uQ29udGFpbmVyOiB7XG4gICAgZm9udEZhbWlseTogJ1wiSGVsdmV0aWNhIE5ldWVcIiwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZicsXG4gICAgZm9udFNpemU6IDEyLFxuICAgIGZsZXhCYXNpczogMCxcbiAgICBmbGV4R3JvdzogMSxcbiAgICBmbGV4U2hyaW5rOiAwLFxuICAgIG1pbldpZHRoOiAxXG4gIH0sXG4gIHBsYXlQYXVzZUJ1dHRvbjoge1xuICAgIGZsZXhCYXNpczogJ2F1dG8nLFxuICAgIGZsZXhHcm93OiAwLFxuICAgIGZsZXhTaHJpbms6IDBcbiAgfSxcbiAgc3BlZWRJZGVudGlmaWVyOiB7XG4gICAgZm9udEZhbWlseTogJ1wiSGVsdmV0aWNhIE5ldWVcIiwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZicsXG4gICAgZm9udFNpemU6IDExXG4gIH0sXG4gIHRyYWNrQnV0dG9uOiB7XG4gICAgYm9yZGVyUmFkaXVzOiAnNTAlJyxcbiAgICBkaXNwbGF5OiAnYmxvY2snLFxuICAgIGhlaWdodDogVFJBQ0tfQlVUVE9OX1NJWkUsXG4gICAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gICAgd2lkdGg6IFRSQUNLX0JVVFRPTl9TSVpFXG4gIH0sXG4gIHZpZGVvOiB7XG4gICAgb2JqZWN0Rml0OiAnZmlsbCdcbiAgfSxcbiAgdm9sdW1lQnV0dG9uOiB7XG4gICAgYm94U2l6aW5nOiAnYm9yZGVyLWJveCcsXG4gICAgdGV4dEFsaWduOiAnY2VudGVyJyxcbiAgICB3aWR0aDogNDBcbiAgfSxcbiAgdm9sdW1lQ2hhbmdlOiB7XG4gICAgYmFja2dyb3VuZENvbG9yOiAnaW5oZXJpdCcsXG4gICAgYm90dG9tOiAnMTAwJScsXG4gICAgYm94U2l6aW5nOiAnYm9yZGVyLWJveCcsXG4gICAgY29sb3I6ICdpbmhlcml0JyxcbiAgICBjdXJzb3I6ICdwb2ludGVyJyxcbiAgICBkaXNwbGF5OiAnbm9uZScsXG4gICAgaGVpZ2h0OiAxMDAsXG4gICAgbGVmdDogMCxcbiAgICBwYWRkaW5nOiAnMTBweCAwJyxcbiAgICBwb3NpdGlvbjogJ2Fic29sdXRlJyxcbiAgICB3aWR0aDogJzEwMCUnXG4gIH0sXG4gIHZvbHVtZUNoYW5nZUFjdGl2ZToge1xuICAgIGRpc3BsYXk6ICdibG9jaydcbiAgfSxcbiAgdm9sdW1uQ2hhbmdlQ29udGFpbmVyOiB7XG4gICAgYmFja2dyb3VuZENvbG9yOiAnaW5oZXJpdCcsXG4gICAgY29sb3I6ICdpbmhlcml0JyxcbiAgICBwb3NpdGlvbjogJ3JlbGF0aXZlJyxcbiAgICB6SW5kZXg6IDEwMDBcbiAgfSxcbiAgdm9sdW1lQ2hhbmdlVHJhY2s6IHtcbiAgICBoZWlnaHQ6ICcxMDAlJyxcbiAgICBsZWZ0OiAnNTAlJyxcbiAgICBtYXJnaW5MZWZ0OiAtMSxcbiAgICBwb3NpdGlvbjogJ3JlbGF0aXZlJyxcbiAgICB3aWR0aDogMlxuICB9XG59O1xuXG5sZXQgZGFya1N0eWxlcyA9IHtcbiAgLi4uQUxMX1NUWUxFUyxcbiAgY29udHJvbDoge1xuICAgIC4uLkFMTF9TVFlMRVMuY29udHJvbCxcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IERBUktfQ09MT1JfQkFDS0dST1VORCxcbiAgICBjb2xvcjogTElHSFRfQ09MT1JcbiAgfSxcbiAgZHVyYXRpb25TbGlkZXI6IHtcbiAgICAuLi5BTExfU1RZTEVTLmR1cmF0aW9uU2xpZGVyXG4gIH0sXG4gIGR1cmF0aW9uVHJhY2s6IHtcbiAgICAuLi5BTExfU1RZTEVTLmR1cmF0aW9uVHJhY2ssXG4gICAgYmFja2dyb3VuZENvbG9yOiBMSUdIVF9DT0xPUlxuICB9LFxuICBkdXJhdGlvblRyYWNrQnV0dG9uOiB7XG4gICAgLi4uQUxMX1NUWUxFUy50cmFja0J1dHRvbixcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IExJR0hUX0NPTE9SLFxuICAgIGJveFNoYWRvdzogYCR7Qk9YX1NIQURPV19TSVpFfSAke0RBUktfQ09MT1J9YCxcbiAgICBsZWZ0OiAwLFxuICAgIG1hcmdpblRvcDogLTEgKiAoKFRSQUNLX0JVVFRPTl9TSVpFIC8gMikgKyAxKSxcbiAgICB0b3A6ICc1MCUnXG4gIH0sXG4gIHZvbHVtZUNoYW5nZToge1xuICAgIC4uLkFMTF9TVFlMRVMudm9sdW1lQ2hhbmdlLFxuICAgIGJhY2tncm91bmRDb2xvcjogREFSS19DT0xPUl9CQUNLR1JPVU5EXG4gIH0sXG4gIHZvbHVtZUNoYW5nZVRyYWNrOiB7XG4gICAgLi4uQUxMX1NUWUxFUy52b2x1bWVDaGFuZ2VUcmFjayxcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IExJR0hUX0NPTE9SXG4gIH0sXG4gIHZvbHVtZVRyYWNrQnV0dG9uOiB7XG4gICAgLi4uQUxMX1NUWUxFUy50cmFja0J1dHRvbixcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IExJR0hUX0NPTE9SLFxuICAgIGJveFNoYWRvdzogYCR7Qk9YX1NIQURPV19TSVpFfSAke0RBUktfQ09MT1J9YCxcbiAgICBsZWZ0OiAnNTAlJyxcbiAgICBtYXJnaW5MZWZ0OiAtMSAqIChUUkFDS19CVVRUT05fU0laRSAvIDIpLFxuICAgIHRvcDogNlxuICB9XG59O1xuXG5kYXJrU3R5bGVzID0ge1xuICAuLi5kYXJrU3R5bGVzLFxuICBmYXN0Rm9yd2FyZEJ1dHRvbjoge1xuICAgIC4uLkFMTF9TVFlMRVMuYnV0dG9uLFxuICAgIC4uLmRhcmtTdHlsZXMuY29udHJvbCxcbiAgICAuLi5BTExfU1RZTEVTLmZhc3RGb3J3YXJkQnV0dG9uXG4gIH0sXG4gIGZ1bGxzY3JlZW5CdXR0b246IHtcbiAgICAuLi5BTExfU1RZTEVTLmJ1dHRvbixcbiAgICAuLi5kYXJrU3R5bGVzLmNvbnRyb2wsXG4gICAgLi4uQUxMX1NUWUxFUy5mdWxsc2NyZWVuQnV0dG9uXG4gIH0sXG4gIGluZm9ybWF0aW9uQ29udGFpbmVyOiB7XG4gICAgLi4uQUxMX1NUWUxFUy5pbmZvcm1hdGlvbkNvbnRhaW5lcixcbiAgICAuLi5kYXJrU3R5bGVzLmNvbnRyb2xcbiAgfSxcbiAgcGxheVBhdXNlQnV0dG9uOiB7XG4gICAgLi4uQUxMX1NUWUxFUy5idXR0b24sXG4gICAgLi4uZGFya1N0eWxlcy5jb250cm9sLFxuICAgIC4uLkFMTF9TVFlMRVMucGxheVBhdXNlQnV0dG9uXG4gIH0sXG4gIHZvbHVtZUJ1dHRvbjoge1xuICAgIC4uLkFMTF9TVFlMRVMuYnV0dG9uLFxuICAgIC4uLmRhcmtTdHlsZXMuY29udHJvbCxcbiAgICAuLi5BTExfU1RZTEVTLnZvbHVtZUJ1dHRvblxuICB9XG59O1xuXG5sZXQgbGlnaHRTdHlsZXMgPSB7XG4gIC4uLkFMTF9TVFlMRVMsXG4gIGNvbnRyb2w6IHtcbiAgICAuLi5BTExfU1RZTEVTLmNvbnRyb2wsXG4gICAgYmFja2dyb3VuZENvbG9yOiBMSUdIVF9DT0xPUl9CQUNLR1JPVU5ELFxuICAgIGNvbG9yOiBEQVJLX0NPTE9SXG4gIH0sXG4gIGR1cmF0aW9uU2xpZGVyOiB7XG4gICAgLi4uQUxMX1NUWUxFUy5kdXJhdGlvblNsaWRlclxuICB9LFxuICBkdXJhdGlvblRyYWNrOiB7XG4gICAgLi4uQUxMX1NUWUxFUy5kdXJhdGlvblRyYWNrLFxuICAgIGJhY2tncm91bmRDb2xvcjogREFSS19DT0xPUlxuICB9LFxuICBkdXJhdGlvblRyYWNrQnV0dG9uOiB7XG4gICAgLi4uQUxMX1NUWUxFUy50cmFja0J1dHRvbixcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IERBUktfQ09MT1IsXG4gICAgYm94U2hhZG93OiBgJHtCT1hfU0hBRE9XX1NJWkV9ICR7TElHSFRfQ09MT1J9YCxcbiAgICBsZWZ0OiAwLFxuICAgIG1hcmdpblRvcDogLTEgKiAoKFRSQUNLX0JVVFRPTl9TSVpFIC8gMikgKyAxKSxcbiAgICB0b3A6ICc1MCUnXG4gIH0sXG4gIHZvbHVtZUNoYW5nZToge1xuICAgIC4uLkFMTF9TVFlMRVMudm9sdW1lQ2hhbmdlLFxuICAgIGJhY2tncm91bmRDb2xvcjogTElHSFRfQ09MT1JfQkFDS0dST1VORFxuICB9LFxuICB2b2x1bWVDaGFuZ2VUcmFjazoge1xuICAgIC4uLkFMTF9TVFlMRVMudm9sdW1lQ2hhbmdlVHJhY2ssXG4gICAgYmFja2dyb3VuZENvbG9yOiBEQVJLX0NPTE9SXG4gIH0sXG4gIHZvbHVtZVRyYWNrQnV0dG9uOiB7XG4gICAgLi4uQUxMX1NUWUxFUy50cmFja0J1dHRvbixcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IExJR0hUX0NPTE9SLFxuICAgIGJveFNoYWRvdzogYCR7Qk9YX1NIQURPV19TSVpFfSAke0RBUktfQ09MT1J9YCxcbiAgICBsZWZ0OiAnNTAlJyxcbiAgICBtYXJnaW5MZWZ0OiAtMSAqICgoVFJBQ0tfQlVUVE9OX1NJWkUgLyAyKSArIDEpLFxuICAgIHRvcDogMFxuICB9XG59O1xuXG5saWdodFN0eWxlcyA9IHtcbiAgLi4ubGlnaHRTdHlsZXMsXG4gIGZhc3RGb3J3YXJkQnV0dG9uOiB7XG4gICAgLi4uQUxMX1NUWUxFUy5idXR0b24sXG4gICAgLi4ubGlnaHRTdHlsZXMuY29udHJvbCxcbiAgICAuLi5BTExfU1RZTEVTLmZhc3RGb3J3YXJkQnV0dG9uXG4gIH0sXG4gIGZ1bGxzY3JlZW5CdXR0b246IHtcbiAgICAuLi5BTExfU1RZTEVTLmJ1dHRvbixcbiAgICAuLi5saWdodFN0eWxlcy5jb250cm9sLFxuICAgIC4uLkFMTF9TVFlMRVMuZnVsbHNjcmVlbkJ1dHRvblxuICB9LFxuICBpbmZvcm1hdGlvbkNvbnRhaW5lcjoge1xuICAgIC4uLkFMTF9TVFlMRVMuaW5mb3JtYXRpb25Db250YWluZXIsXG4gICAgLi4ubGlnaHRTdHlsZXMuY29udHJvbFxuICB9LFxuICBwbGF5UGF1c2VCdXR0b246IHtcbiAgICAuLi5BTExfU1RZTEVTLmJ1dHRvbixcbiAgICAuLi5saWdodFN0eWxlcy5jb250cm9sLFxuICAgIC4uLkFMTF9TVFlMRVMucGxheVBhdXNlQnV0dG9uXG4gIH0sXG4gIHZvbHVtZUJ1dHRvbjoge1xuICAgIC4uLkFMTF9TVFlMRVMuYnV0dG9uLFxuICAgIC4uLmxpZ2h0U3R5bGVzLmNvbnRyb2wsXG4gICAgLi4uQUxMX1NUWUxFUy52b2x1bWVCdXR0b25cbiAgfVxufTtcblxuZXhwb3J0IHtBTExfU1RZTEVTIGFzIGFsbFN0eWxlc307XG5leHBvcnQge2RhcmtTdHlsZXMgYXMgZGFya1N0eWxlc307XG5leHBvcnQge2xpZ2h0U3R5bGVzfTtcblxuZXhwb3J0IGRlZmF1bHQge1xuICBhbGxTdHlsZXM6IEFMTF9TVFlMRVMsXG4gIGRhcmtTdHlsZXM6IGRhcmtTdHlsZXMsXG4gIGxpZ2h0U3R5bGVzOiBsaWdodFN0eWxlc1xufTtcblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9zdHlsZXMuanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7O0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFKQTtBQU1BO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBVEE7QUFXQTtBQUNBO0FBREE7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUhBO0FBS0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQVBBO0FBU0E7QUFDQTtBQUNBO0FBRkE7QUFJQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFMQTtBQU9BO0FBQ0E7QUFDQTtBQUNBO0FBSEE7QUFLQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQU5BO0FBUUE7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQUtBO0FBQ0E7QUFDQTtBQUZBO0FBSUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBTEE7QUFPQTtBQUNBO0FBREE7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUhBO0FBS0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBWEE7QUFhQTtBQUNBO0FBREE7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBSkE7QUFNQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFMQTtBQXpHQTtBQUNBO0FBaUhBO0FBRUE7QUFFQTtBQUNBO0FBSEE7QUFLQTtBQUdBO0FBRUE7QUFGQTtBQUlBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQU5BO0FBUUE7QUFFQTtBQUZBO0FBSUE7QUFFQTtBQUZBO0FBSUE7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBTkE7QUE5QkE7QUFDQTtBQXVDQTtBQUVBO0FBS0E7QUFLQTtBQUlBO0FBS0E7QUFyQkE7QUFDQTtBQTJCQTtBQUVBO0FBRUE7QUFDQTtBQUhBO0FBS0E7QUFHQTtBQUVBO0FBRkE7QUFJQTtBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFOQTtBQVFBO0FBRUE7QUFGQTtBQUlBO0FBRUE7QUFGQTtBQUlBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQU5BO0FBOUJBO0FBQ0E7QUF1Q0E7QUFFQTtBQUtBO0FBS0E7QUFJQTtBQUtBO0FBckJBO0FBQ0E7QUEyQkE7QUFDQTtBQUNBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFIQSIsInNvdXJjZVJvb3QiOiIifQ==");
+        if (height > maxHeight) {
+          height = maxHeight;
+        }
+      }
 
-/***/ }
-/******/ ]);
+      return {
+        height: height,
+        width: width
+      };
+    }, _this.onClickDurationTrack = function (e) {
+      var left = _this.duration.getBoundingClientRect().left;
+      var offset = e.pageX - left;
+      var percentage = offset / _this.duration.clientWidth;
+
+      _this.setDurationTrackButtonPosition(percentage, true);
+    }, _this.onClickFastForward = function () {
+      var _this$state = _this.state,
+          isPlaying = _this$state.isPlaying,
+          playbackRateIndex = _this$state.playbackRateIndex;
+
+
+      if (isPlaying) {
+        var newIndex = playbackRateIndex === PLAYBACK_SPEEDS.length - 1 ? 0 : playbackRateIndex + 1;
+
+        _this.setState({
+          playbackRateIndex: newIndex
+        });
+
+        _this.vidzInstance.setPlaybackRate(PLAYBACK_SPEEDS[newIndex]);
+      }
+    }, _this.onClickPlayPauseButton = function () {
+      var isPlaying = _this.state.isPlaying;
+
+
+      if (_this.vidzInstance.playbackRate !== 1) {
+        _this.vidzInstance.setPlaybackRate(1);
+
+        _this.setState({
+          playbackRateIndex: 0
+        });
+      }
+
+      if (isPlaying) {
+        _this.vidzInstance.pause();
+      } else {
+        _this.vidzInstance.play();
+      }
+    }, _this.onClickToggleFullscreen = function () {
+      var isFullscreen = _this.state.isFullscreen;
+
+
+      if (isFullscreen) {
+        document[exitFullscreen]();
+      } else {
+        _this.refs.container[requestFullscreen]();
+      }
+    }, _this.onClickToggleVolumeMuted = function () {
+      var isMuted = _this.state.isMuted;
+
+
+      if (isMuted) {
+        _this.setState({
+          isMuted: false
+        });
+
+        _this.vidzInstance.unmute();
+      } else {
+        _this.setState({
+          isMuted: true
+        });
+
+        _this.vidzInstance.mute();
+      }
+    }, _this.onClickVolumeTrack = function (e) {
+      var top = _this.volume.getBoundingClientRect().top;
+      var offset = e.pageY - top;
+      var percentage = offset / _this.volume.clientHeight;
+
+      _this.setVolumeTrackButtonPosition(percentage, true);
+    }, _this.onDragDurationTrackButton = function (e) {
+      var left = _this.duration.getBoundingClientRect().left;
+
+      var offset = e.pageX - left;
+
+      var percentage = offset / _this.duration.clientWidth;
+
+      if (percentage > 1) {
+        percentage = 1;
+      } else if (percentage < 0) {
+        percentage = 0;
+      }
+
+      _this.setDurationTrackButtonPosition(percentage, true);
+    }, _this.onDragVolumeTrackButton = function (e) {
+      var top = _this.volumeTrack.getBoundingClientRect().top;
+
+      var offset = e.pageY - top;
+
+      var percentage = offset / _this.volumeTrack.clientHeight;
+
+      if (percentage > 1) {
+        percentage = 1;
+      } else if (percentage < 0) {
+        percentage = 0;
+      }
+
+      _this.setVolumeTrackButtonPosition(percentage, true);
+    }, _this.onDragEndDurationTrackButton = function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      _this.setState({
+        isDraggingDurationTrackButton: false
+      });
+
+      window.removeEventListener('mouseup', _this.onDragEndDurationTrackButton);
+      window.removeEventListener('mousemove', _this.onDragDurationTrackButton);
+    }, _this.onDragEndVolumeTrackButton = function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      var queuedOnVolumeSet = _this.state.queuedOnVolumeSet;
+
+
+      _this.setState({
+        isDraggingVolumeTrackButton: false
+      });
+
+      queuedOnVolumeSet.forEach(function (fn) {
+        fn();
+      });
+
+      _this.setState({
+        queuedOnVolumeSet: []
+      });
+
+      window.removeEventListener('mouseup', _this.onDragEndVolumeTrackButton);
+      window.removeEventListener('mousemove', _this.onDragVolumeTrackButton);
+    }, _this.onDragStartDurationTrackButton = function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      _this.setState({
+        isDraggingDurationTrackButton: true
+      });
+
+      window.addEventListener('mouseup', _this.onDragEndDurationTrackButton);
+      window.addEventListener('mousemove', _this.onDragDurationTrackButton);
+    }, _this.onDragStartVolumeTrackButton = function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      _this.setState({
+        isDraggingVolumeTrackButton: true
+      });
+
+      window.addEventListener('mouseup', _this.onDragEndVolumeTrackButton);
+      window.addEventListener('mousemove', _this.onDragVolumeTrackButton);
+    }, _this.onFullscreenChange = function () {
+      _this.setState({
+        isFullscreen: document[fullscreen]
+      });
+
+      var dimensions = _this.getHeightAndWidth();
+
+      _this.vidzInstance.setPlayerDimensions(dimensions);
+    }, _this.onLoadedMetadata = function (e, instance) {
+      var onLoadedMetadata = _this.props.onLoadedMetadata;
+
+
+      _this.setPercentLoaded(instance.percentLoaded);
+      _this.setTimeRepresentation({
+        duration: instance.duration
+      });
+
+      if (onLoadedMetadata) {
+        onLoadedMetadata.call(instance, e, instance);
+      }
+    }, _this.onMouseEnterVolumeChange = function () {
+      var queuedOnVolumeSet = _this.state.queuedOnVolumeSet;
+
+
+      if (queuedOnVolumeSet.length) {
+        _this.setState({
+          queuedOnVolumeSet: []
+        });
+      }
+
+      _this.setVolumeChangeState(true);
+    }, _this.onMouseLeaveVolumeChange = function () {
+      var isDraggingVolumeTrackButton = _this.state.isDraggingVolumeTrackButton;
+
+
+      if (isDraggingVolumeTrackButton) {
+        var queuedOnVolumeSet = [_this.setVolumeChangeState];
+
+        _this.setState({
+          queuedOnVolumeSet: queuedOnVolumeSet
+        });
+      } else {
+        _this.setVolumeChangeState();
+      }
+    }, _this.setVolumeChangeState = function () {
+      var isActive = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+      _this.setState({
+        isVolumeChangeActive: isActive
+      });
+    }, _this.onMouseMoveContainer = function () {
+      var _this$state2 = _this.state,
+          autoHideTimeout = _this$state2.autoHideTimeout,
+          controlsVisible = _this$state2.controlsVisible,
+          isPlaying = _this$state2.isPlaying;
+
+
+      clearTimeout(autoHideTimeout);
+
+      if (!controlsVisible) {
+        _this.setState({
+          controlsVisible: true
+        });
+      }
+
+      if (isPlaying) {
+        _this.setTimeoutToHideControls();
+      }
+    }, _this.onPause = function (e, instance) {
+      var onPause = _this.props.onPause;
+      var autoHideTimeout = _this.state.autoHideTimeout;
+
+
+      clearTimeout(autoHideTimeout);
+
+      _this.setState({
+        controlsVisible: true,
+        isPlaying: false
+      });
+
+      if (onPause) {
+        onPause.call(instance, e, instance);
+      }
+
+      _this.setPercentLoaded(instance.percentLoaded);
+    }, _this.onPlay = function (e, instance) {
+      var onPlay = _this.props.onPlay;
+      var controlsVisible = _this.state.controlsVisible;
+
+
+      _this.setState({
+        isPlaying: true
+      });
+
+      if (onPlay) {
+        onPlay.call(instance, e, instance);
+      }
+
+      _this.setPercentLoaded(instance.percentLoaded);
+
+      if (controlsVisible) {
+        _this.setTimeoutToHideControls();
+      }
+    }, _this.onTimeUpdate = function (e, instance) {
+      var onTimeUpdate = _this.props.onTimeUpdate;
+
+
+      _this.setPercentPlayed(instance.currentTime, instance.duration);
+      _this.setPercentLoaded(instance.percentLoaded);
+      _this.setTimeRepresentation({
+        currentTime: instance.currentTime
+      });
+
+      if (onTimeUpdate) {
+        onTimeUpdate.call(instance, e, instance);
+      }
+    }, _this.onVolumeChange = function (e, instance) {
+      var onVolumeChange = _this.props.onVolumeChange;
+
+
+      var volume = _this.vidzInstance.volume;
+
+      _this.setState({
+        volume: volume
+      });
+
+      if (onVolumeChange) {
+        onVolumeChange.call(instance, e, instance);
+      }
+    }, _this.setDurationTrackButtonPosition = function (percentage) {
+      var setTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      var marginLeft = Math.round(percentage * 12);
+      var percentInPixels = Math.round(percentage * _this.duration.clientWidth);
+      var left = percentInPixels - marginLeft;
+
+      if (transformProperty) {
+        _this.durationTrackButton.style.transform = 'translate3d(' + left + 'px, 0, 0)';
+      } else {
+        _this.durationTrackButton.style.left = left + 'px';
+      }
+
+      if (setTime) {
+        _this.setTime(percentage);
+      }
+    }, _this.setPercentLoaded = function (percentLoaded) {
+      _this.durationTrack.style.width = percentLoaded + '%';
+    }, _this.setPercentPlayed = function (currentTime, duration) {
+      var percentPlayed = (0, _utils.getPercentPlayed)(currentTime, duration);
+
+      _this.setDurationTrackButtonPosition(percentPlayed / 100);
+    }, _this.setTimeRepresentation = function (_ref2) {
+      var currentTime = _ref2.currentTime,
+          duration = _ref2.duration;
+
+      if (!(0, _isUndefined2.default)(currentTime)) {
+        _this.setState({
+          currentTime: currentTime
+        });
+      }
+
+      if (!(0, _isUndefined2.default)(duration)) {
+        _this.setState({
+          duration: duration
+        });
+      }
+    }, _this.setTimeoutToHideControls = function () {
+      var preventAutoHideControls = _this.props.preventAutoHideControls;
+
+
+      if (!preventAutoHideControls) {
+        var autoHideTimeout = setTimeout(function () {
+          _this.setState({
+            controlsVisible: false
+          });
+        }, 3000);
+
+        _this.setState({
+          autoHideTimeout: autoHideTimeout
+        });
+      }
+    }, _this.setVidzInstance = function () {
+      if (_this.refs.container.parentNode.clientWidth === 0) {
+        _this.debounceSetPlayerDimensions();
+      }
+
+      var _this$props2 = _this.props,
+          autoplay = _this$props2.autoplay,
+          muted = _this$props2.muted;
+
+      var _this$getHeightAndWid = _this.getHeightAndWidth(),
+          height = _this$getHeightAndWid.height,
+          width = _this$getHeightAndWid.width;
+
+      _this.vidzInstance = (0, _vidz2.default)(_this.refs.playerContainer, _extends({}, _this.props, {
+        controls: false,
+        height: height,
+        onLoadedMetadata: _this.onLoadedMetadata,
+        onPause: _this.onPause,
+        onPlay: _this.onPlay,
+        onTimeUpdate: _this.onTimeUpdate,
+        onVolumeChange: _this.onVolumeChange,
+        width: width
+      }));
+
+      _this.vidzInstance.player.style.display = 'block';
+
+      if (autoplay) {
+        _this.setState({
+          isPlaying: true
+        });
+      }
+
+      if (muted) {
+        _this.setState({
+          isMuted: true
+        });
+      }
+
+      _this.setState({
+        isLoaded: true
+      });
+    }, _this.setVolumeTrackButtonPosition = function (percentage) {
+      var setVolume = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      var top = Math.round(percentage * _this.volumeTrack.clientHeight);
+
+      if (transformProperty) {
+        _this.volumeTrackButton.style.transform = 'translate3d(0, ' + top + 'px, 0)';
+      } else {
+        _this.volumeTrackButton.style.top = top + 'px';
+      }
+
+      if (setVolume) {
+        _this.setVolume(1 - percentage);
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(VidzPlayer, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.setVidzInstance();
+
+      (0, _elementResizeEvent2.default)(this.refs.container, this.debounceSetPlayerDimensions);
+
+      document.addEventListener(fullscreenchange, this.onFullscreenChange);
+      window.addEventListener('resize', this.debounceSetPlayerDimensionsOnResize);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(previousProps) {
+      if (!(0, _shallowEqual2.default)(this.props, previousProps) || !this.state.isLoaded) {
+        this.setVidzInstance();
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      document.removeEventListener(fullscreenchange, this.onFullscreenChange);
+      window.removeEventListener('resize', this.debounceSetPlayerDimensionsOnResize);
+    }
+
+    /**
+     * if in fullscreen mode, resize the player because it isn't handled by the
+     * element resize
+     */
+
+
+    /**
+     * resize the Vidz instance dimensions
+     */
+
+
+    /**
+     * set the currentTime on the Vidz instance based on the percentage of the duration
+     */
+
+
+    /**
+     * update the volume of the Vidz instance based on the percentage passed
+     */
+
+
+    /**
+     * get the intended height and width
+     *
+     * the width is either the explicit width passed as a prop, the width of the
+     * parent container, or if in fullscreen mode the width of the window
+     *
+     * the height is either the explicit height passed as a prop or the aspect
+     * ratio of the video based on its metadata (with a generic default until
+     * metadata has loaded)
+     *
+     * @return {{height: number, width: number}}
+     */
+
+
+    /**
+     * set the currentTime of the video based on the location clicked
+     *
+     * @param {Event} e
+     */
+
+
+    /**
+     * increase the playback rate in increments in PLAYBACK_SPEEDS
+     */
+
+
+    /**
+     * toggle between play and pause
+     */
+
+
+    /**
+     * toggle between fullscreen mode and standard mode
+     */
+
+
+    /**
+     * toggle between muted and unmuted
+     */
+
+
+    /**
+     * set the volume based on the location clicked
+     *
+     * @param {Event} e
+     */
+
+
+    /**
+     * based on where the button was dragged, calculate the percentage
+     * of the total video length and jump to that time location
+     *
+     * @param {Event} e
+     */
+
+
+    /**
+     * based on where the button was dragged, calculate the percentage
+     * of the total volume length and apply that volume
+     *
+     * @param {Event} e
+     */
+
+
+    /**
+     * when finished dragging the button, remove the listeners
+     *
+     * @param {Event} e
+     */
+
+
+    /**
+     * when finished dragging the button, remove the listeners and if there
+     * are functions in the queue to fire, fire them
+     *
+     * @param {Event} e
+     */
+
+
+    /**
+     * when you start dragging, add listeners to update the currentTime
+     * onDrag
+     *
+     * @param {Event} e
+     */
+
+
+    /**
+     * when you start dragging, add listeners to update the volume
+     * onDrag
+     *
+     * @param {Event} e
+     */
+
+
+    /**
+     * when the fullscreen state changes, reset the dimensions of the video
+     */
+
+
+    /**
+     * when metadata has loaded, update the percentLoaded and the
+     * time displayed, and fire the function passed by props if exists
+     *
+     * @param {Event} e
+     * @param {Vidz} instance
+     */
+
+
+    /**
+     * show the volume bar on mouseenter
+     */
+
+
+    /**
+     * hide the volume bar on mouseleave unless a drag is in effect,
+     * else queue up the closure of it
+     */
+
+
+    /**
+     * set the active state of the volume bar
+     *
+     * @param {boolean} isActive
+     */
+
+
+    /**
+     * when mouse movement occurs over the container, clear
+     * the timeout of hiding the controls and set a new one
+     */
+
+
+    /**
+     * on pause set the controls to be visible and the isPlaying state,
+     * plus the function passed by props if it exists
+     *
+     * @param {Event} e
+     * @param {instance} instance
+     */
+
+
+    /**
+     * on play set the hde controls timeout and the isPlaying state,
+     * plus the function passed by props if it exists
+     *
+     * @param {Event} e
+     * @param {instance} instance
+     */
+
+
+    /**
+     * on time update set the currentTime and percent loaded,
+     * plus the function passed by props if it exists
+     *
+     * @param {Event} e
+     * @param {instance} instance
+     */
+
+
+    /**
+     * on volume change set the volume in state,
+     * plus the function passed by props if it exists
+     *
+     * @param {Event} e
+     * @param {instance} instance
+     */
+
+
+    /**
+     * update the position of the durationTrackButton,
+     * and the currentTime if setTime is true
+     *
+     * @param {number} percentage
+     * @param {boolean} setTime=false
+     */
+
+
+    /**
+     * update the width of the duration track with the new percent loaded
+     *
+     * @param {number} percentLoaded
+     */
+
+
+    /**
+     * set the position of the duration track button based on the percent played
+     *
+     * @param {number} currentTime
+     * @param {number} duration
+     */
+
+
+    /**
+     * set the currentTime and duration in state so they can be reflected
+     * in the visual display
+     *
+     * @param {number} currentTime
+     * @param {number} duration
+     */
+
+
+    /**
+     * set the timeout to hide the controls from inactivity
+     */
+
+
+    /**
+     * create a new Vidz instance and save it to the class' instance
+     */
+
+
+    /**
+     * update the position of the volume track button based on the percentage passed,
+     * and set the volume if setVolume is true
+     *
+     * @param {number} percentage
+     * @param {boolean} setVolume=false
+     */
+
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          controlsBackgroundColor = _props.controlsBackgroundColor,
+          controlsFontColor = _props.controlsFontColor,
+          playOnClick = _props.playOnClick,
+          controlsTrackColor = _props.controlsTrackColor,
+          theme = _props.theme;
+      var _state = this.state,
+          canUseFullscreen = _state.canUseFullscreen,
+          controlsVisible = _state.controlsVisible,
+          currentTime = _state.currentTime,
+          duration = _state.duration,
+          isFullscreen = _state.isFullscreen,
+          isMuted = _state.isMuted,
+          isPlaying = _state.isPlaying,
+          isVolumeChangeActive = _state.isVolumeChangeActive,
+          playbackRateIndex = _state.playbackRateIndex;
+
+
+      var volume = this.vidzInstance ? this.vidzInstance.volume : 1;
+      var volumeIcon = (0, _utils.getVolumeIcon)(volume, isMuted);
+
+      var styles = void 0;
+
+      switch (theme) {
+        case THEMES[1]:
+          styles = _styles.lightStyles;
+          break;
+
+        default:
+          styles = _styles.darkStyles;
+          break;
+      }
+
+      var controlsStyle = (0, _utils.getControlsContainerStyle)(styles.controlsContainer, controlsVisible);
+      var durationTrackStyle = (0, _utils.getControlStyle)(styles.durationTrack, controlsTrackColor);
+      var durationTrackButtonStyle = (0, _utils.getControlStyle)(styles.durationTrackButton, controlsFontColor);
+      var playPauseButtonStyle = (0, _utils.getControlStyle)(styles.playPauseButton, controlsBackgroundColor, controlsFontColor);
+      var volumeButtonStyle = (0, _utils.getControlStyle)(styles.volumeButton, controlsBackgroundColor, controlsFontColor);
+      var informationContainerStyle = (0, _utils.getControlStyle)(styles.informationContainer, controlsBackgroundColor, controlsFontColor);
+      var fastForwardButtonStyle = (0, _utils.getControlStyle)(styles.fastForwardButton, controlsBackgroundColor, controlsFontColor);
+      var fullscreenButtonStyle = (0, _utils.getControlStyle)(styles.fullscreenButton, controlsBackgroundColor, controlsFontColor);
+      var volumeChangeStyle = (0, _utils.getVolumeChangeStyle)(styles.volumeChange, _styles.allStyles.volumeChangeActive, isVolumeChangeActive, controlsBackgroundColor, controlsFontColor);
+      var volumeChangeTrackStyle = (0, _utils.getControlStyle)(styles.volumeChangeTrack, controlsTrackColor);
+      var volumeTrackButtonStyle = (0, _utils.getControlStyle)(styles.volumeTrackButton, controlsFontColor);
+
+      return _react2.default.createElement(
+        'div',
+        {
+          onMouseMove: this.onMouseMoveContainer,
+          ref: 'container',
+          style: styles.container
+        },
+        _react2.default.createElement('div', {
+          onClick: playOnClick && this.onClickPlayPauseButton,
+          ref: 'playerContainer'
+        }),
+        _react2.default.createElement(
+          'div',
+          { style: controlsStyle },
+          _react2.default.createElement(
+            _Display2.default,
+            {
+              onClick: this.onClickDurationTrack,
+              ref: function ref(component) {
+                _this2.duration = (0, _reactDom.findDOMNode)(component);
+              },
+              style: styles.durationSlider
+            },
+            _react2.default.createElement(_Track2.default, {
+              ref: function ref(component) {
+                _this2.durationTrack = (0, _reactDom.findDOMNode)(component);
+              },
+              style: durationTrackStyle
+            }),
+            _react2.default.createElement(_TrackButton2.default, {
+              label: 'Seek to a different time in the video',
+              onMouseDown: this.onDragStartDurationTrackButton,
+              ref: function ref(component) {
+                _this2.durationTrackButton = (0, _reactDom.findDOMNode)(component);
+              },
+              style: durationTrackButtonStyle
+            })
+          ),
+          _react2.default.createElement(
+            'div',
+            { style: styles.actionsContainer },
+            _react2.default.createElement(_Button2.default, {
+              icon: isPlaying ? _icons.availableIcons.PAUSE : _icons.availableIcons.PLAY,
+              label: 'Toggle playing the video',
+              onClick: this.onClickPlayPauseButton,
+              style: playPauseButtonStyle
+            }),
+            _react2.default.createElement(_InformationBar2.default, {
+              currentTime: currentTime,
+              duration: duration,
+              style: informationContainerStyle
+            }),
+            _react2.default.createElement(
+              _Button2.default,
+              {
+                icon: _icons.availableIcons.FAST_FORWARD,
+                label: 'Increase the playback speed',
+                onClick: this.onClickFastForward,
+                style: fastForwardButtonStyle
+              },
+              _react2.default.createElement(
+                'span',
+                { style: styles.speedIdentifier },
+                PLAYBACK_SPEEDS[playbackRateIndex],
+                'x'
+              )
+            ),
+            _react2.default.createElement(
+              _VolumeContainer2.default,
+              {
+                onMouseEnter: this.onMouseEnterVolumeChange,
+                onMouseLeave: this.onMouseLeaveVolumeChange,
+                style: styles.volumnChangeContainer
+              },
+              _react2.default.createElement(_Button2.default, {
+                icon: volumeIcon,
+                label: 'Toggle the video being muted',
+                onClick: this.onClickToggleVolumeMuted,
+                style: volumeButtonStyle
+              }),
+              _react2.default.createElement(
+                _Display2.default,
+                {
+                  onClick: this.onClickVolumeTrack,
+                  ref: function ref(component) {
+                    _this2.volume = (0, _reactDom.findDOMNode)(component);
+                  },
+                  style: volumeChangeStyle
+                },
+                _react2.default.createElement(_Track2.default, {
+                  ref: function ref(component) {
+                    _this2.volumeTrack = (0, _reactDom.findDOMNode)(component);
+                  },
+                  style: volumeChangeTrackStyle
+                }),
+                _react2.default.createElement(_TrackButton2.default, {
+                  label: 'Change the volume',
+                  onMouseDown: this.onDragStartVolumeTrackButton,
+                  ref: function ref(component) {
+                    _this2.volumeTrackButton = (0, _reactDom.findDOMNode)(component);
+                  },
+                  style: volumeTrackButtonStyle
+                })
+              )
+            ),
+            canUseFullscreen && _react2.default.createElement(_Button2.default, {
+              icon: isFullscreen ? _icons.availableIcons.SHRINK : _icons.availableIcons.EXPAND,
+              label: 'Toggle fullscreen mode',
+              onClick: this.onClickToggleFullscreen,
+              style: fullscreenButtonStyle
+            })
+          )
+        )
+      );
+    }
+  }]);
+
+  return VidzPlayer;
+}(_react.Component), _class.propTypes = {
+  autoplay: _propTypes2.default.bool,
+  controlsBackgroundColor: _propTypes2.default.string,
+  controlsFontColor: _propTypes2.default.string,
+  controlsTrackColor: _propTypes2.default.string,
+  height: _propTypes2.default.number,
+  loop: _propTypes2.default.bool,
+  mp4: _propTypes2.default.string,
+  muted: _propTypes2.default.bool,
+  ogg: _propTypes2.default.string,
+  onCanPlay: _propTypes2.default.func,
+  onCanPlayType: _propTypes2.default.func,
+  onDurationChange: _propTypes2.default.func,
+  onEmptied: _propTypes2.default.func,
+  onEnded: _propTypes2.default.func,
+  onError: _propTypes2.default.func,
+  onLoad: _propTypes2.default.func,
+  onLoadStart: _propTypes2.default.func,
+  onLoadedData: _propTypes2.default.func,
+  onLoadedMetadata: _propTypes2.default.func,
+  onPause: _propTypes2.default.func,
+  onPlay: _propTypes2.default.func,
+  onProgress: _propTypes2.default.func,
+  onSeeked: _propTypes2.default.func,
+  onSeeking: _propTypes2.default.func,
+  onStalled: _propTypes2.default.func,
+  onSuspend: _propTypes2.default.func,
+  onTimeUpdate: _propTypes2.default.func,
+  onVolumeChange: _propTypes2.default.func,
+  onWaiting: _propTypes2.default.func,
+  playOnClick: _propTypes2.default.bool,
+  preload: _propTypes2.default.string,
+  preventAutoHideControls: _propTypes2.default.bool,
+  theme: _propTypes2.default.oneOf(THEMES),
+  webm: _propTypes2.default.string,
+  width: _propTypes2.default.number
+}, _class.defaultProps = {
+  autoplay: false,
+  controls: false,
+  loop: false,
+  muted: false,
+  playOnClick: false,
+  preventAutoHideControls: false,
+  theme: THEMES[0]
+}, _temp2);
+exports.default = (0, _recompose.pure)(VidzPlayer);
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/styles.js":
+/*!***********************!*\
+  !*** ./src/styles.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var DARK_COLOR = 'rgb(63, 63, 63)';
+var DARK_COLOR_BACKGROUND = 'rgba(63, 63, 63, 0.7)';
+var LIGHT_COLOR = 'rgb(243, 243, 243)';
+var LIGHT_COLOR_BACKGROUND = 'rgba(243, 243, 243, 0.7)';
+var TRACK_BUTTON_SIZE = 12;
+var BOX_SHADOW_SIZE = '0 0 3px';
+
+var ALL_STYLES = {
+  actionsContainer: {
+    alignItems: 'stretch',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'nowrap'
+  },
+  button: {
+    alignItems: 'center',
+    cursor: 'pointer',
+    display: 'flex',
+    flexBasis: 'auto',
+    flexDirection: 'row',
+    flexGrow: 0,
+    flexShrink: 0,
+    flexWrap: 'nowrap',
+    fontSize: 16
+  },
+  container: {
+    position: 'relative'
+  },
+  control: {
+    height: 40,
+    lineHeight: '40px',
+    padding: '0 10px'
+  },
+  controlsContainer: {
+    bottom: 0,
+    left: 0,
+    opacity: 1,
+    position: 'absolute',
+    right: 0,
+    transition: 'opacity 150ms ease-in-out, visibility 150ms ease-in-out',
+    visibility: 'visible'
+  },
+  durationSlider: {
+    cursor: 'pointer',
+    position: 'relative'
+  },
+  durationTrack: {
+    height: 2,
+    marginTop: -1,
+    position: 'relative',
+    top: '50%',
+    width: 0
+  },
+  fullscreenButton: {
+    flexBasis: 'auto',
+    flexGrow: 0,
+    flexShrink: 0
+  },
+  informationContainer: {
+    flexBasis: 0,
+    flexGrow: 1,
+    flexShrink: 0,
+    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    fontSize: 12,
+    minWidth: 1
+  },
+  playPauseButton: {
+    flexBasis: 'auto',
+    flexGrow: 0,
+    flexShrink: 0
+  },
+  speedIdentifier: {
+    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    fontSize: 11
+  },
+  trackButton: {
+    borderRadius: '50%',
+    display: 'block',
+    height: TRACK_BUTTON_SIZE,
+    position: 'absolute',
+    width: TRACK_BUTTON_SIZE
+  },
+  video: {
+    objectFit: 'fill'
+  },
+  volumeButton: {
+    boxSizing: 'border-box',
+    textAlign: 'center',
+    width: 40
+  },
+  volumeChange: {
+    backgroundColor: 'inherit',
+    bottom: '100%',
+    boxSizing: 'border-box',
+    color: 'inherit',
+    cursor: 'pointer',
+    display: 'none',
+    height: 100,
+    left: 0,
+    padding: '10px 0',
+    position: 'absolute',
+    width: '100%'
+  },
+  volumeChangeActive: {
+    display: 'block'
+  },
+  volumeChangeTrack: {
+    height: '100%',
+    left: '50%',
+    marginLeft: -1,
+    position: 'relative',
+    width: 2
+  },
+  volumnChangeContainer: {
+    backgroundColor: 'inherit',
+    color: 'inherit',
+    position: 'relative',
+    zIndex: 1000
+  }
+};
+
+var darkStyles = _extends({}, ALL_STYLES, {
+  control: _extends({}, ALL_STYLES.control, {
+    backgroundColor: DARK_COLOR_BACKGROUND,
+    color: LIGHT_COLOR
+  }),
+  durationSlider: _extends({}, ALL_STYLES.durationSlider),
+  durationTrack: _extends({}, ALL_STYLES.durationTrack, {
+    backgroundColor: LIGHT_COLOR
+  }),
+  durationTrackButton: _extends({}, ALL_STYLES.trackButton, {
+    backgroundColor: LIGHT_COLOR,
+    boxShadow: BOX_SHADOW_SIZE + ' ' + DARK_COLOR,
+    left: 0,
+    marginTop: -1 * (TRACK_BUTTON_SIZE / 2 + 1),
+    top: '50%'
+  }),
+  volumeChange: _extends({}, ALL_STYLES.volumeChange, {
+    backgroundColor: DARK_COLOR_BACKGROUND
+  }),
+  volumeChangeTrack: _extends({}, ALL_STYLES.volumeChangeTrack, {
+    backgroundColor: LIGHT_COLOR
+  }),
+  volumeTrackButton: _extends({}, ALL_STYLES.trackButton, {
+    backgroundColor: LIGHT_COLOR,
+    boxShadow: BOX_SHADOW_SIZE + ' ' + DARK_COLOR,
+    left: '50%',
+    marginLeft: -1 * (TRACK_BUTTON_SIZE / 2),
+    top: 6
+  })
+});
+
+exports.darkStyles = darkStyles = _extends({}, darkStyles, {
+  fastForwardButton: _extends({}, ALL_STYLES.button, darkStyles.control, ALL_STYLES.fastForwardButton),
+  fullscreenButton: _extends({}, ALL_STYLES.button, darkStyles.control, ALL_STYLES.fullscreenButton),
+  informationContainer: _extends({}, ALL_STYLES.informationContainer, darkStyles.control),
+  playPauseButton: _extends({}, ALL_STYLES.button, darkStyles.control, ALL_STYLES.playPauseButton),
+  volumeButton: _extends({}, ALL_STYLES.button, darkStyles.control, ALL_STYLES.volumeButton)
+});
+
+var lightStyles = _extends({}, ALL_STYLES, {
+  control: _extends({}, ALL_STYLES.control, {
+    backgroundColor: LIGHT_COLOR_BACKGROUND,
+    color: DARK_COLOR
+  }),
+  durationSlider: _extends({}, ALL_STYLES.durationSlider),
+  durationTrack: _extends({}, ALL_STYLES.durationTrack, {
+    backgroundColor: DARK_COLOR
+  }),
+  durationTrackButton: _extends({}, ALL_STYLES.trackButton, {
+    backgroundColor: DARK_COLOR,
+    boxShadow: BOX_SHADOW_SIZE + ' ' + LIGHT_COLOR,
+    left: 0,
+    marginTop: -1 * (TRACK_BUTTON_SIZE / 2 + 1),
+    top: '50%'
+  }),
+  volumeChange: _extends({}, ALL_STYLES.volumeChange, {
+    backgroundColor: LIGHT_COLOR_BACKGROUND
+  }),
+  volumeChangeTrack: _extends({}, ALL_STYLES.volumeChangeTrack, {
+    backgroundColor: DARK_COLOR
+  }),
+  volumeTrackButton: _extends({}, ALL_STYLES.trackButton, {
+    backgroundColor: LIGHT_COLOR,
+    boxShadow: BOX_SHADOW_SIZE + ' ' + DARK_COLOR,
+    left: '50%',
+    marginLeft: -1 * (TRACK_BUTTON_SIZE / 2 + 1),
+    top: 0
+  })
+});
+
+exports.lightStyles = lightStyles = _extends({}, lightStyles, {
+  fastForwardButton: _extends({}, ALL_STYLES.button, lightStyles.control, ALL_STYLES.fastForwardButton),
+  fullscreenButton: _extends({}, ALL_STYLES.button, lightStyles.control, ALL_STYLES.fullscreenButton),
+  informationContainer: _extends({}, ALL_STYLES.informationContainer, lightStyles.control),
+  playPauseButton: _extends({}, ALL_STYLES.button, lightStyles.control, ALL_STYLES.playPauseButton),
+  volumeButton: _extends({}, ALL_STYLES.button, lightStyles.control, ALL_STYLES.volumeButton)
+});
+
+exports.allStyles = ALL_STYLES;
+exports.darkStyles = darkStyles;
+exports.lightStyles = lightStyles;
+exports.default = {
+  allStyles: ALL_STYLES,
+  darkStyles: darkStyles,
+  lightStyles: lightStyles
+};
+
+/***/ }),
+
+/***/ "./src/utils.js":
+/*!**********************!*\
+  !*** ./src/utils.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getVolumeIcon = exports.getVolumeChangeStyle = exports.getTransformProperty = exports.getPercentPlayed = exports.getTimeFormatFromCurrentTime = exports.getFullscreenProperties = exports.getControlStyle = exports.getControlsContainerStyle = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; // icons
+
+
+var _icons = __webpack_require__(/*! ./icons */ "./src/icons.js");
+
+var TEST_DIV = document.createElement('div');
+
+/**
+ * get the style for the controls container based on isControlsVisible
+ *
+ * @param {object} defaultControlsStyle
+ * @param {boolean} isControlsVisible
+ * @return {object}
+ */
+var getControlsContainerStyle = function getControlsContainerStyle(defaultControlsStyle, isControlsVisible) {
+  if (isControlsVisible) {
+    return defaultControlsStyle;
+  }
+
+  return _extends({}, defaultControlsStyle, {
+    opacity: 0,
+    visibility: 'hidden'
+  });
+};
+
+/**
+ * get the style for the control based on backgroundColor and fontColor
+ *
+ * @param {object} defaultStyle
+ * @param {string} backgroundColor
+ * @param {string} fontColor
+ * @return {object}
+ */
+var getControlStyle = function getControlStyle(defaultStyle, backgroundColor, fontColor) {
+  if (!backgroundColor && !fontColor) {
+    return defaultStyle;
+  }
+
+  var mergedStyle = {};
+
+  if (backgroundColor) {
+    mergedStyle.backgroundColor = backgroundColor;
+  }
+
+  if (fontColor) {
+    mergedStyle.color = fontColor;
+  }
+
+  return _extends({}, defaultStyle, mergedStyle);
+};
+
+/**
+ * get the vendor-prefixed properties associated with fullscreen activities
+ *
+ * @return {object}
+ */
+var getFullscreenProperties = function getFullscreenProperties() {
+  if ('requestFullscreen' in TEST_DIV) {
+    var fullscreen = 'webkitIsFullscreen' in TEST_DIV ? 'webkitIsFullScreen' : 'fullscreen';
+
+    return {
+      exitFullscreen: 'exitFullscreen',
+      fullscreen: fullscreen,
+      fullscreenEnabled: 'fullscreenEnabled',
+      fullscreenchange: 'fullscreenchange',
+      requestFullscreen: 'requestFullscreen'
+    };
+  }
+
+  if ('webkitRequestFullscreen' in TEST_DIV) {
+    return {
+      exitFullscreen: 'webkitExitFullscreen',
+      fullscreen: 'webkitIsFullScreen',
+      fullscreenEnabled: 'webkitFullscreenEnabled',
+      fullscreenchange: 'webkitfullscreenchange',
+      requestFullscreen: 'webkitRequestFullscreen'
+    };
+  }
+
+  if ('mozRequestFullScreen' in TEST_DIV) {
+    return {
+      exitFullscreen: 'mozCancelFullScreen',
+      fullscreen: 'mozFullScreen',
+      fullscreenEnabled: 'mozFullScreenEnabled',
+      fullscreenchange: 'mozfullscreenchange',
+      requestFullscreen: 'mozRequestFullScreen'
+    };
+  }
+
+  return {
+    exitFullscreen: 'exitFullscreen',
+    fullscreen: 'fullscreen',
+    fullscreenEnabled: 'fullscreenEnabled',
+    fullscreenchange: 'fullscreenchange',
+    requestFullscreen: 'requestFullscreen'
+  };
+};
+
+/**
+ * get the percentage played rounded to two decimal places
+ *
+ * @param {number} currentTime
+ * @param {number} duration
+ * @return {number}
+ */
+var getPercentPlayed = function getPercentPlayed(currentTime, duration) {
+  return Math.round(currentTime / duration * 10000) / 100;
+};
+
+/**
+ * based on the currentTime, show the string format as either
+ * HH:MM:SS or MM:SS, based on showHours
+ *
+ * @param {number} currentTime
+ * @param {boolean} showHours=false
+ * @return {string}
+ */
+var getTimeFormatFromCurrentTime = function getTimeFormatFromCurrentTime(currentTime) {
+  var showHours = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  var integerValue = parseInt(currentTime, 10);
+  var hours = Math.floor(integerValue / 3600);
+  var minutes = Math.floor((integerValue - hours * 3600) / 60);
+  var seconds = integerValue - hours * 3600 - minutes * 60;
+  var hoursDisplay = hours < 10 ? '0' + hours : hours;
+  var minutesDisplay = minutes < 10 ? '0' + minutes : minutes;
+  var secondsDisplay = seconds < 10 ? '0' + seconds : seconds;
+
+  if (showHours) {
+    return hoursDisplay + ':' + minutesDisplay + ':' + secondsDisplay;
+  }
+
+  return minutesDisplay + ':' + secondsDisplay;
+};
+
+/**
+ * get the vendor-prefixed CSS transform property
+ *
+ * @return {string}
+ */
+var getTransformProperty = function getTransformProperty() {
+  if ('transform' in TEST_DIV.style) {
+    return 'transform';
+  }
+
+  if ('WebkitTransform' in TEST_DIV.style) {
+    return 'WebkitTransform';
+  }
+
+  if ('MozTransform' in TEST_DIV.style) {
+    return 'MozTransform';
+  }
+
+  if ('OTransform' in TEST_DIV.style) {
+    return 'OTransform';
+  }
+
+  if ('msTransform' in TEST_DIV.style) {
+    return 'msTransform';
+  }
+
+  return 'transform';
+};
+
+/**
+ * get the volume change style based on isVolumeChangeActive, the backgroundColor, and the fontColor
+ *
+ * @param {object} defaultVolumeChange
+ * @param {object} volumeChangeActive
+ * @param {boolean} isVolumeChangeActive
+ * @param {string} backgroundColor
+ * @param {string} fontColor
+ * @return {object}
+ */
+var getVolumeChangeStyle = function getVolumeChangeStyle(defaultVolumeChange, volumeChangeActive, isVolumeChangeActive, backgroundColor, fontColor) {
+  if (!isVolumeChangeActive) {
+    return defaultVolumeChange;
+  }
+
+  if (backgroundColor || fontColor) {
+    var mergedStyle = {};
+
+    if (backgroundColor) {
+      mergedStyle.backgroundColor = backgroundColor;
+    }
+
+    if (fontColor) {
+      mergedStyle.color = fontColor;
+    }
+
+    return _extends({}, defaultVolumeChange, volumeChangeActive, mergedStyle);
+  }
+
+  return _extends({}, defaultVolumeChange, volumeChangeActive);
+};
+
+/**
+ * get the volume icon based on the volume and isMuted
+ *
+ * @param {number} volume
+ * @param {boolean} isMuted
+ * @return {string}
+ */
+var getVolumeIcon = function getVolumeIcon(volume, isMuted) {
+  switch (true) {
+    case isMuted:
+      return _icons.availableIcons.VOLUME_MUTE;
+
+    case volume >= 0.67:
+      return _icons.availableIcons.VOLUME_HIGH;
+
+    case volume >= 0.33:
+      return _icons.availableIcons.VOLUME_MEDIUM;
+
+    default:
+      return _icons.availableIcons.VOLUME_LOW;
+  }
+};
+
+exports.getControlsContainerStyle = getControlsContainerStyle;
+exports.getControlStyle = getControlStyle;
+exports.getFullscreenProperties = getFullscreenProperties;
+exports.getTimeFormatFromCurrentTime = getTimeFormatFromCurrentTime;
+exports.getPercentPlayed = getPercentPlayed;
+exports.getTransformProperty = getTransformProperty;
+exports.getVolumeChangeStyle = getVolumeChangeStyle;
+exports.getVolumeIcon = getVolumeIcon;
+exports.default = {
+  getControlStyle: getControlStyle,
+  getControlsContainerStyle: getControlsContainerStyle,
+  getFullscreenProperties: getFullscreenProperties,
+  getPercentPlayed: getPercentPlayed,
+  getTimeFormatFromCurrentTime: getTimeFormatFromCurrentTime,
+  getTransformProperty: getTransformProperty,
+  getVolumeIcon: getVolumeIcon
+};
+
+/***/ }),
+
+/***/ 0:
+/*!****************************!*\
+  !*** multi ./src/index.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /home/tquetano/git/react-vidz-player/src/index.js */"./src/index.js");
+
+
+/***/ }),
+
+/***/ "prop-types":
+/*!*****************************!*\
+  !*** external "prop-types" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_prop_types__;
+
+/***/ }),
+
+/***/ "react":
+/*!************************!*\
+  !*** external "react" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_react__;
+
+/***/ }),
+
+/***/ "react-dom":
+/*!****************************!*\
+  !*** external "react-dom" ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_react_dom__;
+
+/***/ }),
+
+/***/ "recompose":
+/*!****************************!*\
+  !*** external "recompose" ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_recompose__;
+
+/***/ }),
+
+/***/ "vidz":
+/*!***********************!*\
+  !*** external "vidz" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_vidz__;
+
+/***/ })
+
+/******/ });
+});
+//# sourceMappingURL=react-vidz-player.js.map
